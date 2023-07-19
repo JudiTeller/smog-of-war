@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bevajflichhv5"]
+[gd_scene load_steps=7 format=3 uid="uid://bevajflichhv5"]
 
 [ext_resource type="Script" path="res://entities/buildings/skyscraper1/skyscraper1.gd" id="1_84gim"]
 [ext_resource type="Texture2D" uid="uid://nwfsivgfxvji" path="res://assets/buildings/skyscraper/skyscraper1.png" id="2_pdwq6"]
@@ -30,14 +30,19 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Environment" id="Environment_snb56"]
+volumetric_fog_density = 0.613
+
 [node name="skyscraper1" type="Node2D"]
 script = ExtResource("1_84gim")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_tvff8")
-animation = &"hidden"
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_snb56")
 
 [connection signal="timeout" from="Timer" to="." method="_toggle_hide"]
