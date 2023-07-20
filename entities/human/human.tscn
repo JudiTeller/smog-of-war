@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dt3sk166xrnyy"]
+
+[ext_resource type="Script" path="res://entities/human/Human.gd" id="1_yrqtw"]
+[ext_resource type="Texture2D" uid="uid://brcr0i6hs1sfq" path="res://icon.svg" id="2_iavso"]
+
+[node name="Human" type="Node2D"]
+script = ExtResource("1_yrqtw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_iavso")
