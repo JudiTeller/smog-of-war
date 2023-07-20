@@ -12,8 +12,8 @@ func _ready() -> void:
 
 # Triggers all functions for a cycle update
 func human_routine() -> void:
-	# check if enough humans are present spawn new ones if necessary
+    # check if enough humans are present spawn new ones if necessary
 
 
 func set_maxcap(newcap: int) -> void:
-	maxcap = newcap
+    maxcap = newcap
