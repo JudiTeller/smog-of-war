@@ -9,19 +9,20 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Arr
 outlines = Array[PackedVector2Array]([PackedVector2Array(-296, -153, -314, 97, -116, 97, -107, 30, -224, 33, -214, -95, 94, -81, 88, 174, 730, 165, 733, -188, 238, -163, 238, 65, 649, 53, 643, -29, 313, -14, 310, -109, 654, -114, 659, 106, 180, 111, 172, -174), PackedVector2Array(-323, 169, -314, 97, -116, 97, -241, 225, -232, 288, 727, 276, 728, 371, -310, 359)])
 
 [node name="testscene" type="Node2D"]
+position = Vector2(-1, -2)
 script = ExtResource("1_e8132")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(578, 326)
+position = Vector2(200, 67)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 modulate = Color(0.254902, 1, 1, 1)
 self_modulate = Color(0.270588, 1, 1, 1)
-position = Vector2(356, 262)
+position = Vector2(-3, -9)
 navigation_polygon = SubResource("NavigationPolygon_dkruw")
 
 [node name="startpoint" type="Node2D" parent="."]
-position = Vector2(1143, 642)
+position = Vector2(765, 383)
 
 [node name="Node2D" type="Node2D" parent="startpoint"]
 position = Vector2(-163, -67)
@@ -36,7 +37,7 @@ position = Vector2(-584, -242)
 position = Vector2(-1043, -438)
 
 [node name="target" type="Node2D" parent="."]
-position = Vector2(967, 278)
+position = Vector2(589, 19)
 
 [node name="human_factory" parent="." node_paths=PackedStringArray("startpoint", "target") instance=ExtResource("2_ehyuq")]
 startpoint = NodePath("../startpoint")
