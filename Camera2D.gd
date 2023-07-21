@@ -29,7 +29,17 @@ func _process(_delta):
         position.y += cur_speed
 
     # zoom in and out with mouse wheel
+    var newZoom = get_zoom().x
     if Input.is_action_just_released('wheel_down'):
-        set_zoom(get_zoom() - Vector2(0.25, 0.25))
+        newZoom -= 0.25
     if Input.is_action_just_released('wheel_up'):
-        set_zoom(get_zoom() + Vector2(0.25, 0.25))
+        newZoom += 0.25
+    newZoom = max(0.25, newZoom)
+    set_zoom(Vector2(newZoom, newZoom))
+
+    # Temporary
+    # Hides Buildings on spacebar press
+    if Input.is_action_just_released("ui_space"):
+        var buildings = %World.Buildings.get_children()
+        for building in buildings:
+            building.visible = !building.visible

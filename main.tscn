@@ -22,6 +22,7 @@ sources/0 = SubResource("TileSetAtlasSource_du85i")
 script = ExtResource("4_7p3ql")
 
 [node name="World" type="Node2D" parent="."]
+unique_name_in_owner = true
 script = ExtResource("3_hcv2v")
 
 [node name="WorldTileMap" type="TileMap" parent="World"]
