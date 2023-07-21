@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbdtk6cme3okn"]
+
+[ext_resource type="Script" path="res://scenes/testscene/testscene.gd" id="1_e8132"]
+[ext_resource type="PackedScene" uid="uid://dvl0vhb7qf0gb" path="res://core/systems/human_factory.tscn" id="2_ehyuq"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_dkruw"]
+vertices = PackedVector2Array(-224, 33, -107, 30, -116, 97, -314, 97, -296, -153, -214, -95, 172, -174, 94, -81, 180, 111, 88, 174, 730, 165, 659, 106, 733, -188, 654, -114, 238, -163, 310, -109, 238, 65, 313, -14, 649, 53, 643, -29, -241, 225, -323, 169, -310, 359, -232, 288, 728, 371, 727, 276)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(0, 3, 4, 5), PackedInt32Array(5, 4, 6, 7), PackedInt32Array(7, 6, 8, 9), PackedInt32Array(10, 9, 8, 11), PackedInt32Array(12, 10, 11, 13), PackedInt32Array(14, 12, 13, 15), PackedInt32Array(16, 14, 15, 17), PackedInt32Array(18, 16, 17, 19), PackedInt32Array(3, 2, 20, 21), PackedInt32Array(22, 21, 20, 23), PackedInt32Array(24, 22, 23, 25)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-296, -153, -314, 97, -116, 97, -107, 30, -224, 33, -214, -95, 94, -81, 88, 174, 730, 165, 733, -188, 238, -163, 238, 65, 649, 53, 643, -29, 313, -14, 310, -109, 654, -114, 659, 106, 180, 111, 172, -174), PackedVector2Array(-323, 169, -314, 97, -116, 97, -241, 225, -232, 288, 727, 276, 728, 371, -310, 359)])
+
+[node name="testscene" type="Node2D"]
+script = ExtResource("1_e8132")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(578, 326)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+modulate = Color(0.254902, 1, 1, 1)
+self_modulate = Color(0.270588, 1, 1, 1)
+position = Vector2(356, 262)
+navigation_polygon = SubResource("NavigationPolygon_dkruw")
+
+[node name="startpoint" type="Node2D" parent="."]
+position = Vector2(1143, 642)
+
+[node name="Node2D" type="Node2D" parent="startpoint"]
+position = Vector2(-163, -67)
+
+[node name="Node2D2" type="Node2D" parent="startpoint"]
+position = Vector2(-1027, -61)
+
+[node name="Node2D3" type="Node2D" parent="startpoint"]
+position = Vector2(-584, -242)
+
+[node name="Node2D4" type="Node2D" parent="startpoint"]
+position = Vector2(-1043, -438)
+
+[node name="target" type="Node2D" parent="."]
+position = Vector2(967, 278)
+
+[node name="human_factory" parent="." node_paths=PackedStringArray("startpoint", "target") instance=ExtResource("2_ehyuq")]
+startpoint = NodePath("../startpoint")
+target = NodePath("../target")

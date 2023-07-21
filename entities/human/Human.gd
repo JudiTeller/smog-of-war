@@ -1,5 +1,12 @@
-extends Node2D
+extends CharacterBody2D
 class_name Human
+
+@onready var root: Node2D = get_parent()
+@onready var target = root.find_child("target")
+@onready var nav: NavigationAgent2D = $NavigationAgent2D
+
+var speed = 300
+var acceleration = 7
 
 var maxhealth = 100
 var health = 100
@@ -16,10 +23,32 @@ func _ready():
 func _process(delta):
     pass
 
+func _physics_process( delta: float, ) -> void:
+
+    var direction = Vector3()
+
+    nav.target_position = target.position
+
+    direction = nav.get_next_path_position() - global_position
+    direction = direction.normalized()
+
+    velocity = velocity.lerp(direction * speed, acceleration * delta)
+
+    move_and_slide()
+    
+func _set_target(new_target: Node2D):
+    target = new_target
+
 
 func _input( event: InputEvent, ) -> void:
     pass
     
 
 func _on_healthtick_timeout():
+    pass # Replace with function body.
+
+
+func _on_navigation_agent_2d_target_reached():
+    get_parent().remove_child(self)
+    queue_free()
     pass # Replace with function body.

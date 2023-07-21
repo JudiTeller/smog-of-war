@@ -1,11 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://dt3sk166xrnyy"]
+[gd_scene load_steps=4 format=3 uid="uid://dt3sk166xrnyy"]
 
 [ext_resource type="Script" path="res://entities/human/Human.gd" id="1_yrqtw"]
 [ext_resource type="Texture2D" uid="uid://brcr0i6hs1sfq" path="res://icon.svg" id="2_iavso"]
 
-[node name="Human" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o3x0p"]
+size = Vector2(123, 123)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_yrqtw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("2_iavso")
+
+[node name="Healthtick" type="Timer" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_o3x0p")
+
+[connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]
