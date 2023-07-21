@@ -29,7 +29,7 @@ func _process(_delta):
         position.y += cur_speed
 
     # zoom in and out with mouse wheel
-    if Input.is_action_pressed("ui_page_up"): #FIXME
-        zoom /= 1.1
-    if Input.is_action_pressed("ui_page_down"):
-        zoom *= 1.1
+    if Input.is_action_just_released('wheel_down'):
+        set_zoom(get_zoom() - Vector2(0.25, 0.25))
+    if Input.is_action_just_released('wheel_up'):
+        set_zoom(get_zoom() + Vector2(0.25, 0.25))
