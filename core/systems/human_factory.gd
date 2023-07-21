@@ -25,11 +25,16 @@ func human_routine() -> void:
     pass
 
 func spawn_humans(amount: int):
+    # spawn in humans if a valid spawn and target location are set
+    # this can be changed later to not require a target location for spawn
     if startpoint != null && target != null:
         var new_human = human.instantiate()
         new_human.position = startpoint_arr[randi_range(0, startpoint_arr.size() - 1)]
         human_node.add_child(new_human)
         new_human._set_target(target)
+
+    else:
+        push_error("Either start or target location not set for human!")
 
             
 
