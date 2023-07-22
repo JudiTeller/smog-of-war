@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://d3r6dp2xude5o"]
 
 [ext_resource type="Texture2D" uid="uid://dnvn4hf8tpngf" path="res://assets/street/street_atlas.png" id="1_a8ixt"]
+[ext_resource type="Script" path="res://core/World/WorldGen.gd" id="2_xmd24"]
 [ext_resource type="PackedScene" uid="uid://414v0j42mo1k" path="res://entities/buildings/building_01.tscn" id="3_7jtkf"]
-[ext_resource type="Script" path="res://WorldGen.gd" id="3_hcv2v"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="4_7p3ql"]
 [ext_resource type="Texture2D" uid="uid://dyox8tk1o8h4c" path="res://assets/street/placeholder.png" id="5_r1hxq"]
 
@@ -112,9 +112,10 @@ script = ExtResource("4_7p3ql")
 
 [node name="World" type="Node2D" parent="."]
 unique_name_in_owner = true
-script = ExtResource("3_hcv2v")
+script = ExtResource("2_xmd24")
 WORLD_SIZE = 25
 BUILDINGS = Array[PackedScene]([ExtResource("3_7jtkf")])
+SHOW_NOISE = true
 metadata/streets_on_border = []
 
 [node name="WorldTileMap" type="TileMap" parent="World"]
