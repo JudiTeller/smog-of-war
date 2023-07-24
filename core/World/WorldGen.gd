@@ -86,33 +86,32 @@ func add_connection_streets(image):
     for x in range(0, WORLD_SIZE, sampleRate):
         for y in range(0, WORLD_SIZE, sampleRate):
             var pixel = copyImg.get_pixel(x, y).r
-            # check if street and right neighbor is not street
-            if !isStreet(pixel) or !isNothing(copyImg.get_pixel(x + 1, y).r):
-                continue
-            # get next street in x direction
             var nextStreet = null
-            for i in range(x + 1, WORLD_SIZE):
-                if isStreet(copyImg.get_pixel(i, y).r):
-                    nextStreet = Vector2(i, y)
-                    break
-            if nextStreet != null:
-                # place street tiles between only if there is Color.BLACK
-                for i in range(x + 1, nextStreet.x):
-                    if copyImg.get_pixel(i, y) == Color.BLACK:
-                        image.set_pixel(i, y, Color.WEB_GRAY)
+            # check if street and right neighbor is not street
+            if (x == 0 and y != 0) or (isStreet(pixel) and isNothing(copyImg.get_pixel(x + 1, y).r)):
+                image.set_pixel(x, y, Color.WEB_GRAY)
+                # get next street in x direction
+                nextStreet = null
+                for i in range(x + 1, WORLD_SIZE):
+                    if isStreet(copyImg.get_pixel(i, y).r):
+                        nextStreet = Vector2(i, y)
+                if nextStreet != null:
+                    # place street tiles between only if there is Color.BLACK
+                    for i in range(x + 1, nextStreet.x):
+                        if copyImg.get_pixel(i, y) == Color.BLACK:
+                            image.set_pixel(i, y, Color.WEB_GRAY)
 
             # Same for bottom neighbor in y direction
-            if !isNothing(copyImg.get_pixel(x, y + 1).r):
-                continue
-            nextStreet = null
-            for i in range(y + 1, WORLD_SIZE):
-                if isStreet(copyImg.get_pixel(x, i).r):
-                    nextStreet = Vector2(x, i)
-                    break
-            if nextStreet != null:
-                for i in range(y + 1, nextStreet.y):
-                    if copyImg.get_pixel(x, i) == Color.BLACK:
-                        image.set_pixel(x, i, Color.WEB_GRAY)
+            if (y == 0 and x != 0) or (isStreet(pixel) and isNothing(copyImg.get_pixel(x, y + 1).r)):
+                image.set_pixel(x, y, Color.WEB_GRAY)
+                nextStreet = null
+                for i in range(y + 1, WORLD_SIZE):
+                    if isStreet(copyImg.get_pixel(x, i).r):
+                        nextStreet = Vector2(x, i)
+                if nextStreet != null:
+                    for i in range(y + 1, nextStreet.y):
+                        if copyImg.get_pixel(x, i) == Color.BLACK:
+                            image.set_pixel(x, i, Color.WEB_GRAY)
 
             
 
@@ -193,11 +192,15 @@ func get_streets_on_border(image):
 
 # Function to generate tiles
 func generate_tiles():
-    var size:int = WORLD_SIZE/2
+    var size = WORLD_SIZE/2.0
     var streets = []
 
-    for x in range(-size, size):
-        for y in range(-size, size):
+    # size to int, if size needs to be floored +1
+    var upper = size
+    if size - int(size) > 0.0:
+        upper += 1
+    for x in range(-size, upper):
+        for y in range(-size, upper):
             var pixel = noodleNoise.get_pixel(x + size, y + size).r
             if pixel == 1.0:
                 place_building_at_tile(Vector2(x, y))

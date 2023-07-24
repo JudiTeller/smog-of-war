@@ -1,14 +1,14 @@
 [gd_scene load_steps=9 format=3 uid="uid://m1gx7n0t4sbp"]
 
-[ext_resource type="Texture2D" uid="uid://dnvn4hf8tpngf" path="res://assets/street/street_atlas.png" id="1_a8ixt"]
-[ext_resource type="Script" path="res://core/World/WorldGen.gd" id="2_xmd24"]
-[ext_resource type="PackedScene" uid="uid://414v0j42mo1k" path="res://entities/buildings/building_01.tscn" id="3_7jtkf"]
-[ext_resource type="Script" path="res://Camera2D.gd" id="4_7p3ql"]
-[ext_resource type="Texture2D" uid="uid://dyox8tk1o8h4c" path="res://assets/street/placeholder.png" id="5_r1hxq"]
+[ext_resource type="Script" path="res://Camera2D.gd" id="1_biuqo"]
+[ext_resource type="Script" path="res://core/World/WorldGen.gd" id="2_d10tl"]
+[ext_resource type="PackedScene" uid="uid://414v0j42mo1k" path="res://entities/buildings/building_01.tscn" id="3_7hely"]
+[ext_resource type="Texture2D" uid="uid://dnvn4hf8tpngf" path="res://assets/street/street_atlas.png" id="4_oga7d"]
+[ext_resource type="Texture2D" uid="uid://dyox8tk1o8h4c" path="res://assets/street/placeholder.png" id="5_1elpr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t74nj"]
 resource_name = "streets"
-texture = ExtResource("1_a8ixt")
+texture = ExtResource("4_oga7d")
 texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
 0:0/0/terrain_set = 0
@@ -93,7 +93,7 @@ texture_region_size = Vector2i(128, 128)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t6bsc"]
 resource_name = "Placeholder"
-texture = ExtResource("5_r1hxq")
+texture = ExtResource("5_1elpr")
 texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
 
@@ -108,17 +108,16 @@ sources/1 = SubResource("TileSetAtlasSource_t6bsc")
 [node name="Node2D" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-script = ExtResource("4_7p3ql")
+script = ExtResource("1_biuqo")
 
 [node name="World" type="Node2D" parent="."]
 unique_name_in_owner = true
-script = ExtResource("2_xmd24")
+script = ExtResource("2_d10tl")
 WORLD_SIZE = 75
-BUILDINGS = Array[PackedScene]([ExtResource("3_7jtkf")])
-SEED = 1337
+BUILDINGS = Array[PackedScene]([ExtResource("3_7hely")])
 GAIN = 0.3
 DILATE_AMOUNT = 4
-SHOW_NOISE = true
+CONNECTION_ROADS_SAMPLE_RATE = 15
 metadata/streets_on_border = []
 
 [node name="WorldTileMap" type="TileMap" parent="World"]

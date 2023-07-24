@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nwfsivgfxvji"
-path="res://.godot/imported/skyscraper1.png-2b95bbd3394e1f11cc61530abfdb02fe.ctex"
+uid="uid://dyox8tk1o8h4c"
+path="res://.godot/imported/placeholder.png-535d112a6bbb48e1a38d795790f21b37.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/buildings/skyscraper/skyscraper1.png"
-dest_files=["res://.godot/imported/skyscraper1.png-2b95bbd3394e1f11cc61530abfdb02fe.ctex"]
+source_file="res://assets/street/placeholder.png"
+dest_files=["res://.godot/imported/placeholder.png-535d112a6bbb48e1a38d795790f21b37.ctex"]
 
 [params]
 
