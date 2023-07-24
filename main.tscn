@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d3r6dp2xude5o"]
+[gd_scene load_steps=9 format=3 uid="uid://m1gx7n0t4sbp"]
 
 [ext_resource type="Texture2D" uid="uid://dnvn4hf8tpngf" path="res://assets/street/street_atlas.png" id="1_a8ixt"]
 [ext_resource type="Script" path="res://core/World/WorldGen.gd" id="2_xmd24"]
@@ -113,8 +113,11 @@ script = ExtResource("4_7p3ql")
 [node name="World" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_xmd24")
-WORLD_SIZE = 25
+WORLD_SIZE = 75
 BUILDINGS = Array[PackedScene]([ExtResource("3_7jtkf")])
+SEED = 1337
+GAIN = 0.3
+DILATE_AMOUNT = 4
 SHOW_NOISE = true
 metadata/streets_on_border = []
 

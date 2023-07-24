@@ -6,12 +6,14 @@ extends Node2D
 @export var BUILDING_OFFSET = 24
 @export var BUILDING_TINT = Color(0.0, 0.0, 0.2, 1.0)
 
-@export_group("Noise")
+@export_group("Generation Settings")
 @export var SEED: int = randi()
 @export var FREQUENCY: float = 0.2
 @export var OCTAVES: int = 3
 @export var GAIN: float = 0.1
 @export var LACUNARITY: float = 0.1
+@export var DILATE_AMOUNT = 2
+@export var CONNECTION_ROADS_SAMPLE_RATE = 5
 
 @export_group("Debug")
 @export var SHOW_NOISE: bool = false
@@ -57,14 +59,62 @@ func setup_noise(noise_seed, frequency, octaves, noise_gain, lacunarity) -> Imag
 func generate_and_dilate_noise(base_noise):
     var image = create_grid_noise()
     apply_noise_to_grid(base_noise, image)
-    dilate(image, Color.WHITE, 2)
+    dilate(image, Color.WHITE, DILATE_AMOUNT)
     dilate(image, Color.WEB_GRAY, 1, Color.WHITE, true)
+    add_connection_streets(image)
     var borderStreets = get_streets_on_border(image)
 
     print("streets_on_border: " + str(borderStreets.size()))
     set_meta("streets_on_border", borderStreets)
 
     noodleNoise = image
+
+func isStreet(value) -> bool:
+    return abs(value - 0.5) < 0.1
+
+func isNothing(value) -> bool:
+    return abs(value - 0.0) < 0.1
+
+func isHouse(value) -> bool:
+    return abs(value - 1.0) < 0.1
+
+# Function to add connection streets
+func add_connection_streets(image):
+    var sampleRate = CONNECTION_ROADS_SAMPLE_RATE
+
+    var copyImg = image.duplicate()
+    for x in range(0, WORLD_SIZE, sampleRate):
+        for y in range(0, WORLD_SIZE, sampleRate):
+            var pixel = copyImg.get_pixel(x, y).r
+            # check if street and right neighbor is not street
+            if !isStreet(pixel) or !isNothing(copyImg.get_pixel(x + 1, y).r):
+                continue
+            # get next street in x direction
+            var nextStreet = null
+            for i in range(x + 1, WORLD_SIZE):
+                if isStreet(copyImg.get_pixel(i, y).r):
+                    nextStreet = Vector2(i, y)
+                    break
+            if nextStreet != null:
+                # place street tiles between only if there is Color.BLACK
+                for i in range(x + 1, nextStreet.x):
+                    if copyImg.get_pixel(i, y) == Color.BLACK:
+                        image.set_pixel(i, y, Color.WEB_GRAY)
+
+            # Same for bottom neighbor in y direction
+            if !isNothing(copyImg.get_pixel(x, y + 1).r):
+                continue
+            nextStreet = null
+            for i in range(y + 1, WORLD_SIZE):
+                if isStreet(copyImg.get_pixel(x, i).r):
+                    nextStreet = Vector2(x, i)
+                    break
+            if nextStreet != null:
+                for i in range(y + 1, nextStreet.y):
+                    if copyImg.get_pixel(x, i) == Color.BLACK:
+                        image.set_pixel(x, i, Color.WEB_GRAY)
+
+            
 
 # Function to create grid noise
 func create_grid_noise() -> Image:
@@ -143,7 +193,7 @@ func get_streets_on_border(image):
 
 # Function to generate tiles
 func generate_tiles():
-    var size = WORLD_SIZE/2
+    var size:int = WORLD_SIZE/2
     var streets = []
 
     for x in range(-size, size):
