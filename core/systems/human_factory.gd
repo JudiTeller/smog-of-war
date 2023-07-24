@@ -4,16 +4,23 @@ class_name HumanFactory
 
 @export var startpoint: Node2D
 @export var target: Node2D
+@export var human_node: Node2D
 
 var maxcap = 10
 var startpoint_arr: Array[Vector2]
 var nav_arr: Array[NavigationPolygon]
 
-@onready var human_node: Node2D = $humans
+var nav_map: RID
+var tilemap: TileMap
+
+#@onready var human_node: Node2D = $humans
 @onready var human = preload("res://entities/human/human.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+    if human_node == null:
+        push_error("You forgot to select a human_node")
+
     $human_cycle.start()
     pass # Replace with function body.
 
@@ -34,9 +41,14 @@ func spawn_humans(amount: int):
         human_node.add_child(new_human)
         calc_random_target_position()
         new_human._set_target(target)
+        var current_nav_agent: NavigationAgent2D = new_human.get_nav_agent()
+        current_nav_agent.set_navigation_map(nav_map)
+        
 
     else:
         push_error("Either start or target location not set for human!")
+
+
 
 
 func register_nav_area(new_area: NavigationPolygon):
@@ -48,7 +60,6 @@ func calc_random_target_position():
         var poly_area_arr: Array[PackedInt32Array] = []
         for i in nav_area.get_polygon_count():
             poly_area_arr.append(nav_area.get_polygon(i))
-            print(i)
         for single_poly in poly_area_arr:
 
             var single_area = calc_poly_area(area_vertices[single_poly[0]], area_vertices[single_poly[1]], area_vertices[single_poly[2]])
@@ -62,4 +73,9 @@ func set_maxcap(newcap: int) -> void:
 
 func set_startpoint_arr(arr: Array[Vector2]):
     startpoint_arr = arr
+    
+func set_navigation_map(new_map: RID):
+    nav_map = new_map
 
+func register_tilemap(new_tilemap: TileMap):
+    tilemap = new_tilemap
