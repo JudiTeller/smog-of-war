@@ -21,6 +21,7 @@ path_desired_distance = 40.0
 target_desired_distance = 30.0
 path_max_distance = 500.0
 path_postprocessing = 1
+avoidance_enabled = true
 debug_enabled = true
 debug_path_custom_line_width = 12.36
 

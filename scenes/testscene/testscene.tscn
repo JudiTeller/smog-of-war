@@ -15,17 +15,17 @@ texture = ExtResource("3_8a03b")
 texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
 0:0/0/modulate = Color(1, 0.180392, 1, 1)
-0:0/0/terrain = 0
 0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_tufhl")
 
 [sub_resource type="TileSet" id="TileSet_o4sj1"]
 tile_size = Vector2i(128, 128)
 navigation_layer_0/layers = 1
-navigation_layer_1/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_qxd8x")
 
 [node name="testscene" type="Node2D"]
 script = ExtResource("1_e8132")
+metadata/_edit_vertical_guides_ = [-384.0, 1024.0, 897.0]
+metadata/_edit_horizontal_guides_ = [-128.0, 0.0, 128.0]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(419, 474)
@@ -51,8 +51,7 @@ position = Vector2(-1292, -757)
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_o4sj1")
 cell_quadrant_size = 32
-collision_visibility_mode = 1
-navigation_visibility_mode = 1
+navigation_visibility_mode = 2
 format = 2
 layer_0/z_index = -1
 layer_0/tile_data = PackedInt32Array(-3, 0, 0, -2, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65529, 0, 0, 7, 0, 0, 65543, 0, 0, 65542, 0, 0, 131078, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 262152, 0, 0, 327688, 0, 0, 393224, 0, 0, 458760, 0, 0, 458759, 0, 0, 458758, 0, 0, 524293, 0, 0, 524292, 0, 0, 524291, 0, 0, 524290, 0, 0, 524289, 0, 0, 524288, 0, 0, 589823, 0, 0, 589822, 0, 0, 524294, 0, 0, 589821, 0, 0, 589820, 0, 0, 524284, 0, 0, 458748, 0, 0, 393212, 0, 0, 327676, 0, 0, 262140, 0, 0, 196604, 0, 0, 131068, 0, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 131076, 0, 0, 196612, 0, 0, 262148, 0, 0, 327684, 0, 0, 327683, 0, 0, 393219, 0, 0, 393218, 0, 0, 393217, 0, 0, 393216, 0, 0, 458751, 0, 0, 458750, 0, 0, 393214, 0, 0, 327678, 0, 0, 262142, 0, 0, 262143, 0, 0, 196608, 0, 0, 196609, 0, 0, 262145, 0, 0)
@@ -72,3 +71,5 @@ modulate = Color(1, 1, 0, 1)
 self_modulate = Color(1, 1, 0, 1)
 scale = Vector2(0.31, 0.31)
 texture = ExtResource("3_8a03b")
+
+[connection signal="area_calculated" from="TileMap" to="human_factory" method="_on_tile_map_area_calculated"]

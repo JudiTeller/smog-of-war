@@ -10,6 +10,7 @@ var maxcap = 10
 var startpoint_arr: Array[Vector2]
 var nav_arr: Array[NavigationPolygon]
 
+var nav_poly: NavigationPolygon
 var nav_map: RID
 var tilemap: TileMap
 
@@ -18,6 +19,8 @@ var tilemap: TileMap
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+    NavigationServer2D.region_set_map(nav_map, get_world_2d().navigation_map)
+    
     if human_node == null:
         push_error("You forgot to select a human_node")
 
@@ -76,6 +79,20 @@ func set_startpoint_arr(arr: Array[Vector2]):
     
 func set_navigation_map(new_map: RID):
     nav_map = new_map
+    pass
 
 func register_tilemap(new_tilemap: TileMap):
     tilemap = new_tilemap
+
+
+func _on_tile_map_area_calculated(area: PackedVector2Array):
+    var nav_area: NavigationPolygon = NavigationPolygon.new()
+    nav_area.add_outline(area)
+    nav_area.make_polygons_from_outlines()
+    
+    nav_poly = nav_area
+    
+    var nav_server = NavigationServer2D.get_maps()
+    var world_nav = get_world_2d().navigation_map
+    
+    NavigationServer2D.region_set_navigation_polygon(nav_map, nav_poly)
