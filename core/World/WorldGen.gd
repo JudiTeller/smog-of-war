@@ -213,10 +213,14 @@ func generate_tiles():
     WorldTileMap.set_cells_terrain_connect(0, streets, 0, 0)
 
 # Function to place building at tile
-func place_building_at_tile(tileCords):
-    var random_choice = BUILDINGS[randomGen.randi_range(0, BUILDINGS.size() - 1)]
-    var building = random_choice.instantiate()
-    var sprite = building.get_node("Sprite2D")
+func place_building_at_tile(tileCords: Vector2, building: PackedScene = null):
+    var new_building = building
+    if new_building == null:
+        var random_choice = BUILDINGS[randomGen.randi_range(0, BUILDINGS.size() - 1)]
+        new_building = random_choice.instantiate()
+    else:
+        new_building = new_building.instantiate()
+    var sprite = new_building.get_node("Sprite2D")
 
     # random tint of base_color for the sprite
     var colorOff = randomGen.randf()
@@ -226,4 +230,4 @@ func place_building_at_tile(tileCords):
     sprite.position = WorldTileMap.to_global(WorldTileMap.map_to_local(tileCords))
     sprite.position.y -= sprite.texture.get_height() / 2 - BUILDING_OFFSET
 
-    Buildings.add_child(building)
+    Buildings.add_child(new_building)
