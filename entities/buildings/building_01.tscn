@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://414v0j42mo1k"]
-
-[ext_resource type="Texture2D" uid="uid://djayx25e0cphr" path="res://assets/buildings/skyscraper/skyscraper1new.png" id="1_i45ei"]
-
-[node name="Building01" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_i45ei")
