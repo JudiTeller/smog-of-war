@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://m1gx7n0t4sbp"]
+[gd_scene load_steps=10 format=3 uid="uid://m1gx7n0t4sbp"]
 
 [ext_resource type="Script" path="res://Camera2D.gd" id="1_biuqo"]
 [ext_resource type="Script" path="res://core/World/WorldGen.gd" id="2_d10tl"]
-[ext_resource type="PackedScene" uid="uid://414v0j42mo1k" path="res://entities/buildings/building_01.tscn" id="3_7hely"]
+[ext_resource type="PackedScene" uid="uid://7gqpcq0wie5s" path="res://entities/buildings/city_building_01.tscn" id="3_3261g"]
 [ext_resource type="Texture2D" uid="uid://dnvn4hf8tpngf" path="res://assets/street/street_atlas.png" id="4_oga7d"]
 [ext_resource type="Texture2D" uid="uid://dyox8tk1o8h4c" path="res://assets/street/placeholder.png" id="5_1elpr"]
+[ext_resource type="PackedScene" uid="uid://b3tsb50bcrox8" path="res://Scenes/Systems.tscn" id="6_ufiuq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t74nj"]
 resource_name = "streets"
@@ -114,7 +115,7 @@ script = ExtResource("1_biuqo")
 unique_name_in_owner = true
 script = ExtResource("2_d10tl")
 WORLD_SIZE = 75
-BUILDINGS = Array[PackedScene]([ExtResource("3_7hely")])
+BUILDINGS = Array[PackedScene]([ExtResource("3_3261g")])
 GAIN = 0.3
 DILATE_AMOUNT = 4
 CONNECTION_ROADS_SAMPLE_RATE = 15
@@ -143,3 +144,5 @@ layer_1/tile_data = PackedInt32Array()
 
 [node name="Noise" type="Sprite2D" parent="World"]
 scale = Vector2(5, 5)
+
+[node name="Systems" parent="." instance=ExtResource("6_ufiuq")]
