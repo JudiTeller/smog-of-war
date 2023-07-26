@@ -45,13 +45,14 @@ func handleClickMouseInput(event):
     pass
 
 func handleClickKeyInput(event: InputEventKey):
-    if !event.pressed or event.as_text_keycode() != "1":
+    if !event.pressed:
         return
     assert (selectedBuilding == null)
-    var new_building = preload("res://entities/buildings/Placeable/hospital.tscn").instantiate()
-    selectedBuilding = new_building
-    hover_sprite.set_texture(selectedBuilding.get_node("Broken").get_texture().duplicate())
-    currentAction = Action.PLACE
+    if event.as_text_keycode() == "1":
+        var new_building = preload("res://entities/buildings/Placeable/hospital.tscn").instantiate()
+        selectedBuilding = new_building
+        hover_sprite.set_texture(selectedBuilding.get_node("Broken").get_texture().duplicate())
+        currentAction = Action.PLACE
 
 func handlePlaceMouseInput(event):
     if !event.pressed or selectedBuilding == null or event.button_index != MOUSE_BUTTON_LEFT:
@@ -61,6 +62,7 @@ func handlePlaceMouseInput(event):
         if resMan.spendIfPossible(selectedBuilding.get_building_cost()):
             buMan.placeBuilding(mousePos, selectedBuilding)
             cleanSelectedBuilding(true)
+            currentAction = Action.CLICK
         else:
             print("Not enough ressources")
     else:
