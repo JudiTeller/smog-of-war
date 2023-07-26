@@ -17,7 +17,7 @@ var suffocation = 10
 # Called when the node enters the scene tree for the first time.
 func _ready():
     $Healthtick.start()
-    
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -25,11 +25,11 @@ func _process(delta):
     pass
 
 func _physics_process( delta: float, ) -> void:
-    
+
     var next_location = nav.get_next_path_position()
     var direction = global_position.direction_to(next_location)
     global_position += direction * delta * speed
-    
+
 func _set_target(new_target: Node2D):
     target = new_target
     nav.target_position = target.position
@@ -37,7 +37,7 @@ func _set_target(new_target: Node2D):
 
 func _input( event: InputEvent, ) -> void:
     pass
-    
+
 
 func _on_healthtick_timeout():
     pass # Replace with function body.

@@ -34,6 +34,14 @@ func _ready():
         $Noise.texture = ImageTexture.create_from_image(noodleNoise)
     generate_tiles()
 
+    call_deferred("setup_pathfinding")
+
+
+func setup_pathfinding():
+    Pathfinding.worldsize = WORLD_SIZE
+    Pathfinding.current_tilemap = $WorldTileMap
+    Pathfinding.generate_walkable_nodes()
+
 # Function to setup noise parameters
 func setup_noise(noise_seed, frequency, octaves, noise_gain, lacunarity) -> Image:
     randomGen.seed = noise_seed
@@ -45,7 +53,7 @@ func setup_noise(noise_seed, frequency, octaves, noise_gain, lacunarity) -> Imag
     noise.set_fractal_octaves(octaves)
     noise.set_fractal_gain(noise_gain)
     noise.set_fractal_lacunarity(lacunarity)
-    
+
     # Generate noise texture
     var noiseTexture = NoiseTexture2D.new()
     noiseTexture.noise = noise
@@ -113,12 +121,12 @@ func add_connection_streets(image):
                         if copyImg.get_pixel(x, i) == Color.BLACK:
                             image.set_pixel(x, i, Color.WEB_GRAY)
 
-            
+
 
 # Function to create grid noise
 func create_grid_noise() -> Image:
     var image = Image.create(WORLD_SIZE, WORLD_SIZE, false, Image.FORMAT_RGBA8)
-    
+
     for x in range(WORLD_SIZE):
         for y in range(WORLD_SIZE):
             if x % 2 != 0 and y % 2 != 0:
@@ -209,7 +217,7 @@ func generate_tiles():
                 streets.append(Vector2(x, y))
             else:
                 WorldTileMap.set_cell(0, Vector2(x, y), 1, Vector2(0, 0))
-                
+
     WorldTileMap.set_cells_terrain_connect(0, streets, 0, 0)
 
 # Function to place building at tile
