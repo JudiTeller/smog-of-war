@@ -28,6 +28,11 @@ func repair():
     BrokenSprite.set_visible(false)
     RepairedSprite.set_visible(true)
 
+func damage():
+    Repaired = false
+    BrokenSprite.set_visible(true)
+    RepairedSprite.set_visible(false)
+
 func set_building_position(pos):
     set_position(pos)
 
