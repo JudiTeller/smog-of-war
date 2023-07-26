@@ -20,8 +20,8 @@ func placeBuilding(pos, building: Building):
         return false
     var tile_pos = global_to_map(pos)
     building.set_building_position(tile_pos)
+    building.repair()
     building.place_building()
-    
     worldGen.place_building_at_tile(tile_pos, building, true, building.get_sprite_offset())
     buildings.append(building)
     return true

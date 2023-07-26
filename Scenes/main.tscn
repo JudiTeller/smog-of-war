@@ -114,7 +114,7 @@ script = ExtResource("1_biuqo")
 [node name="World" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_d10tl")
-WORLD_SIZE = 100
+WORLD_SIZE = 50
 BUILDINGS = Array[PackedScene]([ExtResource("3_3261g")])
 GAIN = 0.3
 DILATE_AMOUNT = 4

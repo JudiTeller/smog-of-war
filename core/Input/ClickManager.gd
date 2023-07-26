@@ -16,7 +16,10 @@ var currentAction: Action = Action.CLICK
 func _process(_delta):
     if selectedBuilding != null and !selectedBuilding.isPlaced():
         hover_sprite.set_visible(true)
-        hover_sprite.set_global_position(get_global_mouse_position())
+        var spritePos = get_global_mouse_position()
+        spritePos.x += int(hover_sprite.get_texture().get_size().x / 2.0)
+        spritePos.y -= int(hover_sprite.get_texture().get_size().y / 2.0) - 24
+        hover_sprite.set_global_position(spritePos)
         if buMan.canPlace(get_global_mouse_position(), selectedBuilding) \
             and resMan.canAfford(selectedBuilding.get_building_cost()):
             hover_sprite.set_modulate(Color(0, 1, 0))
@@ -51,7 +54,7 @@ func handleClickKeyInput(event: InputEventKey):
     if event.as_text_keycode() == "1":
         var new_building = preload("res://entities/buildings/Placeable/hospital.tscn").instantiate()
         selectedBuilding = new_building
-        hover_sprite.set_texture(selectedBuilding.get_node("Broken").get_texture().duplicate())
+        hover_sprite.set_texture(selectedBuilding.get_node("Repaired").get_texture().duplicate())
         currentAction = Action.PLACE
 
 func handlePlaceMouseInput(event):

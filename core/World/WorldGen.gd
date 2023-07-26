@@ -205,8 +205,7 @@ func generate_tiles():
             var pixel = noodleNoise.get_pixel(x + size, y + size).r
             if pixel == 1.0: # House
                 var random_choice: Node2D = BUILDINGS[randomGen.randi_range(0, BUILDINGS.size() - 1)].instantiate()
-                var sprite = random_choice.get_node("Broken")
-                place_building_at_tile(Vector2(x, y), random_choice, false, Vector2(0, sprite.texture.get_height() / 2 - BUILDING_DEFAULT_OFFSET))
+                place_building_at_tile(Vector2(x, y), random_choice, false, Vector2.ZERO)
             elif pixel > 0.0: # Street
                 streets.append(Vector2(x, y))
             else: # Nothing
@@ -215,8 +214,8 @@ func generate_tiles():
     WorldTileMap.set_cells_terrain_connect(0, streets, 0, 0)
 
 # Function to place building at tile
-func place_building_at_tile(tileCords: Vector2, new_building: Node2D, skipTint: bool = false, offset: Vector2 = Vector2.ZERO):
-    var sprite = new_building.get_node("Broken")
+func place_building_at_tile(tileCords: Vector2, new_building: Node2D, skipTint: bool = false, offset: Vector2 = Vector2.ZERO, spriteName = "Broken"):
+    var sprite = new_building.get_node(spriteName)
 
     # random tint of base_color for the sprite
     var colorOff = randomGen.randf()
@@ -224,9 +223,8 @@ func place_building_at_tile(tileCords: Vector2, new_building: Node2D, skipTint: 
         var tintColor = BUILDING_TINT + Color(colorOff, colorOff, colorOff, 0.0)
         sprite.modulate = tintColor
 
-    sprite.position = WorldTileMap.to_global(WorldTileMap.map_to_local(tileCords))
-    sprite.position.y -= offset.y
-    
+    new_building.position = WorldTileMap.to_global(WorldTileMap.map_to_local(tileCords))
+    new_building.position.y -= sprite.texture.get_height() / 2 - offset.y - BUILDING_DEFAULT_OFFSET
     new_building.z_index = int(tileCords.y) + int((WORLD_SIZE/2.0)) # Formula = y_pos + the half of the world size to start at 0
     # Foundation
     WorldTileMap.set_cell(1, tileCords, 0, Vector2(3, 3))
