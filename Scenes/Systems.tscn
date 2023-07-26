@@ -10,9 +10,11 @@
 script = ExtResource("1_xf32u")
 
 [node name="HoverSprite" type="Sprite2D" parent="ClickManager"]
+z_index = 4096
 
 [node name="BuildingManager" type="Node2D" parent="."]
 script = ExtResource("2_mq55y")
 
 [node name="RessourceManager" type="Node2D" parent="."]
 script = ExtResource("3_7vbec")
+InfinitePeople = true

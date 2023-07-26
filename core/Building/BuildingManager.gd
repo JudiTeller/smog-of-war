@@ -8,16 +8,20 @@ class_name BuildingManager
 var buildings = []
 var selected_building = null
 
-func canPlace(pos, building):
-    return true # TODO: check if building can be placed
+func global_to_map(pos) -> Vector2i:
+    var map_pos = tileMap.local_to_map(tileMap.to_local(pos))
+    return Vector2i(map_pos.x, map_pos.y)
+
+func canPlace(pos: Vector2i, building: Building):
+    return worldGen.isTileEmpty(global_to_map(pos)) # TODO: add size check
 
 func placeBuilding(pos, building: Building):
     if !canPlace(pos, building):
         return false
-    var tile_pos = tileMap.local_to_map(pos)
+    var tile_pos = global_to_map(pos)
     building.set_building_position(tile_pos)
     building.place_building()
     
-    worldGen.place_building_at_tile(tile_pos, building, true)
+    worldGen.place_building_at_tile(tile_pos, building, true, building.get_sprite_offset())
     buildings.append(building)
     return true

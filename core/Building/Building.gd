@@ -4,6 +4,7 @@ class_name Building
 
 @export var BrokenSprite: Sprite2D
 @export var RepairedSprite: Sprite2D
+@export var SpriteOffset: Vector2 = Vector2.ZERO
 @export var Name: String
 @export var Description: String
 @export var Cost: int
@@ -46,3 +47,6 @@ func place_building():
 
 func isPlaced():
     return placed
+
+func get_sprite_offset():
+    return SpriteOffset
