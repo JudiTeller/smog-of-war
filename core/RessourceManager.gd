@@ -2,7 +2,10 @@ extends Node2D
 
 class_name RessourceManager
 
-var people = 0
+@export var people = 0
+
+@export_category("Cheats")
+@export var InfinitePeople = false
 
 func _input(event):
     if event.is_action_pressed("key_z"):
@@ -13,10 +16,13 @@ func _input(event):
         print("People: ", people)
 
 func canAfford(amount):
-    return people >= amount
+    return InfinitePeople or people >= amount
 
 func spendIfPossible(amount):
-    if people >= amount:
+    if InfinitePeople:
+        return true
+
+    if canAfford:
         people -= amount
         return true
     return false
