@@ -16,13 +16,6 @@ func _ready():
     set_process_input(true)
     set_process(true)
 
-func _input(event):
-    if event is InputEventMouseButton:
-        if event.button_index != MOUSE_BUTTON_LEFT \
-            or !event.pressed or !placed:
-            return
-        emit_signal("building_selected", self)
-
 func repair():
     Repaired = true
     BrokenSprite.set_visible(false)

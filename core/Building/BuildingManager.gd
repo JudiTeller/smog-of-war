@@ -2,6 +2,9 @@ extends Node2D
 
 class_name BuildingManager
 
+@onready var worldGen: WorldGenerator = get_parent().get_parent().get_node("World")
+@onready var tileMap = worldGen.getTileMap()
+
 var buildings = []
 var selected_building = null
 
@@ -11,18 +14,10 @@ func canPlace(pos, building):
 func placeBuilding(pos, building: Building):
     if !canPlace(pos, building):
         return false
-    
-    building.set_building_position(pos)
+    var tile_pos = tileMap.local_to_map(pos)
+    building.set_building_position(tile_pos)
     building.place_building()
-    add_child(building)
+    
+    worldGen.place_building_at_tile(tile_pos, building, true)
     buildings.append(building)
     return true
-
-func _on_Building_Selected(building):
-    selected_building = building
-
-func _on_Building_Deselected(building):
-    selected_building = null
-
-func _on_Building_Upgraded(building):
-    pass
