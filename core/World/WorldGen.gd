@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name WorldGenerator
+
 @export_group("World")
 @export var WORLD_SIZE:int = 200
 @export var BUILDINGS: Array[PackedScene]
@@ -213,21 +215,24 @@ func generate_tiles():
     WorldTileMap.set_cells_terrain_connect(0, streets, 0, 0)
 
 # Function to place building at tile
-func place_building_at_tile(tileCords: Vector2, building: PackedScene = null):
+func place_building_at_tile(tileCords: Vector2, building: Building = null, skipTint: bool = false):
     var new_building = building
     if new_building == null:
         var random_choice = BUILDINGS[randomGen.randi_range(0, BUILDINGS.size() - 1)]
         new_building = random_choice.instantiate()
-    else:
-        new_building = new_building.instantiate()
-    var sprite = new_building.get_node("Sprite2D")
+
+    var sprite = new_building.get_node("Broken")
 
     # random tint of base_color for the sprite
     var colorOff = randomGen.randf()
-    var tintColor = BUILDING_TINT + Color(colorOff, colorOff, colorOff, 0.0)
-    sprite.modulate = tintColor
+    if !skipTint:
+        var tintColor = BUILDING_TINT + Color(colorOff, colorOff, colorOff, 0.0)
+        sprite.modulate = tintColor
 
     sprite.position = WorldTileMap.to_global(WorldTileMap.map_to_local(tileCords))
     sprite.position.y -= sprite.texture.get_height() / 2 - BUILDING_OFFSET
 
     Buildings.add_child(new_building)
+
+func getTileMap():
+    return WorldTileMap

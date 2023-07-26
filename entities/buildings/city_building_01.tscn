@@ -4,5 +4,5 @@
 
 [node name="Building01" type="Node2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Broken" type="Sprite2D" parent="."]
 texture = ExtResource("1_lgcck")
