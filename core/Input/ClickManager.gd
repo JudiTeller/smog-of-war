@@ -16,9 +16,8 @@ var currentAction: Action = Action.CLICK
 func _process(_delta):
     if selectedBuilding != null and !selectedBuilding.isPlaced():
         hover_sprite.set_visible(true)
-        var spritePos = get_global_mouse_position()
-        spritePos.x += int(hover_sprite.get_texture().get_size().x / 2.0)
-        spritePos.y -= int(hover_sprite.get_texture().get_size().y / 2.0) - 24
+        var spritePos = buMan.map_to_global(buMan.global_to_map(get_global_mouse_position()))
+        spritePos -= buMan.getWorldGen().getOffsetForBuildingSprite(hover_sprite, selectedBuilding.get_sprite_offset())
         hover_sprite.set_global_position(spritePos)
         if buMan.canPlace(get_global_mouse_position(), selectedBuilding) \
             and resMan.canAfford(selectedBuilding.get_building_cost()):

@@ -227,7 +227,7 @@ func place_building_at_tile(tileCords: Vector2, new_building: Node2D, skipTint: 
     new_building.position.y -= sprite.texture.get_height() / 2 - offset.y - BUILDING_DEFAULT_OFFSET
     new_building.z_index = int(tileCords.y) + int((WORLD_SIZE/2.0)) # Formula = y_pos + the half of the world size to start at 0
     # Foundation
-    WorldTileMap.set_cell(1, tileCords, 0, Vector2(3, 3))
+    WorldTileMap.set_cell(0, tileCords, 2, Vector2(0, 0))
     Buildings.add_child(new_building)
 
 func isTileEmpty(tileCords: Vector2i) -> bool:
@@ -237,8 +237,14 @@ func isTileEmpty(tileCords: Vector2i) -> bool:
     if index == -1:
         return false
     var found_tile_pos = cells[index]
-    # check if tile is empty
-    return WorldTileMap.get_cell_atlas_coords(0, found_tile_pos) == Vector2i(0, 0)
+    # Source ID 1 = Nothing / Empty Land
+    return WorldTileMap.get_cell_source_id(0, found_tile_pos) == 1
 
 func getTileMap():
     return WorldTileMap
+
+func getOffsetForBuildingSprite(sprite: Sprite2D, buildingOffset: Vector2) -> Vector2:
+    return Vector2(
+        buildingOffset.x,
+        sprite.texture.get_height() / 2.0 - buildingOffset.y - BUILDING_DEFAULT_OFFSET
+    )

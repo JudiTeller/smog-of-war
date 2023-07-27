@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://m1gx7n0t4sbp"]
+[gd_scene load_steps=12 format=3 uid="uid://m1gx7n0t4sbp"]
 
 [ext_resource type="Script" path="res://Camera2D.gd" id="1_biuqo"]
 [ext_resource type="Script" path="res://core/World/WorldGen.gd" id="2_d10tl"]
 [ext_resource type="PackedScene" uid="uid://7gqpcq0wie5s" path="res://entities/buildings/city_building_01.tscn" id="3_3261g"]
 [ext_resource type="Texture2D" uid="uid://dnvn4hf8tpngf" path="res://assets/street/street_atlas.png" id="4_oga7d"]
 [ext_resource type="Texture2D" uid="uid://dyox8tk1o8h4c" path="res://assets/street/placeholder.png" id="5_1elpr"]
+[ext_resource type="Texture2D" uid="uid://cravyarcwcstj" path="res://assets/street/fundament.png" id="6_2q481"]
 [ext_resource type="PackedScene" uid="uid://b3tsb50bcrox8" path="res://Scenes/Systems.tscn" id="6_ufiuq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t74nj"]
@@ -98,6 +99,12 @@ texture = ExtResource("5_1elpr")
 texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dxmlj"]
+resource_name = "Fundament"
+texture = ExtResource("6_2q481")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_ftaoo"]
 tile_size = Vector2i(128, 128)
 terrain_set_0/mode = 0
@@ -105,6 +112,7 @@ terrain_set_0/terrain_0/name = "AutoTile"
 terrain_set_0/terrain_0/color = Color(1, 0, 0, 1)
 sources/0 = SubResource("TileSetAtlasSource_t74nj")
 sources/1 = SubResource("TileSetAtlasSource_t6bsc")
+sources/2 = SubResource("TileSetAtlasSource_dxmlj")
 
 [node name="Node2D" type="Node2D"]
 
@@ -132,13 +140,6 @@ tile_set = SubResource("TileSet_ftaoo")
 cell_quadrant_size = 128
 format = 2
 layer_0/name = "Ground"
-layer_1/name = "Fundament"
-layer_1/enabled = true
-layer_1/modulate = Color(1, 1, 1, 1)
-layer_1/y_sort_enabled = false
-layer_1/y_sort_origin = 0
-layer_1/z_index = 0
-layer_1/tile_data = PackedInt32Array()
 
 [node name="Buildings" type="Node2D" parent="World"]
 
