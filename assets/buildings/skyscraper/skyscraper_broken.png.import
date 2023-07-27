@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djayx25e0cphr"
-path="res://.godot/imported/skyscraper1new.png-377b0104cabefa5a5aff53a7c6a0c779.ctex"
+uid="uid://db1xnffpwrmbv"
+path="res://.godot/imported/skyscraper_broken.png-f55e92bbc17e3204de2b0a877b6e82cb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/buildings/skyscraper/skyscraper1new.png"
-dest_files=["res://.godot/imported/skyscraper1new.png-377b0104cabefa5a5aff53a7c6a0c779.ctex"]
+source_file="res://assets/buildings/skyscraper/skyscraper_broken.png"
+dest_files=["res://.godot/imported/skyscraper_broken.png-f55e92bbc17e3204de2b0a877b6e82cb.ctex"]
 
 [params]
 

@@ -1,8 +1,33 @@
-[gd_scene load_steps=2 format=3 uid="uid://7gqpcq0wie5s"]
+[gd_scene load_steps=5 format=3 uid="uid://7gqpcq0wie5s"]
 
-[ext_resource type="Texture2D" uid="uid://djayx25e0cphr" path="res://assets/buildings/skyscraper/skyscraper1new.png" id="1_rtw8y"]
+[ext_resource type="Texture2D" uid="uid://db1xnffpwrmbv" path="res://assets/buildings/skyscraper/skyscraper_broken.png" id="1_l1jju"]
+[ext_resource type="Script" path="res://core/Building/Building.gd" id="1_p3v7f"]
+[ext_resource type="Texture2D" uid="uid://c7aq2u0gye4tl" path="res://assets/buildings/skyscraper/skyscraper_repaired.png" id="2_jqlio"]
 
-[node name="Building01" type="Node2D"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_45c47"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_l1jju")
+}],
+"loop": true,
+"name": &"broken",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jqlio")
+}],
+"loop": true,
+"name": &"repaired",
+"speed": 5.0
+}]
 
-[node name="Broken" type="Sprite2D" parent="."]
-texture = ExtResource("1_rtw8y")
+[node name="Building01" type="Node2D" node_paths=PackedStringArray("Sprites")]
+script = ExtResource("1_p3v7f")
+Sprites = NodePath("Sprites")
+Name = "Skyscraper"
+
+[node name="Sprites" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_45c47")
+animation = &"repaired"

@@ -18,14 +18,15 @@ func map_to_global(pos) -> Vector2:
 func canPlace(pos: Vector2i, building: Building):
     return worldGen.isTileEmpty(global_to_map(pos)) # TODO: add size check
 
-func placeBuilding(pos, building: Building):
-    if !canPlace(pos, building):
+func placeBuilding(pos, building: Building, repaired:bool, tint: bool = false, skipCheck:bool = false):
+    if !skipCheck and !canPlace(pos, building):
         return false
     var tile_pos = global_to_map(pos)
     building.set_building_position(tile_pos)
-    building.repair()
+    if repaired:
+        building.repair()
     building.place_building()
-    worldGen.place_building_at_tile(tile_pos, building, false, building.get_sprite_offset())
+    worldGen.place_building_at_tile(building, !tint)
     buildings.append(building)
     return true
 

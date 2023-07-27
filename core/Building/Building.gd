@@ -2,8 +2,7 @@ extends Node2D
 
 class_name Building
 
-@export var BrokenSprite: Sprite2D
-@export var RepairedSprite: Sprite2D
+@export var Sprites: AnimatedSprite2D
 @export var SpriteOffset: Vector2 = Vector2.ZERO
 @export var Name: String
 @export var Description: String
@@ -17,15 +16,18 @@ func _ready():
     set_process_input(true)
     set_process(true)
 
+    if not Repaired:
+        Sprites.play("broken")
+    else:
+        Sprites.play("repaired")
+
 func repair():
     Repaired = true
-    BrokenSprite.set_visible(false)
-    RepairedSprite.set_visible(true)
+    Sprites.play("repaired")
 
 func damage():
     Repaired = false
-    BrokenSprite.set_visible(true)
-    RepairedSprite.set_visible(false)
+    Sprites.play("broken")
 
 func set_building_position(pos):
     set_position(pos)
@@ -50,3 +52,13 @@ func isPlaced():
 
 func get_sprite_offset():
     return SpriteOffset
+
+func getTexture(repaired = null):
+    var animation_name = ""
+    if repaired == null:
+        animation_name = Sprites.animation
+    elif repaired:
+        animation_name = "repaired"
+    else:
+        animation_name = "broken"
+    return Sprites.sprite_frames.get_frame_texture(animation_name, Sprites.frame)

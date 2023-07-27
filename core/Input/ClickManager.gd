@@ -53,7 +53,7 @@ func handleClickKeyInput(event: InputEventKey):
     if event.as_text_keycode() == "1":
         var new_building = preload("res://entities/buildings/Placeable/hospital.tscn").instantiate()
         selectedBuilding = new_building
-        hover_sprite.set_texture(selectedBuilding.get_node("Repaired").get_texture().duplicate())
+        hover_sprite.set_texture(selectedBuilding.getTexture(true).duplicate())
         currentAction = Action.PLACE
 
 func handlePlaceMouseInput(event):
@@ -62,7 +62,7 @@ func handlePlaceMouseInput(event):
     var mousePos = get_global_mouse_position()
     if buMan.canPlace(mousePos, selectedBuilding):
         if resMan.spendIfPossible(selectedBuilding.get_building_cost()):
-            buMan.placeBuilding(mousePos, selectedBuilding)
+            buMan.placeBuilding(mousePos, selectedBuilding, true)
             cleanSelectedBuilding(true)
             currentAction = Action.CLICK
         else:
