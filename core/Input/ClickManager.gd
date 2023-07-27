@@ -21,9 +21,9 @@ func _process(_delta):
         hover_sprite.set_global_position(spritePos)
         if buMan.canPlace(get_global_mouse_position(), selectedBuilding) \
             and resMan.canAfford(selectedBuilding.get_building_cost()):
-            hover_sprite.set_modulate(Color(0, 1, 0))
+            hover_sprite.set_modulate(Color(0, 1, 0, 0.8))
         else:
-            hover_sprite.set_modulate(Color(1, 0, 0))
+            hover_sprite.set_modulate(Color(1, 0, 0, 0.8))
 
 func _input(event):
     match currentAction:

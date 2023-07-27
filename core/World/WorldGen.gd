@@ -28,6 +28,7 @@ var noodleNoise
 
 # Function to initialize noise parameters
 func _ready():
+    print("Generating world with seed: " + str(SEED))
     var base_noise = await setup_noise(SEED, FREQUENCY, OCTAVES, GAIN, LACUNARITY)
     generate_and_dilate_noise(base_noise)
 
@@ -218,8 +219,8 @@ func place_building_at_tile(tileCords: Vector2, new_building: Node2D, skipTint: 
     var sprite = new_building.get_node(spriteName)
 
     # random tint of base_color for the sprite
-    var colorOff = randomGen.randf()
     if !skipTint:
+        var colorOff = randomGen.randf()
         var tintColor = BUILDING_TINT + Color(colorOff, colorOff, colorOff, 0.0)
         sprite.modulate = tintColor
 
