@@ -2,11 +2,12 @@ extends CharacterBody2D
 class_name Human
 
 @onready var root: Node2D = get_parent()
-@onready var target = root.find_child("target")
+var target: Vector2
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 
 var speed = 300
 var acceleration = 7
+var region_index: int
 
 var maxhealth = 100
 var health = 100
@@ -30,9 +31,9 @@ func _physics_process( delta: float, ) -> void:
     var direction = global_position.direction_to(next_location)
     global_position += direction * delta * speed
 
-func _set_target(new_target: Node2D):
+func _set_target(new_target: Vector2):
     target = new_target
-    nav.target_position = target.position
+    nav.target_position = target
 
 
 func _input( event: InputEvent, ) -> void:

@@ -38,9 +38,9 @@ func _ready():
 
 
 func setup_pathfinding():
-    Pathfinding.worldsize = WORLD_SIZE
-    Pathfinding.current_tilemap = $WorldTileMap
+    Pathfinding.set_world_data(self)
     Pathfinding.generate_walkable_nodes()
+    Pathfinding.generate_spawn_dict()
 
 # Function to setup noise parameters
 func setup_noise(noise_seed, frequency, octaves, noise_gain, lacunarity) -> Image:
@@ -185,8 +185,8 @@ func getPixel(image, x, y):
     return image.get_pixel(x, y)
 
 # Function to get target_color on the borderStreets
-func get_streets_on_border(image):
-    var borderStreets = []
+func get_streets_on_border(image) -> Array[Vector2]:
+    var borderStreets: Array[Vector2] = []
     for x in range(WORLD_SIZE):
         if abs(image.get_pixel(x, 0).r - 0.5) < 0.1:
             borderStreets.append(Vector2(x, 0))
@@ -235,3 +235,7 @@ func place_building_at_tile(tileCords):
     sprite.position.y -= sprite.texture.get_height() / 2 - BUILDING_OFFSET
 
     Buildings.add_child(building)
+
+
+func get_tilemap() -> TileMap:
+    return WorldTileMap

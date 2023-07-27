@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://414v0j42mo1k" path="res://entities/buildings/building_01.tscn" id="3_7hely"]
 [ext_resource type="Texture2D" uid="uid://dnvn4hf8tpngf" path="res://assets/street/street_atlas.png" id="4_oga7d"]
 [ext_resource type="Texture2D" uid="uid://dyox8tk1o8h4c" path="res://assets/street/placeholder.png" id="5_1elpr"]
-[ext_resource type="Script" path="res://core/systems/human_factory.gd" id="6_qrfg1"]
+[ext_resource type="PackedScene" uid="uid://dvl0vhb7qf0gb" path="res://core/systems/human_factory.tscn" id="6_b65kx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t74nj"]
 resource_name = "streets"
@@ -145,9 +145,8 @@ layer_1/tile_data = PackedInt32Array()
 [node name="Noise" type="Sprite2D" parent="World"]
 scale = Vector2(5, 5)
 
-[node name="HumanFactory" type="Node2D" parent="World" node_paths=PackedStringArray("human_node", "tilemap")]
-script = ExtResource("6_qrfg1")
+[node name="human_factory" parent="World" node_paths=PackedStringArray("human_node", "tilemap") instance=ExtResource("6_b65kx")]
 human_node = NodePath("Humans")
 tilemap = NodePath("../WorldTileMap")
 
-[node name="Humans" type="Node2D" parent="World/HumanFactory"]
+[node name="Humans" type="Node2D" parent="World/human_factory"]

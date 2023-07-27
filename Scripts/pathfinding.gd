@@ -2,8 +2,11 @@ extends Node
 
 var worldsize := 0
 var current_tilemap: TileMap
+var current_world: Node2D
 
-var walkable_nodes: Array[PackedVector2Array]
+var walkable_nodes_regions: Array[PackedVector2Array]
+var spawn_locations_border: Dictionary
+var street_locations_border: Array[Vector2]
 
 func generate_walkable_nodes():
     if current_tilemap:
@@ -32,7 +35,7 @@ func generate_walkable_nodes():
                     var walkable = check_if_street(size, Vector2(x - size, y - size), ref_array)
 
                     if walkable.size() > 0:
-                        walkable_nodes.append(walkable)
+                        walkable_nodes_regions.append(walkable)
 
 
         # create image for debugging purposes
@@ -88,3 +91,21 @@ func check_if_street(quadrant_size: int, map_location: Vector2,  ref_array: Arra
 
 
     return temp_vec2_arr
+
+
+func generate_spawn_dict():
+    for border_loc in street_locations_border:
+        border_loc.x -= worldsize / 2.0
+        border_loc.y -= worldsize / 2.0
+        for i in range(walkable_nodes_regions.size()):
+            if walkable_nodes_regions[i].has(border_loc):
+                spawn_locations_border[border_loc] = i
+                break
+    pass
+
+
+func set_world_data(world: Node2D):
+    current_world = world
+    worldsize = world.WORLD_SIZE
+    current_tilemap = world.get_tilemap()
+    street_locations_border = world.get_meta("streets_on_border")
