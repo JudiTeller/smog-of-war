@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://dt3sk166xrnyy"]
+
+[ext_resource type="Script" path="res://entities/human/Human.gd" id="1_yrqtw"]
+[ext_resource type="Texture2D" uid="uid://brcr0i6hs1sfq" path="res://icon.svg" id="2_iavso"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jysyb"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_yrqtw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_iavso")
+
+[node name="Healthtick" type="Timer" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 40.0
+target_desired_distance = 30.0
+path_max_distance = 500.0
+path_postprocessing = 1
+avoidance_enabled = true
+debug_enabled = true
+debug_path_custom_line_width = 12.36
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jysyb")
+disabled = true
+one_way_collision_margin = 0.0
+
+[connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]
