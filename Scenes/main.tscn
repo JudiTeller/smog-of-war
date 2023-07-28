@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://7gqpcq0wie5s" path="res://entities/buildings/city_building_01.tscn" id="3_3261g"]
 [ext_resource type="PackedScene" uid="uid://414v0j42mo1k" path="res://entities/buildings/Placeable/hospital.tscn" id="4_46imb"]
 [ext_resource type="Texture2D" uid="uid://dnvn4hf8tpngf" path="res://assets/street/street_atlas.png" id="4_oga7d"]
-[ext_resource type="PackedScene" uid="uid://cho2olta3aula" path="res://entities/buildings/city_building_02.tscn" id="5_6vgky"]
+[ext_resource type="PackedScene" uid="uid://wbb406wbyw1l" path="res://entities/buildings/city_building_02.tscn" id="5_6vgky"]
 [ext_resource type="Texture2D" uid="uid://bdjpac2o4jxye" path="res://assets/grounds/earth.png" id="5_xix0n"]
 [ext_resource type="Texture2D" uid="uid://cravyarcwcstj" path="res://assets/street/fundament.png" id="6_2q481"]
 [ext_resource type="PackedScene" uid="uid://b3tsb50bcrox8" path="res://Scenes/Systems.tscn" id="6_ufiuq"]
@@ -125,7 +125,7 @@ script = ExtResource("1_biuqo")
 unique_name_in_owner = true
 script = ExtResource("2_d10tl")
 WORLD_SIZE = 50
-BUILDINGS = [[ExtResource("3_3261g"), 50], [ExtResource("5_6vgky"), 10], [ExtResource("5_6vgky"), 20], [ExtResource("4_46imb"), 20.0]]
+BUILDINGS = [[ExtResource("3_3261g"), 50], [ExtResource("5_6vgky"), 10], [ExtResource("5_6vgky"), 20], [ExtResource("4_46imb"), 1.0]]
 GAIN = 0.3
 DILATE_AMOUNT = 4
 CONNECTION_ROADS_SAMPLE_RATE = 15
