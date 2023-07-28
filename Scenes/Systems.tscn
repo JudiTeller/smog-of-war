@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://core/Input/ClickManager.gd" id="1_xf32u"]
 [ext_resource type="Script" path="res://core/Building/BuildingManager.gd" id="2_mq55y"]
-[ext_resource type="Script" path="res://core/RessourceManager.gd" id="3_7vbec"]
+[ext_resource type="Script" path="res://core/ResourceManager.gd" id="3_higuu"]
 
 [node name="Systems" type="Node2D"]
 
@@ -15,6 +15,6 @@ z_index = 4096
 [node name="BuildingManager" type="Node2D" parent="."]
 script = ExtResource("2_mq55y")
 
-[node name="RessourceManager" type="Node2D" parent="."]
-script = ExtResource("3_7vbec")
+[node name="ResourceManager" type="Node2D" parent="."]
+script = ExtResource("3_higuu")
 InfinitePeople = true
