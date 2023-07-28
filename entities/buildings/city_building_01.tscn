@@ -27,6 +27,7 @@ animations = [{
 script = ExtResource("1_p3v7f")
 Sprites = NodePath("Sprites")
 Name = "Skyscraper"
+canBeDemolished = false
 
 [node name="Sprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_45c47")

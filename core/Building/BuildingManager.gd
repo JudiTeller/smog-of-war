@@ -34,18 +34,21 @@ func placeBuilding(pos, new_building: Building, repaired:bool, skipTint: bool = 
     return true
 
 func demolishBuilding(building: Building):
-    buildings.erase(buildings.find(building))
+    if !building.can_be_demolished():
+        return false
+    buildings.erase(building)
     worldGen.remove_building_at_tile(building)
     resMan.addHumans(building.get_refund())
+    return true
 
 func getBuildingAtTile(tileCords: Vector2i):
     var found_building = null
-    for new_building in buildings:
-        if new_building.get_tile_cords() == tileCords:
+    for building in buildings:
+        if building.get_tile_cords() == tileCords:
             if found_building != null: # Should never happen
                 push_error("Multiple buildings at same tile") 
                 return null
-            found_building = new_building
+            found_building = building
     return found_building
 
 func getBuildingAtGlobal(pos: Vector2):

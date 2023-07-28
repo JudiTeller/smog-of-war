@@ -10,6 +10,7 @@ class_name Building
 @export var Repaired: bool = false
 @export var Size: Vector2 = Vector2(128, 128)
 @export var RefundPercentage: float = 0.25
+@export var canBeDemolished: bool = true
 
 var tileCords: Vector2i = Vector2i.ZERO
 var placed: bool = false
@@ -59,6 +60,9 @@ func get_sprite_offset():
 
 func get_refund():
     return Cost * RefundPercentage
+
+func can_be_demolished():
+    return canBeDemolished
 
 func getTexture(repaired = null):
     var animation_name = ""

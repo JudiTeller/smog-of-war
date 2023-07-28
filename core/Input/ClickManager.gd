@@ -6,8 +6,7 @@ extends Node2D
 
 enum Action {
     CLICK,
-    PLACE,
-    DESTORY
+    PLACE
 }
 
 var selectedBuilding: Building = null
@@ -39,11 +38,6 @@ func _input(event):
                 handlePlaceMouseInput(event)
             elif event is InputEventKey:
                 handlePlaceKeyInput(event)
-        Action.DESTORY:
-            if event is InputEventMouseButton:
-                handleDestoryMouseInput(event)
-            elif event is InputEventKey:
-                handleDestoryKeyInput(event)
 
 func handleClickMouseInput(event):
     if !event.pressed:
@@ -64,13 +58,18 @@ func handleClickMouseInput(event):
                     selectedBuilding.toggleSelection()
                 selectedBuilding = building
                 selectedBuilding.toggleSelection()
-        print("Selected Building: ", selectedBuilding)
+        print("Clicked on: ", building)
     elif event.button_index == MOUSE_BUTTON_LEFT:
         pass # TODO: Clicker for Humans
 
 func handleClickKeyInput(event: InputEventKey):
     if !event.pressed:
         return
+    if event.as_text_keycode() == "Delete":
+        if buMan.demolishBuilding(selectedBuilding):
+            cleanSelectedBuilding(false)
+        else:
+            print("Could not demolish building")
     if event.as_text_keycode() == "1":
         cleanSelectedBuilding(false)
         var new_building = preload("res://entities/buildings/Placeable/hospital.tscn").instantiate()
@@ -91,19 +90,6 @@ func handlePlaceKeyInput(event: InputEventKey):
         return
     if event.as_text_keycode() == "Escape":
         cleanSelectedBuilding(true)
-        currentAction = Action.CLICK
-
-func handleDestoryMouseInput(event):
-    pass
-
-func handleDestoryKeyInput(event):
-    if !event.pressed or selectedBuilding == null:
-        return
-    # if delete key
-    if event.as_text_keycode() == "Delete":
-        buMan.demolishBuilding(selectedBuilding)
-        cleanSelectedBuilding(false)
-    if event.as_text_keycode() == "Escape":
         currentAction = Action.CLICK
 
 func cleanSelectedBuilding(free_building: bool):
