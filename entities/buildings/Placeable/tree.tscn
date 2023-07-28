@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://17lqlmfpehi2"]
+
+[ext_resource type="Script" path="res://core/Building/Building.gd" id="1_lmy02"]
+[ext_resource type="Texture2D" uid="uid://b2t2f4igxjtfs" path="res://assets/buildings/tree/tree.png" id="2_xjj63"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kqtgg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_xjj63")
+}],
+"loop": true,
+"name": &"broken",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_xjj63")
+}],
+"loop": true,
+"name": &"repaired",
+"speed": 5.0
+}]
+
+[node name="BigTree" type="Node2D" node_paths=PackedStringArray("Sprites")]
+script = ExtResource("1_lmy02")
+Sprites = NodePath("Sprites")
+Name = "Big Tree"
+Description = "Just a big tree. To generate small amouts of oxygen for the city district."
+Cost = 100
+
+[node name="Sprites" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_kqtgg")
+animation = &"repaired"
