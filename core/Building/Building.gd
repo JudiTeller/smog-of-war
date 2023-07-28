@@ -2,15 +2,23 @@ extends Node2D
 
 class_name Building
 
+@export_group("Visuals")
 @export var Sprites: AnimatedSprite2D
 @export var SpriteOffset: Vector2 = Vector2.ZERO
+
+@export_group("Info")
 @export var Name: String
 @export var Description: String
 @export var Cost: int
+
+@export_group("State")
 @export var Repaired: bool = false
+@export var canBeDemolished: bool = true
+
+@export_group("Misc")
 @export var Size: Vector2 = Vector2(128, 128)
 @export var RefundPercentage: float = 0.25
-@export var canBeDemolished: bool = true
+@export var selectionColor: Color = Color(1, 0, 0, 1)
 
 var tileCords: Vector2i = Vector2i.ZERO
 var placed: bool = false
@@ -83,7 +91,7 @@ func toggleSelection():
     selected = !selected
     if selected:
         oldModulate = Sprites.modulate
-        Sprites.modulate = Color(1, 0, 0, 1)
+        Sprites.modulate = selectionColor
         oldZIndex = get_z_index()
         set_z_index(999)
     else:
