@@ -45,6 +45,14 @@ func _ready():
         $Noise.texture = ImageTexture.create_from_image(noodleNoise)
     generate_tiles()
 
+    call_deferred("setup_pathfinding")
+
+
+func setup_pathfinding():
+    Pathfinding.set_world_data(self)
+    Pathfinding.generate_walkable_nodes()
+    Pathfinding.generate_spawn_dict()
+
 # Function to setup noise parameters
 func setup_noise(noise_seed, frequency, octaves, noise_gain, lacunarity) -> Image:
     randomGen.seed = noise_seed
@@ -56,7 +64,7 @@ func setup_noise(noise_seed, frequency, octaves, noise_gain, lacunarity) -> Imag
     noise.set_fractal_octaves(octaves)
     noise.set_fractal_gain(noise_gain)
     noise.set_fractal_lacunarity(lacunarity)
-    
+
     # Generate noise texture
     var noiseTexture = NoiseTexture2D.new()
     noiseTexture.noise = noise
@@ -124,12 +132,12 @@ func add_connection_streets(image):
                         if copyImg.get_pixel(x, i) == Color.BLACK:
                             image.set_pixel(x, i, Color.WEB_GRAY)
 
-            
+
 
 # Function to create grid noise
 func create_grid_noise() -> Image:
     var image = Image.create(WORLD_SIZE, WORLD_SIZE, false, Image.FORMAT_RGBA8)
-    
+
     for x in range(WORLD_SIZE):
         for y in range(WORLD_SIZE):
             if x % 2 != 0 and y % 2 != 0:
@@ -188,8 +196,8 @@ func getPixel(image, x, y):
     return image.get_pixel(x, y)
 
 # Function to get target_color on the borderStreets
-func get_streets_on_border(image):
-    var borderStreets = []
+func get_streets_on_border(image) -> Array[Vector2]:
+    var borderStreets: Array[Vector2] = []
     for x in range(WORLD_SIZE):
         if abs(image.get_pixel(x, 0).r - 0.5) < 0.1:
             borderStreets.append(Vector2(x, 0))
@@ -220,7 +228,7 @@ func generate_tiles():
                 streets.append(Vector2(x, y))
             else: # Nothing
                 WorldTileMap.set_cell(0, Vector2(x, y), 1, Vector2(0, 0))
-                
+
     WorldTileMap.set_cells_terrain_connect(0, streets, 0, 0)
 
 # Function to get random building from BUILDINGS weighted
@@ -280,3 +288,6 @@ func getOffsetForBuildingSprite(sprite: Sprite2D, buildingOffset: Vector2) -> Ve
         buildingOffset.x,
         sprite.texture.get_height() / 2.0 - buildingOffset.y - BUILDING_DEFAULT_OFFSET
     )
+
+func get_tilemap() -> TileMap:
+    return WorldTileMap

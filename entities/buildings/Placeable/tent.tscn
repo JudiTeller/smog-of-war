@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5bpt0nclh5n4"]
+[gd_scene load_steps=4 format=3 uid="uid://c0p0ij2xpgvir"]
 
 [ext_resource type="Script" path="res://core/Building/Building.gd" id="1_70e6o"]
 [ext_resource type="Texture2D" uid="uid://btnn8d26s5cyk" path="res://assets/buildings/tent/repaired.png" id="2_4ie3c"]
