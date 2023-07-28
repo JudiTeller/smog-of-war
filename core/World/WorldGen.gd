@@ -1,11 +1,20 @@
 extends Node2D
 
+class_name WorldGenerator
+
 @export_group("World")
 @export var WORLD_SIZE:int = 200
-@export var BUILDINGS: Array[PackedScene]
-@export var BUILDING_OFFSET = 24
-@export var BUILDING_TINT = Color(0.0, 0.0, 0.2, 1.0)
+# Array of (PackedScene, int) tuples where the int is the weight of the building
+# Type: Array[(PackedScene, int)]
+@export var BUILDINGS: Array = [
+    [
+        preload("res://entities/buildings/city_building_01.tscn"),
+        1
+    ]
+]
+@export var BUILDING_TINT: Color = Color(0.0, 0.0, 0.2, 1.0)
 
+# END: ed8c6549bwf9
 @export_group("Generation Settings")
 @export var SEED: int = randi()
 @export var FREQUENCY: float = 0.2
@@ -20,13 +29,15 @@ extends Node2D
 
 @onready var Buildings = $Buildings
 @onready var WorldTileMap = $WorldTileMap
+@onready var buMan: BuildingManager = %Systems.get_node("BuildingManager")
 
-const target_tile_id = 1
+const BUILDING_DEFAULT_OFFSET = 24
 var randomGen = RandomNumberGenerator.new()
 var noodleNoise
 
 # Function to initialize noise parameters
 func _ready():
+    print("Generating world with seed: " + str(SEED))
     var base_noise = await setup_noise(SEED, FREQUENCY, OCTAVES, GAIN, LACUNARITY)
     generate_and_dilate_noise(base_noise)
 
@@ -210,32 +221,67 @@ func generate_tiles():
     for x in range(-size, upper):
         for y in range(-size, upper):
             var pixel = noodleNoise.get_pixel(x + size, y + size).r
-            if pixel == 1.0:
-                place_building_at_tile(Vector2(x, y))
-                WorldTileMap.set_cell(1, Vector2(x, y), 0, Vector2(3, 3))
-            elif pixel > 0.0:
+            if pixel == 1.0: # House
+                var random_choice: Building = get_random_building()
+                buMan.placeBuilding(buMan.map_to_global(Vector2(x, y)), random_choice, false, true, true)
+            elif pixel > 0.0: # Street
                 streets.append(Vector2(x, y))
-            else:
+            else: # Nothing
                 WorldTileMap.set_cell(0, Vector2(x, y), 1, Vector2(0, 0))
 
     WorldTileMap.set_cells_terrain_connect(0, streets, 0, 0)
 
+# Function to get random building from BUILDINGS weighted
+func get_random_building() -> Building:
+    var total_weight = 0
+    for building in BUILDINGS:
+        total_weight += building[1]
+    var random_weight = randomGen.randi_range(0, total_weight)
+    var current_weight = 0
+    for building in BUILDINGS:
+        current_weight += building[1]
+        if random_weight <= current_weight:
+            return building[0].instantiate()
+    return null
+
+
 # Function to place building at tile
-func place_building_at_tile(tileCords):
-    var random_choice = BUILDINGS[randomGen.randi_range(0, BUILDINGS.size() - 1)]
-    var building = random_choice.instantiate()
-    var sprite = building.get_node("Sprite2D")
-
+func place_building_at_tile(new_building: Building, skipTint: bool = false):
+    var Sprites: AnimatedSprite2D = new_building.get_node("Sprites")
+    var sprite: Texture2D = Sprites.sprite_frames.get_frame_texture(Sprites.animation, Sprites.frame) # current sprite
+    var tileCords = new_building.position
+    var cords = WorldTileMap.to_global(WorldTileMap.map_to_local(new_building.position))
     # random tint of base_color for the sprite
-    var colorOff = randomGen.randf()
-    var tintColor = BUILDING_TINT + Color(colorOff, colorOff, colorOff, 0.0)
-    sprite.modulate = tintColor
+    if !skipTint:
+        var colorOff = randomGen.randf()
+        var tintColor = BUILDING_TINT + Color(colorOff, colorOff, colorOff, 0.0)
+        Sprites.modulate = tintColor
+    
+    new_building.position = cords
+    new_building.position.y -= int(sprite.get_height() / 2.0) - new_building.get_sprite_offset().y - BUILDING_DEFAULT_OFFSET
+    new_building.z_index = int(tileCords.y) + int((WORLD_SIZE/2.0)) # Formula = y_pos + the half of the world size to start at 0
+    # Foundation
+    WorldTileMap.set_cell(0, tileCords, 2, Vector2(0, 0))
+    Buildings.add_child(new_building)
 
-    sprite.position = WorldTileMap.to_global(WorldTileMap.map_to_local(tileCords))
-    sprite.position.y -= sprite.texture.get_height() / 2 - BUILDING_OFFSET
+func isTileEmpty(tileCords: Vector2i) -> bool:
+    # check if tile exists
+    var cells = WorldTileMap.get_used_cells(0)
+    var index = cells.find(tileCords)
+    if index == -1:
+        return false
+    var found_tile_pos = cells[index]
+    # Source ID 1 = Nothing / Empty Land
+    return WorldTileMap.get_cell_source_id(0, found_tile_pos) == 1
 
-    Buildings.add_child(building)
+func getTileMap():
+    return WorldTileMap
 
+func getOffsetForBuildingSprite(sprite: Sprite2D, buildingOffset: Vector2) -> Vector2:
+    return Vector2(
+        buildingOffset.x,
+        sprite.texture.get_height() / 2.0 - buildingOffset.y - BUILDING_DEFAULT_OFFSET
+    )
 
 func get_tilemap() -> TileMap:
     return WorldTileMap
