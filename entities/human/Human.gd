@@ -10,14 +10,14 @@ var navigation_counter: int = 0
 var tilemap: TileMap
 var nav_astar: AStar2D
 
-var speed = 300
-var acceleration = 7
+@export var speed = 300
+@export var acceleration = 7
 var region_index: int
 
-var maxhealth = 100
-var health = 100
-var maxsuff = 10
-var suffocation = 10
+@export var maxhealth = 100
+@export var health = 100
+@export var maxsuff = 10
+@export var suffocation = 10
 
 
 # Called when the node enters the scene tree for the first time.
