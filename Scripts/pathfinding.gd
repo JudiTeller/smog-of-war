@@ -27,7 +27,8 @@ func generate_walkable_nodes():
         var upper = size
         if size - int(size) > 0.0:
             upper += 1
-
+        
+        # iterate over ref_array and check in tilemap if this tile is a street
         for y in range(worldsize):
             for x in range(worldsize):
                 # check if cell was already visited
@@ -38,31 +39,8 @@ func generate_walkable_nodes():
                         walkable_nodes_regions.append(walkable)
 
 
-        # create image for debugging purposes
-        # TODO REMOVE!
-        var image := Image.create(worldsize, worldsize, false, Image.FORMAT_RGBA8)
-        for y in range(worldsize):
-            for x in range(worldsize):
-                match ref_array[x][y]:
-                    0:
-                        image.set_pixel(x, y, Color.WHITE)
-
-                    1:
-                        image.set_pixel(x, y, Color.GRAY)
-
-                    4:
-                        image.set_pixel(x, y, Color.YELLOW)
-
-        var mapsprite := Sprite2D.new()
-        mapsprite.texture = ImageTexture.create_from_image(image)
-        mapsprite.scale.x = 20
-        mapsprite.scale.y = 20
-        mapsprite.texture_filter = Sprite2D.TEXTURE_FILTER_NEAREST
-        current_tilemap.get_parent().add_child(mapsprite)
-        pass
-    pass
-
-
+# use region growing to collect all connected street tiles into a single vector array
+# all disconnected street regions are an own subarray
 func check_if_street(quadrant_size: int, map_location: Vector2,  ref_array: Array[Array]) -> PackedVector2Array:
     # temporary vector to hold walkable coordinates
     var temp_vec2_arr: PackedVector2Array = []
@@ -89,10 +67,10 @@ func check_if_street(quadrant_size: int, map_location: Vector2,  ref_array: Arra
                             for vec in deeper_rec:
                                 temp_vec2_arr.append(vec)
 
-
     return temp_vec2_arr
 
 
+# fill the spawn dict with vectors as keys and their respective walkable node index
 func generate_spawn_dict():
     for border_loc in street_locations_border:
         border_loc.x -= worldsize / 2.0
@@ -104,6 +82,8 @@ func generate_spawn_dict():
     pass
 
 
+# initial setup for world load
+# should be called if world is changed
 func set_world_data(world: Node2D):
     current_world = world
     worldsize = world.WORLD_SIZE

@@ -41,31 +41,28 @@ func spawn_humans(amount: int):
 
             var new_human = human.instantiate()
             new_human.position = tilemap.to_global(tilemap.map_to_local(random_spawn_vector))
+            new_human.set_tilemap(tilemap)
+            new_human.set_region_index(Pathfinding.spawn_locations_border[random_spawn_vector])
+            new_human._set_target(new_human.get_random_target_position())
             human_node.add_child(new_human)
-            new_human._set_target(calc_random_target_position(new_human))
 
     else:
         set_startpoint_arr(Pathfinding.street_locations_border)
         push_error("Spawn locations not set for human factory!")
 
 
-func calc_random_target_position(human_ref: Human) -> Vector2:
-    var random_index: int = randi_range(0, Pathfinding.walkable_nodes_regions[human_ref.region_index].size() - 1)
-    var random_target = Pathfinding.walkable_nodes_regions[human_ref.region_index][random_index]
-
-    random_target = tilemap.map_to_local(random_target)
-    return random_target
 
 func calc_poly_area(a: Vector2, b: Vector2, c: Vector2):
     return abs((a.x * (b.y - c.y) + b.x * (c.y - a.y) + b.x * (a.y - b.y)) / 2)
 
+
 func set_maxcap(newcap: int) -> void:
     maxcap = newcap
+
 
 func set_startpoint_arr(arr: Array[Vector2]):
     startpoint_arr = arr
 
-    pass
 
 func register_tilemap(new_tilemap: TileMap):
     tilemap = new_tilemap

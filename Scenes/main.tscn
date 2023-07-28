@@ -116,6 +116,7 @@ unique_name_in_owner = true
 script = ExtResource("2_d10tl")
 WORLD_SIZE = 50
 BUILDINGS = Array[PackedScene]([ExtResource("3_7hely")])
+SEED = 1337
 GAIN = 0.3
 DILATE_AMOUNT = 4
 CONNECTION_ROADS_SAMPLE_RATE = 15
@@ -148,5 +149,6 @@ scale = Vector2(5, 5)
 [node name="human_factory" parent="World" node_paths=PackedStringArray("human_node", "tilemap") instance=ExtResource("6_b65kx")]
 human_node = NodePath("Humans")
 tilemap = NodePath("../WorldTileMap")
+maxcap = 100
 
 [node name="Humans" type="Node2D" parent="World/human_factory"]
