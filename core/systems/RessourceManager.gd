@@ -35,7 +35,7 @@ func spendIfPossible(amount):
     if InfinitePeople:
         return true
 
-    if canAfford:
+    if canAfford(amount):
         humans -= amount
         return true
     return false

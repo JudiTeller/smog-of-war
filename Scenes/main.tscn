@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://wbb406wbyw1l" path="res://entities/buildings/city_building_02.tscn" id="5_6vgky"]
 [ext_resource type="Texture2D" uid="uid://bdjpac2o4jxye" path="res://assets/grounds/earth.png" id="5_xix0n"]
 [ext_resource type="Texture2D" uid="uid://cravyarcwcstj" path="res://assets/street/fundament.png" id="6_2q481"]
-[ext_resource type="PackedScene" uid="uid://dvl0vhb7qf0gb" path="res://core/systems/human_factory.tscn" id="6_b65kx"]
+[ext_resource type="PackedScene" path="res://core/systems/human_factory.tscn" id="6_b65kx"]
 [ext_resource type="PackedScene" uid="uid://b3tsb50bcrox8" path="res://Scenes/Systems.tscn" id="6_ufiuq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t74nj"]

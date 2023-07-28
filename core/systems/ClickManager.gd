@@ -66,12 +66,13 @@ func handleClickKeyInput(event: InputEventKey):
     if !event.pressed:
         return
     if event.as_text_keycode() == "Delete":
-        if buMan.demolishBuilding(selectedBuilding):
+        if selectedBuilding != null and buMan.demolishBuilding(selectedBuilding):
             cleanSelectedBuilding(false)
         else:
             print("Could not demolish building")
     if event.as_text_keycode() == "1":
-        cleanSelectedBuilding(false)
+        if selectedBuilding != null:
+            selectedBuilding.toggleSelection()
         var new_building = preload("res://entities/buildings/Placeable/hospital.tscn").instantiate()
         selectedBuilding = new_building
         hover_sprite.set_texture(selectedBuilding.getTexture(true).duplicate())
@@ -95,7 +96,6 @@ func handlePlaceKeyInput(event: InputEventKey):
 func cleanSelectedBuilding(free_building: bool):
     if selectedBuilding == null:
         return
-    selectedBuilding.toggleSelection()
     hover_sprite.set_texture(null)
     hover_sprite.set_visible(false)
     if free_building and selectedBuilding != null:

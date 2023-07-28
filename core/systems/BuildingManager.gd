@@ -21,7 +21,7 @@ func canPlace(pos: Vector2i, new_building: Building):
     return worldGen.isTileEmpty(global_to_map(pos)) # TODO: add size check
 
 func placeBuilding(pos, new_building: Building, repaired:bool, skipTint: bool = false, skipCheck:bool = false):
-    if !skipCheck and !canPlace(pos, new_building) and !resMan.spendIfPossible(new_building.get_building_cost()):
+    if !skipCheck and (!canPlace(pos, new_building) or !resMan.spendIfPossible(new_building.get_building_cost())):
         return false 
 
     var tile_pos = global_to_map(pos)
