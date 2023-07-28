@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5bpt0nclh5n4"]
+
+[ext_resource type="Script" path="res://core/Building/Building.gd" id="1_70e6o"]
+[ext_resource type="Texture2D" uid="uid://btnn8d26s5cyk" path="res://assets/buildings/tent/repaired.png" id="2_4ie3c"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kqtgg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_4ie3c")
+}],
+"loop": true,
+"name": &"broken",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_4ie3c")
+}],
+"loop": true,
+"name": &"repaired",
+"speed": 5.0
+}]
+
+[node name="Tent" type="Node2D" node_paths=PackedStringArray("Sprites")]
+script = ExtResource("1_70e6o")
+Sprites = NodePath("Sprites")
+Name = "Medical & Emergency Tent"
+Description = "A small medical emergency tent to cure some people."
+Cost = 500
+
+[node name="Sprites" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_kqtgg")
+animation = &"repaired"

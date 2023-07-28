@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7aq2u0gye4tl"
-path="res://.godot/imported/skyscraper_repaired.png-1b783339909478f69dc02f61c95a070b.ctex"
+uid="uid://btnn8d26s5cyk"
+path="res://.godot/imported/repaired.png-5dbe2e848d33807e346efecd8590dcea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/buildings/skyscraper/skyscraper_repaired.png"
-dest_files=["res://.godot/imported/skyscraper_repaired.png-1b783339909478f69dc02f61c95a070b.ctex"]
+source_file="res://assets/buildings/tent/repaired.png"
+dest_files=["res://.godot/imported/repaired.png-5dbe2e848d33807e346efecd8590dcea.ctex"]
 
 [params]
 
