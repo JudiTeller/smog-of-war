@@ -256,9 +256,10 @@ func place_building_at_tile(new_building: Building, skipTint: bool = false):
         var colorOff = randomGen.randf()
         var tintColor = BUILDING_TINT + Color(colorOff, colorOff, colorOff, 0.0)
         Sprites.modulate = tintColor
-    
+
     new_building.position.y -= int(sprite.get_height() / 2.0) - new_building.get_sprite_offset().y - BUILDING_DEFAULT_OFFSET
-    new_building.z_index = int(tileCords.y) + int((WORLD_SIZE/2.0)) # Formula = y_pos + the half of the world size to start at 0
+    new_building.z_index = int(tileCords.y) + int((WORLD_SIZE/2.0)) # Formula = y_pos + the half of the world size to start at 0 #TODO: Fix Z-Index with grouping buildings
+
     # Foundation
     WorldTileMap.set_cell(0, tileCords, 2, Vector2(0, 0))
     Buildings.add_child(new_building)

@@ -25,6 +25,7 @@ func placeBuilding(pos, new_building: Building, repaired:bool, skipTint: bool = 
         return false 
 
     var tile_pos = global_to_map(pos)
+    pos = map_to_global(tile_pos)
     new_building.set_building_position(pos, tile_pos)
     if repaired:
         new_building.repair()
