@@ -38,6 +38,9 @@ func spawn_humans(amount: int):
             # calculate to offset position
             random_spawn_vector.x -= Pathfinding.worldsize / 2.0
             random_spawn_vector.y -= Pathfinding.worldsize / 2.0
+            if !Pathfinding.spawn_locations_border.has(random_spawn_vector):
+                print("Error: Spawn location not found in spawn_locations_border")
+                return
 
             var new_human = human.instantiate()
             new_human.position = tilemap.to_global(tilemap.map_to_local(random_spawn_vector))
