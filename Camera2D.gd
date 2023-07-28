@@ -16,7 +16,7 @@ func _process(_delta):
         cur_speed += 2
     elif Input.is_action_just_released("ui_control"):
         cur_speed -= 2
-    
+
     cur_speed = clamp(cur_speed, 1, 10000)
 
     if Input.is_action_pressed("ui_right"):

@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://m1gx7n0t4sbp"]
+[gd_scene load_steps=10 format=3 uid="uid://m1gx7n0t4sbp"]
 
 [ext_resource type="Script" path="res://Camera2D.gd" id="1_biuqo"]
 [ext_resource type="Script" path="res://core/World/WorldGen.gd" id="2_d10tl"]
 [ext_resource type="PackedScene" uid="uid://414v0j42mo1k" path="res://entities/buildings/building_01.tscn" id="3_7hely"]
 [ext_resource type="Texture2D" uid="uid://dnvn4hf8tpngf" path="res://assets/street/street_atlas.png" id="4_oga7d"]
 [ext_resource type="Texture2D" uid="uid://dyox8tk1o8h4c" path="res://assets/street/placeholder.png" id="5_1elpr"]
+[ext_resource type="PackedScene" uid="uid://dvl0vhb7qf0gb" path="res://core/systems/human_factory.tscn" id="6_b65kx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t74nj"]
 resource_name = "streets"
@@ -105,7 +106,7 @@ terrain_set_0/terrain_0/color = Color(1, 0, 0, 1)
 sources/0 = SubResource("TileSetAtlasSource_t74nj")
 sources/1 = SubResource("TileSetAtlasSource_t6bsc")
 
-[node name="Node2D" type="Node2D"]
+[node name="main_scene" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("1_biuqo")
@@ -113,8 +114,9 @@ script = ExtResource("1_biuqo")
 [node name="World" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_d10tl")
-WORLD_SIZE = 75
+WORLD_SIZE = 50
 BUILDINGS = Array[PackedScene]([ExtResource("3_7hely")])
+SEED = 1337
 GAIN = 0.3
 DILATE_AMOUNT = 4
 CONNECTION_ROADS_SAMPLE_RATE = 15
@@ -143,3 +145,10 @@ layer_1/tile_data = PackedInt32Array()
 
 [node name="Noise" type="Sprite2D" parent="World"]
 scale = Vector2(5, 5)
+
+[node name="human_factory" parent="World" node_paths=PackedStringArray("human_node", "tilemap") instance=ExtResource("6_b65kx")]
+human_node = NodePath("Humans")
+tilemap = NodePath("../WorldTileMap")
+maxcap = 100
+
+[node name="Humans" type="Node2D" parent="World/human_factory"]
