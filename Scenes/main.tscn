@@ -6,10 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://414v0j42mo1k" path="res://entities/buildings/Placeable/hospital.tscn" id="4_46imb"]
 [ext_resource type="Texture2D" uid="uid://dnvn4hf8tpngf" path="res://assets/street/street_atlas.png" id="4_oga7d"]
 [ext_resource type="PackedScene" uid="uid://wbb406wbyw1l" path="res://entities/buildings/city_building_02.tscn" id="5_6vgky"]
-[ext_resource type="Texture2D" uid="uid://bdjpac2o4jxye" path="res://assets/grounds/earth.png" id="5_xix0n"]
 [ext_resource type="Texture2D" uid="uid://dw3pcbrxin5q8" path="res://assets/grounds/fundament.png" id="6_2q481"]
 [ext_resource type="PackedScene" uid="uid://dvl0vhb7qf0gb" path="res://core/systems/human_factory.tscn" id="6_b65kx"]
 [ext_resource type="PackedScene" uid="uid://b3tsb50bcrox8" path="res://Scenes/Systems.tscn" id="6_ufiuq"]
+[ext_resource type="Texture2D" uid="uid://bdjpac2o4jxye" path="res://assets/grounds/dirt.png" id="7_44n4w"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t74nj"]
 resource_name = "streets"
@@ -96,9 +96,9 @@ texture_region_size = Vector2i(128, 128)
 3:3/0/terrain_set = 0
 3:3/0/terrain = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t6bsc"]
-resource_name = "Placeholder"
-texture = ExtResource("5_xix0n")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0mo4w"]
+resource_name = "Dirt"
+texture = ExtResource("7_44n4w")
 texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
 
@@ -114,8 +114,8 @@ terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "AutoTile"
 terrain_set_0/terrain_0/color = Color(1, 0, 0, 1)
 sources/0 = SubResource("TileSetAtlasSource_t74nj")
-sources/1 = SubResource("TileSetAtlasSource_t6bsc")
 sources/2 = SubResource("TileSetAtlasSource_dxmlj")
+sources/1 = SubResource("TileSetAtlasSource_0mo4w")
 
 [node name="main_scene" type="Node2D"]
 
