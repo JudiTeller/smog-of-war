@@ -2,19 +2,16 @@ extends Node2D
 
 class_name HumanFactory
 
-@export var human_node: Node2D
 @export var tilemap: TileMap
 @export var maxcap = 10
 @onready var human = preload("res://entities/human/human.tscn")
 
-var startpoint_arr: Array[Vector2]
+@onready var human_node = $humans
 
+var startpoint_arr: Array[Vector2]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-    if human_node == null:
-        push_error("You forgot to select a human_node")
-
     call_deferred("setup")
 
 func setup():

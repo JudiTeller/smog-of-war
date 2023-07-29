@@ -25,9 +25,6 @@ var placed: bool = false
 var selected: bool = false
 
 func _ready():
-    set_process_input(true)
-    set_process(true)
-
     if not Repaired:
         Sprites.play("broken")
     else:

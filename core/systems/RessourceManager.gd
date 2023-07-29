@@ -28,6 +28,9 @@ func addHumans(amount):
         InfinitePeople = true
         humans = 0
 
+func onHumanCured(_human: Human):
+    addHumans(1)
+
 func canAfford(amount):
     return InfinitePeople or humans >= amount
 

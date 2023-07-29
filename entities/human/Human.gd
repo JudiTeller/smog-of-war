@@ -1,36 +1,36 @@
 extends CharacterBody2D
 class_name Human
 
-@onready var root: Node2D = get_parent()
-@onready var Sprite: Sprite2D = $Sprite2D
-var target: Vector2
+@export_group("Health")
+@export var health = 100
+@export var maxhealth = 100
+@export var maxsuff = 10
+@export var suffocation = randi_range(5, maxsuff)
+
+@export_group("Movement")
+@export var acceleration = 7
+@export var speed = 300
+
+@export_group("Navigation")
+@export var region_index: int
+
+@onready var nav: NavigationAgent2D = $NavigationAgent2D
+@onready var ruMan: ResourceManager = get_parent().get_parent().get_parent().get_parent().get_node("Systems/ResourceManager")
+
 var current_nav_target: Vector2
 var navigation_arr: PackedVector2Array
 var navigation_counter: int = 0
-@onready var nav: NavigationAgent2D = $NavigationAgent2D
-var tilemap: TileMap
 var nav_astar: AStar2D
+var target: Vector2
+var tilemap: TileMap
 
-@export var speed = 300
-@export var acceleration = 7
-var region_index: int
-
-@export var maxhealth = 100
-@export var health = 100
-@export var maxsuff = 10
-@export var suffocation = 10
-
+signal HumanCured(human: Human)
+signal HumanDied(human: Human)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
     $Healthtick.start()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-    if suffocation <=0:
-        Sprite.modulate = Color(0, 1, 0, 1)
-
+    connect("HumanCured", ruMan.onHumanCured)
 
 func _physics_process( delta: float, ) -> void:
     # checks if human has reached target or navigation node
@@ -120,22 +120,22 @@ func set_tilemap(map: TileMap):
     tilemap = map
 
 
-func _input( event: InputEvent, ) -> void:
-    pass
-
-
 func _on_healthtick_timeout():
-    pass # Replace with function body.
+    health -= suffocation
+
+    if health <= 0:
+        onDeath()
 
 
 func _on_navigation_agent_2d_target_reached():
-    get_parent().remove_child(self)
-    queue_free()
-    pass # Replace with function body.
+    print("target reached")
 
 
 func get_nav_agent() -> NavigationAgent2D:
     return nav
+
+func isCured() -> bool:
+    return suffocation <= 0
 
 func cure(amount: int):
     if amount < 0:
@@ -143,3 +143,15 @@ func cure(amount: int):
         return
 
     suffocation -= amount
+
+    if isCured():
+        onDeath()
+
+func onDeath():
+    if isCured():
+        emit_signal("HumanCured", self)
+    else:
+        emit_signal("HumanDied", self)
+
+    get_parent().remove_child(self)
+    self.queue_free()
