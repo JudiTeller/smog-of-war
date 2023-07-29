@@ -6,7 +6,6 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_jysyb"]
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
-collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_yrqtw")
 
@@ -25,7 +24,7 @@ avoidance_enabled = true
 debug_enabled = true
 debug_path_custom_line_width = 12.36
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Human"]]
 shape = SubResource("CircleShape2D_jysyb")
 disabled = true
 one_way_collision_margin = 0.0

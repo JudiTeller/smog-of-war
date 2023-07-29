@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Human
 
 @onready var root: Node2D = get_parent()
+@onready var Sprite: Sprite2D = $Sprite2D
 var target: Vector2
 var current_nav_target: Vector2
 var navigation_arr: PackedVector2Array
@@ -27,7 +28,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-    pass
+    if suffocation <=0:
+        Sprite.modulate = Color(0, 1, 0, 1)
 
 
 func _physics_process( delta: float, ) -> void:
@@ -118,7 +120,6 @@ func set_tilemap(map: TileMap):
     tilemap = map
 
 
-
 func _input( event: InputEvent, ) -> void:
     pass
 
@@ -135,3 +136,10 @@ func _on_navigation_agent_2d_target_reached():
 
 func get_nav_agent() -> NavigationAgent2D:
     return nav
+
+func cure(amount: int):
+    if amount < 0:
+        push_error("cure amount must be positive")
+        return
+
+    suffocation -= amount

@@ -36,10 +36,3 @@ func _process(_delta):
         newZoom += 0.25
     newZoom = max(0.25, newZoom)
     set_zoom(Vector2(newZoom, newZoom))
-
-    # Temporary
-    # Hides Buildings on spacebar press
-    if Input.is_action_just_released("ui_space"):
-        var buildings = %World.Buildings.get_children()
-        for building in buildings:
-            building.visible = !building.visible

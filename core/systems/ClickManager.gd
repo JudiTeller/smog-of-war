@@ -26,6 +26,7 @@ func _process(_delta):
         else:
             hover_sprite.set_modulate(Color(1, 0, 0, 0.8))
 
+
 func _input(event):
     match currentAction:
         Action.CLICK:
@@ -62,9 +63,17 @@ func handleClickMouseInput(event):
     elif event.button_index == MOUSE_BUTTON_LEFT:
         pass # TODO: Clicker for Humans
 
+var buildings_hidden = false
 func handleClickKeyInput(event: InputEventKey):
     if !event.pressed:
         return
+
+    # Hides Buildings on spacebar press ##TEMPORARY## TODO: Remove
+    if event.as_text_keycode() == "Space":
+        var buildings = buMan.getWorldGen().Buildings.get_children()
+        for building in buildings:
+            building.visible = buildings_hidden
+        buildings_hidden = !buildings_hidden
     if event.as_text_keycode() == "Delete":
         if selectedBuilding != null and buMan.demolishBuilding(selectedBuilding):
             cleanSelectedBuilding(false)

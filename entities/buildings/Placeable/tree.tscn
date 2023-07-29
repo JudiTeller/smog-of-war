@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://17lqlmfpehi2"]
+[gd_scene load_steps=5 format=3 uid="uid://17lqlmfpehi2"]
 
 [ext_resource type="Script" path="res://core/Building/Building.gd" id="1_lmy02"]
 [ext_resource type="Texture2D" uid="uid://b2t2f4igxjtfs" path="res://assets/buildings/tree/tree.png" id="2_xjj63"]
+[ext_resource type="PackedScene" uid="uid://chlk7pq23wh7m" path="res://entities/buildings/Components/CureComponet.tscn" id="3_2ogor"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kqtgg"]
 animations = [{
@@ -32,3 +33,6 @@ Cost = 100
 [node name="Sprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_kqtgg")
 animation = &"repaired"
+
+[node name="CureComponet" parent="." instance=ExtResource("3_2ogor")]
+Active = false
