@@ -2,11 +2,12 @@ extends Area2D
 
 @export var Active: bool = true
 @export var Radius: float = 100.0
-@export var CureRate: float = 1 # 1 cure per second
-@export var CureAmount: float = 1 # 1 People per Tick
-@export var CureEffectiveness: float = 0.5 # 50% of the people are cured
+@export var AttractAmount: float = 1 # 1 People per Tick
+@export var AttractEffectiveness: float = 0.5 # 50% of the people are attracted
 
 @onready var TickTimer:Timer = $Timer
+@onready var buMan: BuildingManager = get_parent().get_parent().get_parent().get_parent().get_node("Systems/BuildingManager")
+@onready var myGlobalTileCenter: Vector2 = buMan.map_to_global(buMan.global_to_map(position))
 
 var humansInRange = []
 
@@ -26,19 +27,19 @@ func _on_Area2D_body_entered(body):
 func _on_Area2D_body_exited(body):
     if !body.is_in_group("Human"):
         return
+    (body as Human)._set_target((body as Human).get_random_target_position())
     humansInRange.erase(body as Human)
 
 func _tick():
     if !Active:
         return
 
-    var cured = 0
+    var attracted = 0
     for human in humansInRange:
-        if randf() < CureEffectiveness:
-            human.cure(CureRate)
-        cured += 1
-
-        if cured >= CureAmount:
+        if randf() < AttractEffectiveness:
+            attracted += 1
+            human._set_target(myGlobalTileCenter)
+        if attracted >= AttractAmount:
             break
 
 func activate():

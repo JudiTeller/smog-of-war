@@ -1,12 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://sthqtvatx8sj"]
+[gd_scene load_steps=3 format=3 uid="uid://b1i66e6hv4pjx"]
 
-[ext_resource type="Script" path="res://core/Building/Components/CureComponet.gd" id="1_1ewea"]
+[ext_resource type="Script" path="res://core/Building/Components/AttractComponent.gd" id="1_h2bqt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f78tj"]
 
-[node name="CureComponents" type="Area2D"]
+[node name="AttractComponent" type="Area2D"]
 collision_layer = 0
-script = ExtResource("1_1ewea")
+script = ExtResource("1_h2bqt")
 
 [node name="Timer" type="Timer" parent="."]
 
