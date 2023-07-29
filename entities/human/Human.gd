@@ -23,6 +23,7 @@ var navigation_counter: int = 0
 var nav_astar: AStar2D
 var target: Vector2
 var tilemap: TileMap
+var waitAfterTargetReached: bool = false
 
 signal HumanCured(human: Human)
 signal HumanDied(human: Human)
@@ -34,12 +35,15 @@ func _ready():
 
 func _physics_process( delta: float, ) -> void:
     # checks if human has reached target or navigation node
-    if is_near_target():
+    if is_near_target() and !waitAfterTargetReached:
         _set_target(get_random_target_position())
 
     if is_near_nav_location():
         advance_nav_path()
-
+    
+    if is_near_target() and waitAfterTargetReached:
+        # Skip Movement if he is waiting at the target
+        return
     # always walks to next navigation node
     var direction = global_position.direction_to(tilemap.to_global(tilemap.map_to_local(current_nav_target)))
     global_position += direction * delta * speed
@@ -54,6 +58,32 @@ func _set_target(new_target: Vector2):
 
     pass
 
+func setWaitAfterTargetReached(wait: bool):
+    waitAfterTargetReached = wait
+
+func get_nearest_Points(pos: Vector2, amount=1) -> Array[Vector2]:
+    # Get amount nearest points to pos
+    var walkable_region := Pathfinding.walkable_nodes_regions[region_index]
+    var points:Array[Vector2] = []
+    var distances = []
+
+    for i in range(walkable_region.size()):
+        var point = walkable_region[i]
+        var distance = pos.distance_to(point)
+        distances.append(distance)
+        points.append(point)
+    
+    if amount > points.size():
+        amount = points.size()
+
+    var sorted = distances.duplicate()
+    sorted.sort()
+    var result:Array[Vector2] = []
+    for i in range(amount):
+        var index = distances.find(sorted[i])
+        result.append(points[index])
+
+    return result
 
 func get_random_target_position() -> Vector2:
     var random_index: int = randi_range(0, Pathfinding.walkable_nodes_regions[region_index].size() - 1)
@@ -125,10 +155,6 @@ func _on_healthtick_timeout():
 
     if health <= 0:
         onDeath()
-
-
-func _on_navigation_agent_2d_target_reached():
-    print("target reached")
 
 
 func get_nav_agent() -> NavigationAgent2D:
