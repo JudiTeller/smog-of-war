@@ -19,14 +19,14 @@ func _ready():
     $CollisionShape2D.shape.radius = Radius
 
 func _on_Area2D_body_entered(body):
-    print("Entered")
-    if body.is_in_group("Human"):
-        humansInRange.append(body.get_parent() as Human)
+    if !body.is_in_group("Human"):
+        return
+    humansInRange.append(body as Human)
 
 func _on_Area2D_body_exited(body):
-    print("Exited")
-    if body.is_in_group("Human"):
-        humansInRange.erase(body.get_parent() as Human)
+    if !body.is_in_group("Human"):
+        return
+    humansInRange.erase(body as Human)
 
 func _tick():
     if !Active:
