@@ -11,6 +11,8 @@ class_name ResourceManager
 @export_category("Cheats")
 @export var InfinitePeople = false
 
+signal WorldCleaned()
+
 func _input(event):
     if event.is_action_pressed("key_z"):
         humans += 1
@@ -47,7 +49,7 @@ func spendIfPossible(amount):
         return true
     return false
 
-func isCityAirSafe():
+func isCityClean():
     return airQuality >= 1.0
 
 func increaseAirQuality(amount):
@@ -61,6 +63,9 @@ func increaseAirQuality(amount):
     airQuality += amount
     if airQuality > 1.0:
         airQuality = 1.0
+
+    if isCityClean():
+        emit_signal("WorldCleaned")
 
 func getHumans():
     return humans
