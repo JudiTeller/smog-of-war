@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://dooa8s78jf36"]
+
+[ext_resource type="Script" path="res://Scenes/ui/hud.gd" id="1_kou0p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_da2fc"]
+bg_color = Color(0, 0, 0, 0.917647)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bdorn"]
+bg_color = Color(0, 0.341176, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hcpjm"]
+
+[node name="hud" type="CanvasLayer"]
+script = ExtResource("1_kou0p")
+
+[node name="Cleanse" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CleanseProgress" type="ProgressBar" parent="Cleanse"]
+layout_mode = 2
+offset_left = 376.0
+offset_top = 20.0
+offset_right = 776.0
+offset_bottom = 50.0
+theme_override_styles/background = SubResource("StyleBoxFlat_da2fc")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bdorn")
+value = 22.37
+show_percentage = false
+
+[node name="CleanseText" type="Label" parent="Cleanse/CleanseProgress"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "test"
+label_settings = SubResource("LabelSettings_hcpjm")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+max_lines_visible = 1
