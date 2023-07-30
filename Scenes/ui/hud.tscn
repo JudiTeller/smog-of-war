@@ -13,18 +13,17 @@ bg_color = Color(0, 0.341176, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_hcpjm"]
 
-[node name="Control" type="Control"]
+[node name="hud" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_force_pass_scroll_events = false
-
-[node name="hud" type="CanvasLayer" parent="."]
 script = ExtResource("1_kou0p")
-cleanse_threshold = 10000.0
 
-[node name="Cleanse" type="Control" parent="hud"]
+[node name="hud_canvas" type="CanvasLayer" parent="."]
+
+[node name="Cleanse" type="Control" parent="hud_canvas"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,7 +31,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CleanseProgress" type="ProgressBar" parent="hud/Cleanse"]
+[node name="CleanseProgress" type="ProgressBar" parent="hud_canvas/Cleanse"]
 layout_mode = 2
 offset_left = 376.0
 offset_top = 20.0
@@ -42,7 +41,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_da2fc")
 theme_override_styles/fill = SubResource("StyleBoxFlat_bdorn")
 show_percentage = false
 
-[node name="CleanseText" type="Label" parent="hud/Cleanse/CleanseProgress"]
+[node name="CleanseText" type="Label" parent="hud_canvas/Cleanse/CleanseProgress"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -56,7 +55,7 @@ vertical_alignment = 1
 clip_text = true
 max_lines_visible = 1
 
-[node name="Resources" type="Control" parent="hud"]
+[node name="Resources" type="Control" parent="hud_canvas"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 43.0
@@ -64,7 +63,7 @@ offset_top = 20.0
 offset_right = 299.0
 offset_bottom = 50.0
 
-[node name="Panel" type="Panel" parent="hud/Resources"]
+[node name="Panel" type="Panel" parent="hud_canvas/Resources"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -72,12 +71,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LogoHumans" type="Sprite2D" parent="hud/Resources/Panel"]
+[node name="LogoHumans" type="Sprite2D" parent="hud_canvas/Resources/Panel"]
 position = Vector2(15, 15)
 scale = Vector2(0.234, 0.234)
 texture = ExtResource("2_xf2yy")
 
-[node name="NumberHumans" type="Label" parent="hud/Resources/Panel"]
+[node name="NumberHumans" type="Label" parent="hud_canvas/Resources/Panel"]
 layout_mode = 0
 offset_left = 35.0
 offset_right = 115.0
@@ -86,12 +85,12 @@ text = "test"
 vertical_alignment = 1
 clip_text = true
 
-[node name="LogoMedics" type="Sprite2D" parent="hud/Resources/Panel"]
+[node name="LogoMedics" type="Sprite2D" parent="hud_canvas/Resources/Panel"]
 position = Vector2(150, 15)
 scale = Vector2(0.234, 0.234)
 texture = ExtResource("2_xf2yy")
 
-[node name="NumberMedics" type="Label" parent="hud/Resources/Panel"]
+[node name="NumberMedics" type="Label" parent="hud_canvas/Resources/Panel"]
 layout_mode = 0
 offset_left = 170.0
 offset_right = 250.0
@@ -100,7 +99,7 @@ text = "test"
 vertical_alignment = 1
 clip_text = true
 
-[node name="MenuButton" type="MenuButton" parent="hud"]
+[node name="MenuButton" type="MenuButton" parent="hud_canvas"]
 offset_left = 1009.0
 offset_top = 534.0
 offset_right = 1073.0
@@ -132,7 +131,7 @@ popup/item_7/text = ""
 popup/item_7/icon = ExtResource("3_7edb8")
 popup/item_7/id = 7
 
-[node name="Panel" type="Panel" parent="hud/MenuButton"]
+[node name="Panel" type="Panel" parent="hud_canvas/MenuButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -141,7 +140,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="hud/MenuButton"]
+[node name="Sprite2D" type="Sprite2D" parent="hud_canvas/MenuButton"]
 position = Vector2(32, 32)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_bip5y")

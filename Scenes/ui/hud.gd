@@ -1,34 +1,48 @@
-extends CanvasLayer
+extends Control
 
 @export var cleanse_threshold: float
 @export var click_manager: ClickManager
 @export var resource_manager: RessourceManager
+@export var cleanse_manager: CleanseManager
+
 var current_cleanse: float
 
 
-@onready var cleanse_progress: ProgressBar = $Cleanse/CleanseProgress
-@onready var cleanse_text: Label = $Cleanse/CleanseProgress/CleanseText
+@onready var cleanse_progress: ProgressBar = $hud_canvas/Cleanse/CleanseProgress
+@onready var cleanse_text: Label = $hud_canvas/Cleanse/CleanseProgress/CleanseText
+@onready var menu_button: MenuButton = $hud_canvas/MenuButton
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    cleanse_progress.max_value = cleanse_threshold
-    current_cleanse = 5234
-    $MenuButton.get_popup().connect("id_pressed", Callable(self, "on_build_menu_item_pressed"))
+    # cleanse_progress.max_value = cleanse_threshold
+    menu_button.get_popup().connect("id_pressed", Callable(self, "on_build_menu_item_pressed"))
     pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
+    update_cleanse_progress()
 
+
+    pass
+
+
+func update_cleanse_progress():
+    current_cleanse = cleanse_manager.cleanse_score
     cleanse_progress.value = current_cleanse
     cleanse_text.text = str(current_cleanse).pad_decimals(0)
 
-    pass
-
-
-
 func on_build_menu_item_pressed(index: int):
-    var popup: PopupMenu = $MenuButton.get_popup()
+    click_manager.currentAction = ClickManager.Action.PLACE
+    var popup: PopupMenu = menu_button.get_popup()
     var item_name = popup.get_item_text(index)
     print(item_name)
     pass
+
+
+func set_cleanse_threshold(new_threshold: float):
+    cleanse_threshold = new_threshold
+    cleanse_progress.max_value = cleanse_threshold
+    cleanse_text.text = str(current_cleanse)
+
+

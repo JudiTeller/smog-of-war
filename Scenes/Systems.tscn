@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3tsb50bcrox8"]
+[gd_scene load_steps=6 format=3 uid="uid://b3tsb50bcrox8"]
 
 [ext_resource type="Script" path="res://core/systems/ClickManager.gd" id="1_2wb4l"]
 [ext_resource type="Script" path="res://core/systems/BuildingManager.gd" id="2_xxop0"]
 [ext_resource type="Script" path="res://core/systems/RessourceManager.gd" id="3_eu31p"]
 [ext_resource type="PackedScene" uid="uid://dooa8s78jf36" path="res://Scenes/ui/hud.tscn" id="4_cicyw"]
+[ext_resource type="Script" path="res://core/systems/CleanseManager.gd" id="4_u162b"]
 
 [node name="Systems" type="Node2D"]
 
@@ -20,4 +21,11 @@ script = ExtResource("2_xxop0")
 script = ExtResource("3_eu31p")
 InfinitePeople = true
 
-[node name="hud" parent="." instance=ExtResource("4_cicyw")]
+[node name="CleanseManager" type="Node2D" parent="."]
+script = ExtResource("4_u162b")
+cleanse_score = 1e+08
+
+[node name="hud" parent="." node_paths=PackedStringArray("click_manager", "resource_manager", "cleanse_manager") instance=ExtResource("4_cicyw")]
+click_manager = NodePath("../ClickManager")
+resource_manager = NodePath("../RessourceManager")
+cleanse_manager = NodePath("../CleanseManager")
