@@ -2,7 +2,11 @@ extends Node2D
 
 class_name ResourceManager
 
+@export_category("Humans")
 @export var humans = 0
+@export_category("Air Quality")
+@export var startAirQuality = randi_range(0, 50) / 100.0
+@export var airQuality = startAirQuality
 
 @export_category("Cheats")
 @export var InfinitePeople = false
@@ -17,7 +21,7 @@ func _input(event):
 
 func addHumans(amount):
     if amount < 0:
-        push_error("addHumans called with negative amount")
+        push_error("addHumans called with negative amount (", amount, ")")
         return
 
     humans += amount
@@ -43,5 +47,23 @@ func spendIfPossible(amount):
         return true
     return false
 
+func isCityAirSafe():
+    return airQuality >= 1.0
+
+func increaseAirQuality(amount):
+    if amount < 0:
+        push_error("increaseAirQuality called with negative amount (", amount, ")")
+        return
+    if amount > 1.0:
+        push_error("increaseAirQuality called with amount > 1.0 (", amount, ")")
+        return
+
+    airQuality += amount
+    if airQuality > 1.0:
+        airQuality = 1.0
+
 func getHumans():
     return humans
+
+func getAirQuality():
+    return airQuality

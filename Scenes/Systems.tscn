@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://core/systems/ClickManager.gd" id="1_2wb4l"]
 [ext_resource type="Script" path="res://core/systems/BuildingManager.gd" id="2_xxop0"]
-[ext_resource type="Script" path="res://core/systems/RessourceManager.gd" id="3_eu31p"]
+[ext_resource type="Script" path="res://core/systems/ResourceManager.gd" id="3_eu31p"]
 
 [node name="Systems" type="Node2D"]
 

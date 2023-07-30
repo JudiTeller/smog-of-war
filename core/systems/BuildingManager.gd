@@ -17,7 +17,7 @@ func global_to_map(pos) -> Vector2i:
 func map_to_global(pos) -> Vector2:
     return tileMap.to_global(tileMap.map_to_local(Vector2(pos.x, pos.y)))
 
-func canPlace(pos: Vector2i, new_building: Building):
+func canPlace(pos: Vector2i, _new_building: Building):
     return worldGen.isTileEmpty(global_to_map(pos)) # TODO: add size check
 
 func placeBuilding(pos, new_building: Building, repaired:bool, skipTint: bool = false, skipCheck:bool = false):
