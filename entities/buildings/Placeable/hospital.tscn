@@ -29,6 +29,7 @@ Sprites = NodePath("Sprites")
 Name = "Hospital"
 Description = "Big medical facility to cure people. It can cure a big number of people at once."
 Cost = 2500
+value = 50.0
 
 [node name="Sprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_kqtgg")

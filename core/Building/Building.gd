@@ -9,6 +9,7 @@ class_name Building
 @export var Cost: int
 @export var Repaired: bool = false
 @export var Size: Vector2 = Vector2(128, 128)
+@export var value: float
 
 var placed: bool = false
 

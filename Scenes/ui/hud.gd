@@ -1,6 +1,7 @@
 extends Control
 
 @export var cleanse_threshold: float
+@export var building_manager: BuildingManager
 @export var click_manager: ClickManager
 @export var resource_manager: RessourceManager
 @export var cleanse_manager: CleanseManager
@@ -16,6 +17,7 @@ var current_cleanse: float
 func _ready():
     # cleanse_progress.max_value = cleanse_threshold
     menu_button.get_popup().connect("id_pressed", Callable(self, "on_build_menu_item_pressed"))
+    building_manager.connect("score_signal", Callable(cleanse_manager, "on_score_signal"))
     pass # Replace with function body.
 
 
@@ -44,5 +46,3 @@ func set_cleanse_threshold(new_threshold: float):
     cleanse_threshold = new_threshold
     cleanse_progress.max_value = cleanse_threshold
     cleanse_text.text = str(current_cleanse)
-
-

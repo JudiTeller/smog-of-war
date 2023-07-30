@@ -28,6 +28,7 @@ func placeBuilding(pos, building: Building, repaired:bool, tint: bool = false, s
     building.place_building()
     worldGen.place_building_at_tile(building, !tint)
     buildings.append(building)
+    emit_signal("score_signal", building.value)
     return true
 
 func getTileMap():
@@ -35,3 +36,5 @@ func getTileMap():
 
 func getWorldGen():
     return worldGen
+
+signal score_signal(value: float)

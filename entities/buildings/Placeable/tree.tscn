@@ -28,6 +28,7 @@ Sprites = NodePath("Sprites")
 Name = "Big Tree"
 Description = "Just a big tree. To generate small amouts of oxygen for the city district."
 Cost = 100
+value = 1.0
 
 [node name="Sprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_kqtgg")
