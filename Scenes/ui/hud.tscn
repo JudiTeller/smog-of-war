@@ -13,10 +13,18 @@ bg_color = Color(0, 0.341176, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_hcpjm"]
 
-[node name="hud" type="CanvasLayer"]
-script = ExtResource("1_kou0p")
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_force_pass_scroll_events = false
 
-[node name="Cleanse" type="Control" parent="."]
+[node name="hud" type="CanvasLayer" parent="."]
+script = ExtResource("1_kou0p")
+cleanse_threshold = 10000.0
+
+[node name="Cleanse" type="Control" parent="hud"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,7 +32,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CleanseProgress" type="ProgressBar" parent="Cleanse"]
+[node name="CleanseProgress" type="ProgressBar" parent="hud/Cleanse"]
 layout_mode = 2
 offset_left = 376.0
 offset_top = 20.0
@@ -32,10 +40,9 @@ offset_right = 776.0
 offset_bottom = 50.0
 theme_override_styles/background = SubResource("StyleBoxFlat_da2fc")
 theme_override_styles/fill = SubResource("StyleBoxFlat_bdorn")
-value = 22.37
 show_percentage = false
 
-[node name="CleanseText" type="Label" parent="Cleanse/CleanseProgress"]
+[node name="CleanseText" type="Label" parent="hud/Cleanse/CleanseProgress"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -49,7 +56,7 @@ vertical_alignment = 1
 clip_text = true
 max_lines_visible = 1
 
-[node name="Resources" type="Control" parent="."]
+[node name="Resources" type="Control" parent="hud"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 43.0
@@ -57,7 +64,7 @@ offset_top = 20.0
 offset_right = 299.0
 offset_bottom = 50.0
 
-[node name="Panel" type="Panel" parent="Resources"]
+[node name="Panel" type="Panel" parent="hud/Resources"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -65,12 +72,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LogoHumans" type="Sprite2D" parent="Resources/Panel"]
+[node name="LogoHumans" type="Sprite2D" parent="hud/Resources/Panel"]
 position = Vector2(15, 15)
 scale = Vector2(0.234, 0.234)
 texture = ExtResource("2_xf2yy")
 
-[node name="NumberHumans" type="Label" parent="Resources/Panel"]
+[node name="NumberHumans" type="Label" parent="hud/Resources/Panel"]
+layout_mode = 0
 offset_left = 35.0
 offset_right = 115.0
 offset_bottom = 30.0
@@ -78,12 +86,13 @@ text = "test"
 vertical_alignment = 1
 clip_text = true
 
-[node name="LogoMedics" type="Sprite2D" parent="Resources/Panel"]
+[node name="LogoMedics" type="Sprite2D" parent="hud/Resources/Panel"]
 position = Vector2(150, 15)
 scale = Vector2(0.234, 0.234)
 texture = ExtResource("2_xf2yy")
 
-[node name="NumberMedics" type="Label" parent="Resources/Panel"]
+[node name="NumberMedics" type="Label" parent="hud/Resources/Panel"]
+layout_mode = 0
 offset_left = 170.0
 offset_right = 250.0
 offset_bottom = 30.0
@@ -91,20 +100,39 @@ text = "test"
 vertical_alignment = 1
 clip_text = true
 
-[node name="MenuButton" type="MenuButton" parent="."]
+[node name="MenuButton" type="MenuButton" parent="hud"]
 offset_left = 1009.0
 offset_top = 534.0
 offset_right = 1073.0
 offset_bottom = 598.0
-item_count = 2
+mouse_force_pass_scroll_events = false
+item_count = 8
 popup/item_0/text = "test"
 popup/item_0/icon = ExtResource("2_xf2yy")
 popup/item_0/id = 0
 popup/item_1/text = "test2"
 popup/item_1/icon = ExtResource("3_7edb8")
 popup/item_1/id = 1
+popup/item_2/text = ""
+popup/item_2/icon = ExtResource("3_7edb8")
+popup/item_2/id = 2
+popup/item_3/text = ""
+popup/item_3/icon = ExtResource("3_7edb8")
+popup/item_3/id = 3
+popup/item_4/text = ""
+popup/item_4/icon = ExtResource("3_7edb8")
+popup/item_4/id = 4
+popup/item_5/text = ""
+popup/item_5/icon = ExtResource("3_7edb8")
+popup/item_5/id = 5
+popup/item_6/text = ""
+popup/item_6/icon = ExtResource("3_7edb8")
+popup/item_6/id = 6
+popup/item_7/text = ""
+popup/item_7/icon = ExtResource("3_7edb8")
+popup/item_7/id = 7
 
-[node name="Panel" type="Panel" parent="MenuButton"]
+[node name="Panel" type="Panel" parent="hud/MenuButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -113,7 +141,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="MenuButton"]
+[node name="Sprite2D" type="Sprite2D" parent="hud/MenuButton"]
 position = Vector2(32, 32)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_bip5y")

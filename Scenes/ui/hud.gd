@@ -1,6 +1,8 @@
 extends CanvasLayer
 
 @export var cleanse_threshold: float
+@export var click_manager: ClickManager
+@export var resource_manager: RessourceManager
 var current_cleanse: float
 
 
@@ -9,16 +11,18 @@ var current_cleanse: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-
+    cleanse_progress.max_value = cleanse_threshold
+    current_cleanse = 5234
     $MenuButton.get_popup().connect("id_pressed", Callable(self, "on_build_menu_item_pressed"))
     pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-    current_cleanse = 123.123
-    cleanse_progress.value = current_cleanse / cleanse_threshold
+func _process(_delta):
+
+    cleanse_progress.value = current_cleanse
     cleanse_text.text = str(current_cleanse).pad_decimals(0)
+
     pass
 
 
