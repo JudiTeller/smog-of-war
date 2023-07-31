@@ -82,6 +82,7 @@ speed = 150
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
+position = Vector2(0, -23)
 sprite_frames = SubResource("SpriteFrames_p1uq5")
 animation = &"walk_right"
 frame_progress = 0.537284
@@ -98,9 +99,16 @@ debug_enabled = true
 debug_path_custom_line_width = 12.36
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 0)
+position = Vector2(0, -23)
 shape = SubResource("RectangleShape2D_13bu5")
 one_way_collision_margin = 0.0
+
+[node name="click_area" type="Area2D" parent="."]
+position = Vector2(0, -23)
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="click_area"]
+shape = SubResource("RectangleShape2D_13bu5")
 
 [connection signal="timeout" from="Healthtick" to="." method="_on_healthtick_timeout"]
 [connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]

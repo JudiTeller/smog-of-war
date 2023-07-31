@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dw3pcbrxin5q8" path="res://assets/grounds/fundament.png" id="6_2q481"]
 [ext_resource type="PackedScene" uid="uid://dvl0vhb7qf0gb" path="res://core/systems/human_factory.tscn" id="6_b65kx"]
 [ext_resource type="PackedScene" uid="uid://b3tsb50bcrox8" path="res://Scenes/Systems.tscn" id="6_ufiuq"]
-[ext_resource type="Texture2D" uid="uid://bdjpac2o4jxye" path="res://assets/grounds/dirt.png" id="7_44n4w"]
+[ext_resource type="Texture2D" uid="uid://ds6cdma5f1m3" path="res://assets/grounds/dirt.png" id="7_44n4w"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t74nj"]
 resource_name = "streets"
