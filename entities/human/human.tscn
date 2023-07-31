@@ -106,7 +106,7 @@ one_way_collision_margin = 0.0
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="click_area"]
-shape = SubResource("RectangleShape2D_1fqhd")
+shape = SubResource("RectangleShape2D_13bu5")
 
 [connection signal="timeout" from="Healthtick" to="." method="_on_healthtick_timeout"]
 [connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]
