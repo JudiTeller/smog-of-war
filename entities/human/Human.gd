@@ -185,7 +185,7 @@ func cure(amount: int):
     suffocation -= amount
 
     if isCured():
-        onDeath()
+        call_deferred("onDeath")
 
 func onDeath():
     if isCured():
@@ -198,6 +198,6 @@ func onDeath():
 
 
 # signal endpoint for when a mouse click area entered the human click area
-func _on_click_area_entered(area: Click_Area):
+func _on_click_area_entered(area):
     if area is Click_Area:
         cure(area.click_value)

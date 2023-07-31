@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dt3sk166xrnyy"]
+[gd_scene load_steps=14 format=3 uid="uid://dt3sk166xrnyy"]
 
 [ext_resource type="Script" path="res://entities/human/Human.gd" id="1_yrqtw"]
 [ext_resource type="Texture2D" uid="uid://cv7rqb8pxmflj" path="res://assets/humans/walker/SpriteSheet.png" id="2_wygv7"]
@@ -75,6 +75,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13bu5"]
 size = Vector2(49, 62)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dkdab"]
+size = Vector2(49, 62)
+
 [node name="CharacterBody2D" type="CharacterBody2D" groups=["Human"]]
 collision_mask = 0
 script = ExtResource("1_yrqtw")
@@ -82,10 +85,9 @@ speed = 150
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, -23)
 sprite_frames = SubResource("SpriteFrames_p1uq5")
 animation = &"walk_right"
-frame_progress = 0.589329
+frame_progress = 0.537284
 
 [node name="Healthtick" type="Timer" parent="."]
 
@@ -99,17 +101,14 @@ debug_enabled = true
 debug_path_custom_line_width = 12.36
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -23)
 shape = SubResource("RectangleShape2D_13bu5")
 one_way_collision_margin = 0.0
 
-[node name="click_area" type="Area2D" parent="."]
-position = Vector2(0, -23)
-monitorable = false
+[node name="Area2D" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="click_area"]
-shape = SubResource("RectangleShape2D_13bu5")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_dkdab")
 
 [connection signal="timeout" from="Healthtick" to="." method="_on_healthtick_timeout"]
 [connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]
-[connection signal="area_entered" from="click_area" to="." method="_on_click_area_entered"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_click_area_entered"]
