@@ -35,6 +35,8 @@ func setup():
     popup_menu.connect("id_pressed", Callable(self, "on_build_menu_item_pressed"))
     building_manager.connect("score_signal", Callable(resource_manager, "on_score_signal"))
 
+    cleanse_progress.min_value = resource_manager.startAirQuality
+
     for i in range(building_manager.PLACEABLES.size()):
         var placeable_type = building_manager.PLACEABLES[i]
         var temp_instance: Building = placeable_type.instantiate()
@@ -47,12 +49,12 @@ func setup():
 func update_cleanse_progress():
     current_cleanse = resource_manager.airQuality
     cleanse_progress.value = current_cleanse
-    cleanse_text.text = str(current_cleanse).pad_decimals(0)
+    cleanse_text.text = str(current_cleanse).pad_decimals(3)
 
 # updates the resource counters with current value
 func update_resources():
-    humans_label.text = str(resource_manager.humans) 
-    # humans_label.medics = str(resource_manager.medics) 
+    humans_label.text = str(resource_manager.humans)
+    # humans_label.medics = str(resource_manager.medics)
 
 
 # selects the clicked entry from building list
