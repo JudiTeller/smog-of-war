@@ -1,9 +1,12 @@
 # SMOG OF WAR
-Smog of War is developed as submission for the [13th Pirate Software Game Jam](https://develop.games/gamejam/).  The game jam's theme is "Do No Harm".  
+Smog of War is developed as submission for the [13th Pirate Software Game Jam](https://develop.games/gamejam/). The game jam's theme is "Do No Harm".  
 
 In our game the player is sent to a city district full of smog, garbage and disease, and is supposed to reestablish a liveable environment for the city's population. 
 Our game aims to be a mix between a classic clicker game and a very basic city builder with a touch of resource management.  
 Initially, clicking gives the player access to basic resources, with which buildings can be placed / upgraded to get more resources or access new resources.
+
+## Release
+The game's prototype can be played and downloaded [here](https://lunide.itch.io/smog-of-war)
 
 
 ## Developers 
