@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=3 uid="uid://fu6almyo73ay"]
+
+[ext_resource type="Script" path="res://Scenes/game/end/game_end.gd" id="1_k3kmp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wgfkw"]
+bg_color = Color(0.0627451, 0.0784314, 0.0666667, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_t42ch"]
+font_size = 120
+
+[node name="game_end" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k3kmp")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wgfkw")
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 68.0
+offset_right = 1051.0
+offset_bottom = 298.0
+text = "District cleared!"
+label_settings = SubResource("LabelSettings_t42ch")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="nextLevel" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 220.0
+offset_top = 463.0
+offset_right = 470.0
+offset_bottom = 513.0
+theme_override_font_sizes/font_size = 30
+text = "Next District"
+metadata/_edit_group_ = true
+
+[node name="exit" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 682.0
+offset_top = 462.0
+offset_right = 932.0
+offset_bottom = 512.0
+theme_override_font_sizes/font_size = 30
+text = "Exit
+"
+metadata/_edit_group_ = true
+
+[connection signal="pressed" from="CanvasLayer/Panel/nextLevel" to="." method="on_new_district_clicked"]
+[connection signal="pressed" from="CanvasLayer/Panel/exit" to="." method="on_exit_clicked"]

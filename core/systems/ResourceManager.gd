@@ -53,7 +53,7 @@ func spendIfPossible(amount):
     return false
 
 func isCityClean():
-    return airQuality >= 1.0
+    return is_equal_approx(airQuality, 1.0)
 
 func increaseAirQuality(amount):
     if amount < 0:
@@ -68,7 +68,9 @@ func increaseAirQuality(amount):
         airQuality = 1.0
 
     if isCityClean():
+        print("clean!")
         emit_signal("WorldCleaned")
+        get_tree().change_scene_to_file("res://Scenes/game/end/game_end.tscn")
 
 func getHumans():
     return humans
