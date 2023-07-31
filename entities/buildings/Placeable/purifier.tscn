@@ -40,6 +40,37 @@ animation = &"broken"
 
 [node name="CureComponet" parent="." instance=ExtResource("3_r1sul")]
 Active = false
+Upgrades = [{
+"CureAmount": 0,
+"CureEffectiveness": 0.0,
+"CureRate": 0.0,
+"Radius": 0.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 0,
+"CureEffectiveness": 0.0,
+"CureRate": 0.0,
+"Radius": 0.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 0,
+"CureEffectiveness": 0.0,
+"CureRate": 0.0,
+"Radius": 0.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 0,
+"CureEffectiveness": 0.0,
+"CureRate": 0.0,
+"Radius": 0.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 0,
+"CureEffectiveness": 0.0,
+"CureRate": 0.0,
+"Radius": 0.0,
+"TickRate": 0.0
+}]
 
 [node name="AttractComponent" parent="." instance=ExtResource("4_pedpj")]
 Active = false
@@ -47,6 +78,58 @@ Radius = 1000.0
 AttractEffectiveness = 0.8
 resistChance = 0.02
 maxDistance = 390.0
+Upgrades = [{
+"AttractEffectiveness": 0.0,
+"Radius": 0,
+"TickRate": 0.0,
+"maxDistance": 0.0,
+"resistChance": 0.0
+}, {
+"AttractEffectiveness": 0.0,
+"Radius": 0,
+"TickRate": 0.0,
+"maxDistance": 0.0,
+"resistChance": 0.0
+}, {
+"AttractEffectiveness": 0.0,
+"Radius": 0,
+"TickRate": 0.0,
+"maxDistance": 0.0,
+"resistChance": 0.0
+}, {
+"AttractEffectiveness": 0.0,
+"Radius": 0,
+"TickRate": 0.0,
+"maxDistance": 0.0,
+"resistChance": 0.0
+}, {
+"AttractEffectiveness": 0.0,
+"Radius": 0,
+"TickRate": 0.0,
+"maxDistance": 0.0,
+"resistChance": 0.0
+}]
 
 [node name="AirQualityComponent" parent="." instance=ExtResource("5_xxg2r")]
 Delta = 0.001
+Upgrades = [{
+"CleaniseAmount": 0.003,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.003,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.0,
+"Delta": 0.0,
+"TickRate": -0.2
+}, {
+"CleaniseAmount": 0.003,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.006,
+"Delta": -0.001,
+"TickRate": 0.0
+}]

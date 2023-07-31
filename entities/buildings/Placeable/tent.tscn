@@ -43,12 +43,95 @@ Radius = 250.0
 CureRate = 2.0
 CureAmount = 6.0
 CureEffectiveness = 0.4
+Upgrades = [{
+"CureAmount": 1,
+"CureEffectiveness": 0.0,
+"CureRate": 1.0,
+"Radius": 30.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 1,
+"CureEffectiveness": 0.1,
+"CureRate": 1.0,
+"Radius": 30.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 0,
+"CureEffectiveness": 0.0,
+"CureRate": 0.0,
+"Radius": 30.0,
+"TickRate": -0.2
+}, {
+"CureAmount": 1,
+"CureEffectiveness": 0.0,
+"CureRate": 0.0,
+"Radius": 30.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 1,
+"CureEffectiveness": 0.1,
+"CureRate": 1.0,
+"Radius": 30.0,
+"TickRate": 0.0
+}]
 
 [node name="AttractComponent" parent="." instance=ExtResource("4_foa1p")]
 Radius = 750.0
 AttractEffectiveness = 0.3
 resistChance = 0.05
 maxDistance = 240.0
+Upgrades = [{
+"AttractEffectiveness": 0.1,
+"Radius": 50,
+"TickRate": 0.0,
+"maxDistance": 30.0,
+"resistChance": -0.01
+}, {
+"AttractEffectiveness": 0.1,
+"Radius": 50,
+"TickRate": 0.0,
+"maxDistance": 30.0,
+"resistChance": 0.0
+}, {
+"AttractEffectiveness": 0.0,
+"Radius": 50,
+"TickRate": 0.5,
+"maxDistance": 0.0,
+"resistChance": 0.0
+}, {
+"AttractEffectiveness": 0.1,
+"Radius": 50,
+"TickRate": 0.0,
+"maxDistance": 30.0,
+"resistChance": -0.01
+}, {
+"AttractEffectiveness": 0.1,
+"Radius": 50,
+"TickRate": 0.0,
+"maxDistance": 30.0,
+"resistChance": -0.01
+}]
 
 [node name="AirQualityComponent" parent="." instance=ExtResource("5_0qcdf")]
 Active = false
+Upgrades = [{
+"CleaniseAmount": 0.0,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.0,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.0,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.0,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.0,
+"Delta": 0.0,
+"TickRate": 0.0
+}]
