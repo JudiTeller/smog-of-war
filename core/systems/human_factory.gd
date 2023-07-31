@@ -2,19 +2,16 @@ extends Node2D
 
 class_name HumanFactory
 
-@export var human_node: Node2D
 @export var tilemap: TileMap
 @export var maxcap = 10
 @onready var human = preload("res://entities/human/human.tscn")
 
-var startpoint_arr: Array[Vector2]
+@onready var human_node = $humans
 
+var startpoint_arr: Array[Vector2]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-    if human_node == null:
-        push_error("You forgot to select a human_node")
-
     call_deferred("setup")
 
 func setup():
@@ -38,6 +35,9 @@ func spawn_humans(amount: int):
             # calculate to offset position
             random_spawn_vector.x -= Pathfinding.worldsize / 2.0
             random_spawn_vector.y -= Pathfinding.worldsize / 2.0
+            if !Pathfinding.spawn_locations_border.has(random_spawn_vector):
+                print("Error: Spawn location not found in spawn_locations_border")
+                return
 
             var new_human = human.instantiate()
             new_human.position = tilemap.to_global(tilemap.map_to_local(random_spawn_vector))
@@ -50,7 +50,8 @@ func spawn_humans(amount: int):
         set_startpoint_arr(Pathfinding.street_locations_border)
         push_error("Spawn locations not set for human factory!")
 
-
+func get_humans() -> Array[Human]:
+    return human_node.get_children()
 
 func calc_poly_area(a: Vector2, b: Vector2, c: Vector2):
     return abs((a.x * (b.y - c.y) + b.x * (c.y - a.y) + b.x * (a.y - b.y)) / 2)

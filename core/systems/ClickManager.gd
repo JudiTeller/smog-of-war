@@ -1,20 +1,21 @@
 extends Node2D
 
 @onready var buMan: BuildingManager = get_parent().get_node("BuildingManager")
-@onready var resMan: RessourceManager = get_parent().get_node("RessourceManager")
+@onready var resMan: ResourceManager = get_parent().get_node("ResourceManager")
 @onready var hover_sprite: Sprite2D = $HoverSprite
 
 enum Action {
     CLICK,
-    PLACE,
-    DESTORY
+    PLACE
 }
 
 var selectedBuilding: Building = null
 var currentAction: Action = Action.CLICK
 
 func _process(_delta):
-    if selectedBuilding != null and !selectedBuilding.isPlaced():
+    if selectedBuilding == null:
+        return
+    if hover_sprite.texture != null:
         hover_sprite.set_visible(true)
         var spritePos = buMan.map_to_global(buMan.global_to_map(get_global_mouse_position()))
         spritePos -= buMan.getWorldGen().getOffsetForBuildingSprite(hover_sprite, selectedBuilding.get_sprite_offset())
@@ -24,6 +25,7 @@ func _process(_delta):
             hover_sprite.set_modulate(Color(0, 1, 0, 0.8))
         else:
             hover_sprite.set_modulate(Color(1, 0, 0, 0.8))
+
 
 func _input(event):
     match currentAction:
@@ -37,20 +39,49 @@ func _input(event):
                 handlePlaceMouseInput(event)
             elif event is InputEventKey:
                 handlePlaceKeyInput(event)
-        Action.DESTORY:
-            if event is InputEventMouseButton:
-                handleDestoryMouseInput(event)
-            elif event is InputEventKey:
-                handleDestoryKeyInput(event)
 
 func handleClickMouseInput(event):
-    pass
+    if !event.pressed:
+        return
 
+    if event.button_index == MOUSE_BUTTON_RIGHT:
+        var mousePos = get_global_mouse_position()
+        var building = buMan.getBuildingAtGlobal(mousePos)
+        if building != null:
+            # If the clicked building is already selected, unselect it
+            if selectedBuilding == building:
+                selectedBuilding.toggleSelection()
+                selectedBuilding = null
+            # If the clicked building is not already selected, select it
+            else:
+                # If there is already a selected building, unselect it
+                if selectedBuilding != null:
+                    selectedBuilding.toggleSelection()
+                selectedBuilding = building
+                selectedBuilding.toggleSelection()
+        print("Clicked on: ", building)
+    elif event.button_index == MOUSE_BUTTON_LEFT:
+        pass # TODO: Clicker for Humans
+
+var buildings_hidden = false
 func handleClickKeyInput(event: InputEventKey):
     if !event.pressed:
         return
-    assert (selectedBuilding == null)
+
+    # Hides Buildings on spacebar press ##TEMPORARY## TODO: Remove
+    if event.as_text_keycode() == "Space":
+        var buildings = buMan.getWorldGen().Buildings.get_children()
+        for building in buildings:
+            building.visible = buildings_hidden
+        buildings_hidden = !buildings_hidden
+    if event.as_text_keycode() == "Delete":
+        if selectedBuilding != null and buMan.demolishBuilding(selectedBuilding):
+            cleanSelectedBuilding(false)
+        else:
+            print("Could not demolish building")
     if event.as_text_keycode() == "1":
+        if selectedBuilding != null:
+            selectedBuilding.toggleSelection()
         var new_building = preload("res://entities/buildings/Placeable/hospital.tscn").instantiate()
         selectedBuilding = new_building
         hover_sprite.set_texture(selectedBuilding.getTexture(true).duplicate())
@@ -60,35 +91,22 @@ func handlePlaceMouseInput(event):
     if !event.pressed or selectedBuilding == null or event.button_index != MOUSE_BUTTON_LEFT:
         return
     var mousePos = get_global_mouse_position()
-    if buMan.canPlace(mousePos, selectedBuilding):
-        if resMan.spendIfPossible(selectedBuilding.get_building_cost()):
-            buMan.placeBuilding(mousePos, selectedBuilding, true)
-            cleanSelectedBuilding(true)
-            currentAction = Action.CLICK
-        else:
-            print("Not enough ressources")
-    else:
-        print("Can't place here")
+    if buMan.placeBuilding(mousePos, selectedBuilding, true):
+        cleanSelectedBuilding(false)
+        currentAction = Action.CLICK
 
 func handlePlaceKeyInput(event: InputEventKey):
     if !event.pressed:
         return
     if event.as_text_keycode() == "Escape":
-        cleanSelectedBuilding(false)
+        cleanSelectedBuilding(true)
         currentAction = Action.CLICK
 
-func handleDestoryMouseInput(event):
-    pass
-
-func handleDestoryKeyInput(event):
-    pass
-
-func cleanSelectedBuilding(placed: bool):
+func cleanSelectedBuilding(free_building: bool):
     if selectedBuilding == null:
         return
-
     hover_sprite.set_texture(null)
     hover_sprite.set_visible(false)
-    if !placed:
+    if free_building and selectedBuilding != null:
         selectedBuilding.queue_free()
     selectedBuilding = null

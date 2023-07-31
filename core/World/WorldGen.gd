@@ -223,7 +223,7 @@ func generate_tiles():
             var pixel = noodleNoise.get_pixel(x + size, y + size).r
             if pixel == 1.0: # House
                 var random_choice: Building = get_random_building()
-                buMan.placeBuilding(buMan.map_to_global(Vector2(x, y)), random_choice, false, true, true)
+                buMan.placeBuilding(buMan.map_to_global(Vector2(x, y)), random_choice, false, false, true)
             elif pixel > 0.0: # Street
                 streets.append(Vector2(x, y))
             else: # Nothing
@@ -249,20 +249,27 @@ func get_random_building() -> Building:
 func place_building_at_tile(new_building: Building, skipTint: bool = false):
     var Sprites: AnimatedSprite2D = new_building.get_node("Sprites")
     var sprite: Texture2D = Sprites.sprite_frames.get_frame_texture(Sprites.animation, Sprites.frame) # current sprite
-    var tileCords = new_building.position
-    var cords = WorldTileMap.to_global(WorldTileMap.map_to_local(new_building.position))
+    var tileCords = new_building.get_tile_cords()
+
     # random tint of base_color for the sprite
     if !skipTint:
         var colorOff = randomGen.randf()
         var tintColor = BUILDING_TINT + Color(colorOff, colorOff, colorOff, 0.0)
         Sprites.modulate = tintColor
-    
-    new_building.position = cords
+
     new_building.position.y -= int(sprite.get_height() / 2.0) - new_building.get_sprite_offset().y - BUILDING_DEFAULT_OFFSET
-    new_building.z_index = int(tileCords.y) + int((WORLD_SIZE/2.0)) # Formula = y_pos + the half of the world size to start at 0
+    new_building.z_index = int(tileCords.y) + int((WORLD_SIZE/2.0)) # Formula = y_pos + the half of the world size to start at 0 #TODO: Fix Z-Index with grouping buildings
+
     # Foundation
     WorldTileMap.set_cell(0, tileCords, 2, Vector2(0, 0))
     Buildings.add_child(new_building)
+
+func remove_building_at_tile(buildingToRemove: Building):
+    var tileCords = buildingToRemove.position
+    Buildings.remove_child(buildingToRemove)
+    buildingToRemove.queue_free()
+    WorldTileMap.set_cell(0, tileCords, 1, Vector2(0, 0))
+
 
 func isTileEmpty(tileCords: Vector2i) -> bool:
     # check if tile exists

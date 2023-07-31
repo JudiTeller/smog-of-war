@@ -1,43 +1,49 @@
 extends CharacterBody2D
 class_name Human
 
-@onready var root: Node2D = get_parent()
-var target: Vector2
+@export_group("Health")
+@export var health = 100
+@export var maxhealth = 100
+@export var maxsuff = 10
+@export var suffocation = randi_range(5, maxsuff)
+
+@export_group("Movement")
+@export var acceleration = 7
+@export var speed = 300
+
+@export_group("Navigation")
+@export var region_index: int
+
+@onready var nav: NavigationAgent2D = $NavigationAgent2D
+@onready var ruMan: ResourceManager = get_parent().get_parent().get_parent().get_parent().get_node("Systems/ResourceManager")
+
 var current_nav_target: Vector2
 var navigation_arr: PackedVector2Array
 var navigation_counter: int = 0
-@onready var nav: NavigationAgent2D = $NavigationAgent2D
-var tilemap: TileMap
 var nav_astar: AStar2D
+var target: Vector2
+var tilemap: TileMap
+var waitAfterTargetReached: bool = false
 
-@export var speed = 300
-@export var acceleration = 7
-var region_index: int
-
-@export var maxhealth = 100
-@export var health = 100
-@export var maxsuff = 10
-@export var suffocation = 10
-
+signal HumanCured(human: Human)
+signal HumanDied(human: Human)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
     $Healthtick.start()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-    pass
-
+    connect("HumanCured", ruMan.onHumanCured)
 
 func _physics_process( delta: float, ) -> void:
     # checks if human has reached target or navigation node
-    if is_near_target():
+    if is_near_target() and !waitAfterTargetReached:
         _set_target(get_random_target_position())
 
     if is_near_nav_location():
         advance_nav_path()
-
+    
+    if is_near_target() and waitAfterTargetReached:
+        # Skip Movement if he is waiting at the target
+        return
     # always walks to next navigation node
     var direction = global_position.direction_to(tilemap.to_global(tilemap.map_to_local(current_nav_target)))
     global_position += direction * delta * speed
@@ -52,6 +58,32 @@ func _set_target(new_target: Vector2):
 
     pass
 
+func setWaitAfterTargetReached(wait: bool):
+    waitAfterTargetReached = wait
+
+func get_nearest_Points(pos: Vector2, amount=1) -> Array[Vector2]:
+    # Get amount nearest points to pos
+    var walkable_region := Pathfinding.walkable_nodes_regions[region_index]
+    var points:Array[Vector2] = []
+    var distances = []
+
+    for i in range(walkable_region.size()):
+        var point = walkable_region[i]
+        var distance = pos.distance_to(point)
+        distances.append(distance)
+        points.append(point)
+    
+    if amount > points.size():
+        amount = points.size()
+
+    var sorted = distances.duplicate()
+    sorted.sort()
+    var result:Array[Vector2] = []
+    for i in range(amount):
+        var index = distances.find(sorted[i])
+        result.append(points[index])
+
+    return result
 
 func get_random_target_position() -> Vector2:
     var random_index: int = randi_range(0, Pathfinding.walkable_nodes_regions[region_index].size() - 1)
@@ -118,20 +150,34 @@ func set_tilemap(map: TileMap):
     tilemap = map
 
 
-
-func _input( event: InputEvent, ) -> void:
-    pass
-
-
 func _on_healthtick_timeout():
-    pass # Replace with function body.
+    health -= suffocation
 
-
-func _on_navigation_agent_2d_target_reached():
-    get_parent().remove_child(self)
-    queue_free()
-    pass # Replace with function body.
+    if health <= 0:
+        onDeath()
 
 
 func get_nav_agent() -> NavigationAgent2D:
     return nav
+
+func isCured() -> bool:
+    return suffocation <= 0
+
+func cure(amount: int):
+    if amount < 0:
+        push_error("cure amount must be positive")
+        return
+
+    suffocation -= amount
+
+    if isCured():
+        onDeath()
+
+func onDeath():
+    if isCured():
+        emit_signal("HumanCured", self)
+    else:
+        emit_signal("HumanDied", self)
+
+    get_parent().remove_child(self)
+    self.queue_free()

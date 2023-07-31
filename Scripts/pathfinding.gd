@@ -22,11 +22,6 @@ func generate_walkable_nodes():
 
         # calculate lower and upper limit for coords, as word is split around scene 0,0 coordinate
         var size = worldsize/2.0
-
-        # size to int, if size needs to be floored +1
-        var upper = size
-        if size - int(size) > 0.0:
-            upper += 1
         
         # iterate over ref_array and check in tilemap if this tile is a street
         for y in range(worldsize):
