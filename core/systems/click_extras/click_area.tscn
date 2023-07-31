@@ -12,7 +12,7 @@ script = ExtResource("1_uokwx")
 shape = SubResource("CircleShape2D_4u6d2")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.075
+wait_time = 0.05
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
