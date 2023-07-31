@@ -31,6 +31,7 @@ signal HumanDied(human: Human)
 # Called when the node enters the scene tree for the first time.
 func _ready():
     $Healthtick.start()
+    $AnimatedSprite2D.play()
     connect("HumanCured", ruMan.onHumanCured)
 
 func _physics_process( delta: float, ) -> void:
@@ -49,6 +50,12 @@ func _physics_process( delta: float, ) -> void:
     global_position += direction * delta * speed
 
     calc_z_index()
+
+    if direction.x < 0:
+        $AnimatedSprite2D.animation = "walk_left"
+    else:
+        $AnimatedSprite2D.animation = "walk_right"
+
 
 func _set_target(new_target: Vector2):
     target = new_target
