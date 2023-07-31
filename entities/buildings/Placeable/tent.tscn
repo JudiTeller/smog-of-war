@@ -32,6 +32,7 @@ Name = "Medical & Emergency Tent"
 Description = "A small medical emergency tent to cure some people."
 Cost = 500
 value = 10.0
+hasComponents = true
 
 [node name="Sprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_kqtgg")

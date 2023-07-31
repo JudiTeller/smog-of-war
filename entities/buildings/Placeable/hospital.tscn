@@ -33,12 +33,13 @@ Name = "Hospital"
 Description = "Big medical facility to cure people. It can cure a big number of people at once."
 Cost = 2500
 value = 50.0
+hasComponents = true
 
 [node name="Sprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_kqtgg")
 animation = &"repaired"
 
-[node name="CureComponents" parent="." instance=ExtResource("4_bdlus")]
+[node name="CureComponent" parent="." instance=ExtResource("4_bdlus")]
 Radius = 400.0
 CureRate = 4.0
 CureAmount = 50.0

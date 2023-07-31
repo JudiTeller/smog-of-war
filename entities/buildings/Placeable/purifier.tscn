@@ -32,6 +32,7 @@ Name = "Air Purifier"
 Description = "A modern air purifier machine to purify a large amount of air."
 Cost = 2500
 value = 100.0
+hasComponents = true
 
 [node name="Sprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_kqtgg")

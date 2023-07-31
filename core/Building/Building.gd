@@ -21,21 +21,26 @@ class_name Building
 @export var RefundPercentage: float = 0.25
 @export var selectionColor: Color = Color(1, 0, 0, 1)
 @export var value: float
-
-# Components
-@onready var CureComp: CureComponent = $CureComponent
-@onready var AttractComp: AttractComponent = $AttractComponent
-@onready var AirQualityComp: AirQualityComponent = $AirQualityComponent
+@export var hasComponents: bool = false
 
 var tileCords: Vector2i = Vector2i.ZERO
 var placed: bool = false
 var selected: bool = false
+
+var CureComp: CureComponent
+var AttractComp: AttractComponent
+var AirQualityComp: AirQualityComponent
 
 func _ready():
     if not Repaired:
         Sprites.play("broken")
     else:
         Sprites.play("repaired")
+    
+    if hasComponents:
+        CureComp = $CureComponent
+        AttractComp = $AttractComponent
+        AirQualityComp = $AirQualityComponent
 
     upgrade(-1, true)
 
@@ -126,11 +131,17 @@ func get_upgrade_cost():
     return int(formula)
 
 func isMaxLevel():
+    if not hasComponents:
+        return false
+
     return min(CureComp.getUpgradeMaxLevel(), 
         AttractComp.getUpgradeMaxLevel(), 
         AirQualityComp.getUpgradeMaxLevel()) == Level
 
 func upgrade(force_level=-1, skipLevelUp=false):
+    if not hasComponents:
+        return
+
     var lev = Level
     if force_level != -1:
         lev = force_level
