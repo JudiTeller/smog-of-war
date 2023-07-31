@@ -5,13 +5,14 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_4u6d2"]
 
 [node name="click_area" type="Area2D"]
+monitoring = false
 script = ExtResource("1_uokwx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_4u6d2")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.04
+wait_time = 0.05
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

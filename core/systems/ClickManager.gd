@@ -116,7 +116,7 @@ func cleanSelectedBuilding(free_building: bool):
     selectedBuilding = null
 
 func human_click():
-    var click_area: Click_Area = preload("res://core/systems/click_extras/click_area.tscn").instantiate()
+    var click_area: Click_Area = load("res://core/systems/click_extras/click_area.tscn").instantiate()
     var area_collision: CollisionShape2D = click_area.get_child(0)
     area_collision.shape.radius = resMan.click_area_size
 
