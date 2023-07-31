@@ -8,6 +8,9 @@ class_name ResourceManager
 @export var startAirQuality = randi_range(0, 50) / 100.0
 @export var airQuality = startAirQuality
 
+@export_category("Misc")
+@export var click_area_size: int = 1
+
 @export_category("Cheats")
 @export var InfinitePeople = false
 

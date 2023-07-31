@@ -25,6 +25,7 @@ PLACEABLES = Array[PackedScene]([ExtResource("3_xqdau"), ExtResource("4_am758"),
 [node name="ResourceManager" type="Node2D" parent="."]
 script = ExtResource("3_eu31p")
 humans = 2500
+click_area_size = 376
 
 [node name="CleanseManager" type="Node2D" parent="."]
 script = ExtResource("4_u162b")
