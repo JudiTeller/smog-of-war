@@ -16,34 +16,20 @@ func _process(_delta):
 func _unhandled_input(event):
         # simple camera movement
 
-        if Input.is_action_pressed("ui_shift"):
-            cur_speed += 2
-        elif Input.is_action_just_released("ui_control"):
-            cur_speed -= 2
-    
-        cur_speed = clamp(cur_speed, 1, 10000)
-    
-        if Input.is_action_pressed("ui_right"):
-            position.x += cur_speed
-        if Input.is_action_pressed("ui_left"):
-            position.x -= cur_speed
-        if Input.is_action_pressed("ui_up"):
-            position.y -= cur_speed
-        if Input.is_action_pressed("ui_down"):
-            position.y += cur_speed
-    
-        # zoom in and out with mouse wheel
-        var newZoom = get_zoom().x
-        if Input.is_action_just_released('wheel_down'):
-            newZoom -= 0.25
-        if Input.is_action_just_released('wheel_up'):
-            newZoom += 0.25
-        newZoom = max(0.25, newZoom)
-        set_zoom(Vector2(newZoom, newZoom))
-    
-        # Temporary
-        # Hides Buildings on spacebar press
-        if Input.is_action_just_released("ui_space"):
-            var buildings = %World.Buildings.get_children()
-            for building in buildings:
-                building.visible = !building.visible
+    if Input.is_action_pressed("ui_right"):
+        position.x += cur_speed
+    if Input.is_action_pressed("ui_left"):
+        position.x -= cur_speed
+    if Input.is_action_pressed("ui_up"):
+        position.y -= cur_speed
+    if Input.is_action_pressed("ui_down"):
+        position.y += cur_speed
+
+    # zoom in and out with mouse wheel
+    var newZoom = get_zoom().x
+    if Input.is_action_just_released('wheel_down'):
+        newZoom -= 0.25
+    if Input.is_action_just_released('wheel_up'):
+        newZoom += 0.25
+    newZoom = max(0.25, newZoom)
+    set_zoom(Vector2(newZoom, newZoom))

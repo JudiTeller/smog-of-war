@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4qsa7t7wl5ys"]
+[gd_scene load_steps=7 format=3 uid="uid://c4qsa7t7wl5ys"]
 
 [ext_resource type="Script" path="res://core/Building/Building.gd" id="1_ijdbh"]
 [ext_resource type="Texture2D" uid="uid://rkbttwx5domu" path="res://assets/buildings/purifier/repaired.png" id="2_jdca6"]
+[ext_resource type="PackedScene" uid="uid://sthqtvatx8sj" path="res://entities/buildings/Components/CureComponent.tscn" id="3_r1sul"]
+[ext_resource type="PackedScene" uid="uid://b1i66e6hv4pjx" path="res://entities/buildings/Components/AttractComponent.tscn" id="4_pedpj"]
+[ext_resource type="PackedScene" uid="uid://bqrir0qhm8u3p" path="res://entities/buildings/Components/AirQualityComponent.tscn" id="5_xxg2r"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kqtgg"]
 animations = [{
@@ -33,3 +36,16 @@ value = 100.0
 [node name="Sprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_kqtgg")
 animation = &"broken"
+
+[node name="CureComponet" parent="." instance=ExtResource("3_r1sul")]
+Active = false
+
+[node name="AttractComponent" parent="." instance=ExtResource("4_pedpj")]
+Active = false
+Radius = 1000.0
+AttractEffectiveness = 0.8
+resistChance = 0.02
+maxDistance = 390.0
+
+[node name="AirQualityComponent" parent="." instance=ExtResource("5_xxg2r")]
+Delta = 0.001

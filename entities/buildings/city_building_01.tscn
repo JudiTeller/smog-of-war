@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://7gqpcq0wie5s"]
 
 [ext_resource type="Script" path="res://core/Building/Building.gd" id="1_p3v7f"]
-[ext_resource type="Texture2D" path="res://assets/buildings/Residential/skyscraper/skyscraper_broken.png" id="2_1c8yy"]
-[ext_resource type="Texture2D" path="res://assets/buildings/Residential/skyscraper/skyscraper_repaired.png" id="3_8yinq"]
+[ext_resource type="Texture2D" uid="uid://db1xnffpwrmbv" path="res://assets/buildings/Residential/skyscraper/skyscraper_broken.png" id="2_1c8yy"]
+[ext_resource type="Texture2D" uid="uid://c7aq2u0gye4tl" path="res://assets/buildings/Residential/skyscraper/skyscraper_repaired.png" id="3_8yinq"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_45c47"]
 animations = [{
@@ -27,6 +27,7 @@ animations = [{
 script = ExtResource("1_p3v7f")
 Sprites = NodePath("Sprites")
 Name = "Skyscraper"
+canBeDemolished = false
 
 [node name="Sprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_45c47")
