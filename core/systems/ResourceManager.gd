@@ -75,3 +75,6 @@ func getHumans():
 
 func getAirQuality():
     return airQuality
+
+func on_score_signal(value: float):
+    airQuality += value / 20000

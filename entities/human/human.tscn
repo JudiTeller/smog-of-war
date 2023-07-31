@@ -84,7 +84,7 @@ speed = 150
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_p1uq5")
 animation = &"walk_right"
-frame_progress = 0.589329
+frame_progress = 0.537284
 
 [node name="Healthtick" type="Timer" parent="."]
 
@@ -102,12 +102,5 @@ position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_13bu5")
 one_way_collision_margin = 0.0
 
-[node name="click_area" type="Area2D" parent="."]
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="click_area"]
-shape = SubResource("RectangleShape2D_1fqhd")
-
 [connection signal="timeout" from="Healthtick" to="." method="_on_healthtick_timeout"]
 [connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]
-[connection signal="area_entered" from="click_area" to="." method="_on_click_area_entered"]
