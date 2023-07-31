@@ -1,17 +1,90 @@
-[gd_scene load_steps=4 format=3 uid="uid://dt3sk166xrnyy"]
+[gd_scene load_steps=13 format=3 uid="uid://dt3sk166xrnyy"]
 
 [ext_resource type="Script" path="res://entities/human/Human.gd" id="1_yrqtw"]
-[ext_resource type="Texture2D" uid="uid://brcr0i6hs1sfq" path="res://icon.svg" id="2_iavso"]
+[ext_resource type="Texture2D" uid="uid://cv7rqb8pxmflj" path="res://assets/humans/walker/SpriteSheet.png" id="2_wygv7"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_jysyb"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_v32lh"]
+atlas = ExtResource("2_wygv7")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y5qn6"]
+atlas = ExtResource("2_wygv7")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bvj37"]
+atlas = ExtResource("2_wygv7")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rivi8"]
+atlas = ExtResource("2_wygv7")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kuu25"]
+atlas = ExtResource("2_wygv7")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6ub1"]
+atlas = ExtResource("2_wygv7")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fvy62"]
+atlas = ExtResource("2_wygv7")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sjlqt"]
+atlas = ExtResource("2_wygv7")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p1uq5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v32lh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y5qn6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bvj37")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rivi8")
+}],
+"loop": true,
+"name": &"walk_left",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kuu25")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6ub1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fvy62")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sjlqt")
+}],
+"loop": true,
+"name": &"walk_right",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13bu5"]
+size = Vector2(49, 62)
 
 [node name="CharacterBody2D" type="CharacterBody2D" groups=["Human"]]
 collision_mask = 0
 script = ExtResource("1_yrqtw")
+speed = 150
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("2_iavso")
+sprite_frames = SubResource("SpriteFrames_p1uq5")
+animation = &"walk_right"
+frame_progress = 0.589329
 
 [node name="Healthtick" type="Timer" parent="."]
 
@@ -25,7 +98,8 @@ debug_enabled = true
 debug_path_custom_line_width = 12.36
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_jysyb")
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_13bu5")
 one_way_collision_margin = 0.0
 
 [connection signal="timeout" from="Healthtick" to="." method="_on_healthtick_timeout"]

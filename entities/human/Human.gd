@@ -31,6 +31,7 @@ signal HumanDied(human: Human)
 # Called when the node enters the scene tree for the first time.
 func _ready():
     $Healthtick.start()
+    $AnimatedSprite2D.play()
     connect("HumanCured", ruMan.onHumanCured)
 
 func _physics_process( delta: float, ) -> void:
@@ -40,13 +41,19 @@ func _physics_process( delta: float, ) -> void:
 
     if is_near_nav_location():
         advance_nav_path()
-    
+
     if is_near_target() and waitAfterTargetReached:
         # Skip Movement if he is waiting at the target
         return
     # always walks to next navigation node
     var direction = global_position.direction_to(tilemap.to_global(tilemap.map_to_local(current_nav_target)))
     global_position += direction * delta * speed
+
+    if direction.x < 0:
+        $AnimatedSprite2D.animation = "walk_left"
+    else:
+        $AnimatedSprite2D.animation = "walk_right"
+
 
 func _set_target(new_target: Vector2):
     target = new_target
@@ -72,7 +79,7 @@ func get_nearest_Points(pos: Vector2, amount=1) -> Array[Vector2]:
         var distance = pos.distance_to(point)
         distances.append(distance)
         points.append(point)
-    
+
     if amount > points.size():
         amount = points.size()
 
