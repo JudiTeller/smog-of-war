@@ -18,3 +18,4 @@ script = ExtResource("2_xxop0")
 [node name="ResourceManager" type="Node2D" parent="."]
 script = ExtResource("3_eu31p")
 humans = 2500
+click_area_size = 376

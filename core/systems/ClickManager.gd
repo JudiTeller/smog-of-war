@@ -12,7 +12,11 @@ enum Action {
 var selectedBuilding: Building = null
 var currentAction: Action = Action.CLICK
 
+var click_area: Click_Area
+var click_value: int = 1
+
 func _process(_delta):
+
     if selectedBuilding == null:
         return
     if hover_sprite.texture != null:
@@ -61,7 +65,7 @@ func handleClickMouseInput(event):
                 selectedBuilding.toggleSelection()
         print("Clicked on: ", building)
     elif event.button_index == MOUSE_BUTTON_LEFT:
-        pass # TODO: Clicker for Humans
+        human_click()
 
 var buildings_hidden = false
 func handleClickKeyInput(event: InputEventKey):
@@ -110,3 +114,17 @@ func cleanSelectedBuilding(free_building: bool):
     if free_building and selectedBuilding != null:
         selectedBuilding.queue_free()
     selectedBuilding = null
+
+func human_click():
+    click_area = preload("res://core/systems/click_extras/click_area.tscn").instantiate()
+    var area_collision: CollisionShape2D = click_area.get_child(0)
+    area_collision.shape.radius = resMan.click_area_size
+
+    var collision_shape = CircleShape2D.new()
+    collision_shape.radius = resMan.click_area_size
+    area_collision.shape = collision_shape
+    click_area.add_child(area_collision)
+    click_area.position = get_global_mouse_position()
+    click_area.monitorable = true
+
+    add_child(click_area)

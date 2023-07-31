@@ -40,7 +40,7 @@ func _physics_process( delta: float, ) -> void:
 
     if is_near_nav_location():
         advance_nav_path()
-    
+
     if is_near_target() and waitAfterTargetReached:
         # Skip Movement if he is waiting at the target
         return
@@ -74,7 +74,7 @@ func get_nearest_Points(pos: Vector2, amount=1) -> Array[Vector2]:
         var distance = pos.distance_to(point)
         distances.append(distance)
         points.append(point)
-    
+
     if amount > points.size():
         amount = points.size()
 
@@ -188,3 +188,10 @@ func onDeath():
 
     get_parent().remove_child(self)
     self.queue_free()
+
+
+func _on_click_area_entered(area):
+    cure()
+
+    print("click received!")
+    pass # Replace with function body.
