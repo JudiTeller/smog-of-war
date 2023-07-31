@@ -30,8 +30,7 @@ click_area_size = 376
 [node name="CleanseManager" type="Node2D" parent="."]
 script = ExtResource("4_u162b")
 
-[node name="hud" parent="." node_paths=PackedStringArray("building_manager", "click_manager", "resource_manager", "cleanse_manager") instance=ExtResource("4_cicyw")]
+[node name="hud" parent="." node_paths=PackedStringArray("building_manager", "click_manager", "resource_manager") instance=ExtResource("4_cicyw")]
 building_manager = NodePath("../BuildingManager")
 click_manager = NodePath("../ClickManager")
 resource_manager = NodePath("../ResourceManager")
-cleanse_manager = NodePath("../CleanseManager")

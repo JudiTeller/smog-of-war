@@ -52,8 +52,8 @@ func update_cleanse_progress():
 
 # updates the resource counters with current value
 func update_resources():
-    humans_label.text = str(resource_manager.humans) 
-    # humans_label.medics = str(resource_manager.medics) 
+    humans_label.text = str(resource_manager.humans)
+    # humans_label.medics = str(resource_manager.medics)
 
 
 # selects the clicked entry from building list
