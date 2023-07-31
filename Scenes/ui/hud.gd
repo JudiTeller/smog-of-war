@@ -28,10 +28,9 @@ func _ready():
 func _process(_delta):
     update_cleanse_progress()
     update_resources()
-
     pass
 
-
+# setup all needed variables and building list
 func setup():
     popup_menu = menu_button.get_popup()
     popup_menu.connect("id_pressed", Callable(self, "on_build_menu_item_pressed"))
@@ -40,20 +39,24 @@ func setup():
     for i in range(building_manager.PLACEABLES.size()):
         var placeable_type = building_manager.PLACEABLES[i]
         var temp_instance: Building = placeable_type.instantiate()
-        popup_menu.add_item(temp_instance.Name)
+        popup_menu.add_item(str(temp_instance.Cost))
         var icon_texture: Texture2D = temp_instance.get_child(0).sprite_frames.get_frame_texture("repaired", 0)
         popup_menu.set_item_icon(i, icon_texture)
         pass
 
+# updates the progress bar with current values
 func update_cleanse_progress():
     current_cleanse = cleanse_manager.cleanse_score
     cleanse_progress.value = current_cleanse
     cleanse_text.text = str(current_cleanse).pad_decimals(0)
 
+# updates the resource counters with current value
 func update_resources():
     humans_label.text = str(resource_manager.humans) 
     # humans_label.medics = str(resource_manager.medics) 
 
+
+# selects the clicked entry from building list
 func on_build_menu_item_pressed(index: int):
     click_manager.currentAction = ClickManager.Action.PLACE
 

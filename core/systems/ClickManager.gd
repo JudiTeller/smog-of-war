@@ -28,7 +28,7 @@ func _process(_delta):
         else:
             hover_sprite.set_modulate(Color(1, 0, 0, 0.8))
 
-func _unhandled_input(event):
+func _input(event):
     match currentAction:
         Action.CLICK:
             if event is InputEventMouseButton:
