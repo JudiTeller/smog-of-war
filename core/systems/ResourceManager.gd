@@ -10,11 +10,15 @@ class_name ResourceManager
 
 @export_category("Misc")
 @export var click_area_size: int = 1
+@export var MusicChangeThreshold: float = 0.8
 
 @export_category("Cheats")
 @export var InfinitePeople = false
 
+var moodChanged = false
+
 signal WorldCleaned()
+signal MusicChange(mood: String)
 
 func _input(event):
     if event.is_action_pressed("key_z"):
@@ -66,7 +70,10 @@ func increaseAirQuality(amount):
     airQuality += amount
     if airQuality > 1.0:
         airQuality = 1.0
-
+    
+    if airQuality >= MusicChangeThreshold and !moodChanged:
+        emit_signal("MusicChange", "happy")
+        moodChanged = true
     if isCityClean():
         print("clean!")
         emit_signal("WorldCleaned")

@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://core/systems/CleanseManager.gd" id="4_u162b"]
 [ext_resource type="PackedScene" uid="uid://414v0j42mo1k" path="res://entities/buildings/Placeable/hospital.tscn" id="5_l5boj"]
 [ext_resource type="PackedScene" uid="uid://c4qsa7t7wl5ys" path="res://entities/buildings/Placeable/purifier.tscn" id="6_2ukmq"]
+[ext_resource type="PackedScene" uid="uid://dyu5rdmhlwngw" path="res://Scripts/Music_Manager.tscn" id="9_nxqh8"]
 
 [node name="Systems" type="Node2D"]
 
@@ -30,3 +31,5 @@ humans = 2500
 building_manager = NodePath("../BuildingManager")
 click_manager = NodePath("../ClickManager")
 resource_manager = NodePath("../ResourceManager")
+
+[node name="MusicManager" parent="." instance=ExtResource("9_nxqh8")]
