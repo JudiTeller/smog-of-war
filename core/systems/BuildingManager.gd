@@ -7,7 +7,12 @@ class_name BuildingManager
 
 @onready var resMan: ResourceManager = get_parent().get_node("ResourceManager")
 
-var buildings = []
+@export var PLACEABLES: Array[PackedScene] = [
+    preload("res://entities/buildings/Placeable/hospital.tscn")
+]
+
+
+var buildings: Array[Building] = []
 var selected_building = null
 
 func global_to_map(pos) -> Vector2i:
@@ -22,7 +27,7 @@ func canPlace(pos: Vector2i, _new_building: Building):
 
 func placeBuilding(pos, new_building: Building, repaired:bool, skipTint: bool = false, skipCheck:bool = false):
     if !skipCheck and (!canPlace(pos, new_building) or !resMan.spendIfPossible(new_building.get_building_cost())):
-        return false 
+        return false
 
     var tile_pos = global_to_map(pos)
     pos = map_to_global(tile_pos)
@@ -32,7 +37,7 @@ func placeBuilding(pos, new_building: Building, repaired:bool, skipTint: bool = 
     new_building.place_building()
     worldGen.place_building_at_tile(new_building, skipTint)
     buildings.append(new_building)
-    emit_signal("score_signal", building.value)
+    emit_signal("score_signal", new_building.value)
     return true
 
 func demolishBuilding(building: Building):
@@ -48,7 +53,7 @@ func getBuildingAtTile(tileCords: Vector2i):
     for building in buildings:
         if building.get_tile_cords() == tileCords:
             if found_building != null: # Should never happen
-                push_error("Multiple buildings at same tile") 
+                push_error("Multiple buildings at same tile")
                 return null
             found_building = building
     return found_building
