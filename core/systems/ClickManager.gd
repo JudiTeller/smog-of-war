@@ -83,13 +83,6 @@ func handleClickKeyInput(event: InputEventKey):
             cleanSelectedBuilding(false)
         else:
             print("Could not demolish building")
-    if event.as_text_keycode() == "1":
-        if selectedBuilding != null:
-            selectedBuilding.toggleSelection()
-        var new_building = preload("res://entities/buildings/Placeable/hospital.tscn").instantiate()
-        selectedBuilding = new_building
-        hover_sprite.set_texture(selectedBuilding.getTexture(true).duplicate())
-        currentAction = Action.PLACE
 
 func handlePlaceMouseInput(event):
     if !event.pressed or selectedBuilding == null or event.button_index != MOUSE_BUTTON_LEFT:

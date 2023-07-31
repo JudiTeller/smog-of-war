@@ -5,7 +5,7 @@ extends Camera2D
 func _ready():
     pass # Replace with function body.
 
-const BASE_SPEED = 1
+const BASE_SPEED = 10
 var cur_speed = BASE_SPEED
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

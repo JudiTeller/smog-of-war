@@ -25,17 +25,10 @@ func _ready():
 
     for song in songs:
         loaded_songs.append([load_mp3(song["sad"]), load_mp3(song["happy"])])
-    
-    sadPlayer.stream = loaded_songs[current_song][0]
-    sadPlayer.volume_db = volume
-    sadPlayer.playing = true
-    happyPlayer.stream = loaded_songs[current_song][1]
-    happyPlayer.volume_db = -80
-    happyPlayer.playing = true
 
     sadPlayer.connect("finished", _on_Player_finished)
     happyPlayer.connect("finished", _on_Player_finished)
-
+    
     playSong(current_song)
 
 func playSong(force=-1):
@@ -45,6 +38,8 @@ func playSong(force=-1):
 
     happyPlayer.stream = loaded_songs[selection][1]
     sadPlayer.stream = loaded_songs[selection][0]
+    happyPlayer.play()
+    sadPlayer.play()
 
     switchToPlayer(current_mood)
 
@@ -53,7 +48,7 @@ func switchToPlayer(player):
         happyPlayer.volume_db = -80
         sadPlayer.volume_db = volume
     elif player == "happy":
-        happyPlayer.volume_db = 0
+        happyPlayer.volume_db = volume
         sadPlayer.volume_db = -80
 
 func switchMode(force_to=null):
