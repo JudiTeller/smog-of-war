@@ -108,5 +108,9 @@ func upgrade(level:int):
     applyNewValues()
 
 func applyNewValues():
-    $CollisionShape2D.shape.radius = Radius
-    TickTimer.wait_time = TickRate
+    $CollisionShape2D.shape.radius = max(Radius, 1)
+    TickTimer.wait_time = max(TickRate, 0.1)
+
+    CureRate = max(CureRate, 0.1)
+    CureAmount = max(CureAmount, 1)
+    CureEffectiveness = clamp(CureEffectiveness, 0.0, 1.0)

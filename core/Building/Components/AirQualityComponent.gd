@@ -45,7 +45,6 @@ func _tick():
 
     var amount = CleaniseAmount + randf_range(-Delta, Delta)
     if amount < 0:
-        print("CleaniseAmount - Delta is less than 0")
         return
     resMan.increaseAirQuality(CleaniseAmount + amount)
 
@@ -74,4 +73,7 @@ func upgrade(level:int):
     applyNewValues()
 
 func applyNewValues():
-    TickTimer.wait_time = TickRate
+    TickTimer.wait_time = max(TickRate, 0.1)
+
+    CleaniseAmount = max(CleaniseAmount, 0.000001)
+    Delta = max(Delta, 0.000001)
