@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3tsb50bcrox8"]
+[gd_scene load_steps=10 format=3 uid="uid://b3tsb50bcrox8"]
 
 [ext_resource type="Script" path="res://core/systems/ClickManager.gd" id="1_2wb4l"]
 [ext_resource type="Script" path="res://core/systems/BuildingManager.gd" id="2_xxop0"]
 [ext_resource type="Script" path="res://core/systems/ResourceManager.gd" id="3_eu31p"]
+[ext_resource type="PackedScene" uid="uid://17lqlmfpehi2" path="res://entities/buildings/Placeable/tree.tscn" id="3_xqdau"]
+[ext_resource type="PackedScene" uid="uid://c0p0ij2xpgvir" path="res://entities/buildings/Placeable/tent.tscn" id="4_am758"]
+[ext_resource type="PackedScene" uid="uid://dooa8s78jf36" path="res://Scenes/ui/hud.tscn" id="4_cicyw"]
+[ext_resource type="Script" path="res://core/systems/CleanseManager.gd" id="4_u162b"]
+[ext_resource type="PackedScene" uid="uid://414v0j42mo1k" path="res://entities/buildings/Placeable/hospital.tscn" id="5_l5boj"]
+[ext_resource type="PackedScene" uid="uid://c4qsa7t7wl5ys" path="res://entities/buildings/Placeable/purifier.tscn" id="6_2ukmq"]
 
 [node name="Systems" type="Node2D"]
 
@@ -14,7 +20,17 @@ z_index = 4096
 
 [node name="BuildingManager" type="Node2D" parent="."]
 script = ExtResource("2_xxop0")
+PLACEABLES = Array[PackedScene]([ExtResource("3_xqdau"), ExtResource("4_am758"), ExtResource("5_l5boj"), ExtResource("6_2ukmq")])
 
 [node name="ResourceManager" type="Node2D" parent="."]
 script = ExtResource("3_eu31p")
 humans = 2500
+
+[node name="CleanseManager" type="Node2D" parent="."]
+script = ExtResource("4_u162b")
+
+[node name="hud" parent="." node_paths=PackedStringArray("building_manager", "click_manager", "resource_manager", "cleanse_manager") instance=ExtResource("4_cicyw")]
+building_manager = NodePath("../BuildingManager")
+click_manager = NodePath("../ClickManager")
+resource_manager = NodePath("../ResourceManager")
+cleanse_manager = NodePath("../CleanseManager")
