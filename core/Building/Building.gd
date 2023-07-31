@@ -19,6 +19,7 @@ class_name Building
 @export var Size: Vector2 = Vector2(128, 128)
 @export var RefundPercentage: float = 0.25
 @export var selectionColor: Color = Color(1, 0, 0, 1)
+@export var value: float
 
 var tileCords: Vector2i = Vector2i.ZERO
 var placed: bool = false

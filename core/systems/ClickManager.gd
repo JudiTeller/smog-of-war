@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name ClickManager
+
 @onready var buMan: BuildingManager = get_parent().get_node("BuildingManager")
 @onready var resMan: ResourceManager = get_parent().get_node("ResourceManager")
 @onready var hover_sprite: Sprite2D = $HoverSprite
@@ -29,7 +31,6 @@ func _process(_delta):
             hover_sprite.set_modulate(Color(0, 1, 0, 0.8))
         else:
             hover_sprite.set_modulate(Color(1, 0, 0, 0.8))
-
 
 func _input(event):
     match currentAction:

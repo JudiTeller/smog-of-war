@@ -16,7 +16,7 @@ func _ready():
 func _tick():
     if !Active:
         return
-    
+
     var amount = CleaniseAmount + randf_range(-Delta, Delta)
     if amount < 0:
         print("CleaniseAmount - Delta is less than 0")
