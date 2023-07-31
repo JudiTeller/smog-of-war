@@ -33,22 +33,106 @@ Name = "Hospital"
 Description = "Big medical facility to cure people. It can cure a big number of people at once."
 Cost = 2500
 value = 50.0
+hasComponents = true
 
 [node name="Sprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_kqtgg")
 animation = &"repaired"
 
-[node name="CureComponents" parent="." instance=ExtResource("4_bdlus")]
+[node name="CureComponent" parent="." instance=ExtResource("4_bdlus")]
 Radius = 400.0
 CureRate = 4.0
 CureAmount = 50.0
 CureEffectiveness = 0.7
+Upgrades = [{
+"CureAmount": 10,
+"CureEffectiveness": 0.0,
+"CureRate": 1.0,
+"Radius": 50.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 10,
+"CureEffectiveness": 0.1,
+"CureRate": 0.0,
+"Radius": 50.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 0,
+"CureEffectiveness": 0.0,
+"CureRate": 0.0,
+"Radius": 0.0,
+"TickRate": -0.2
+}, {
+"CureAmount": 10,
+"CureEffectiveness": 0.1,
+"CureRate": 1.0,
+"Radius": 50.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 20,
+"CureEffectiveness": 0.1,
+"CureRate": 2.0,
+"Radius": 50.0,
+"TickRate": 0.0
+}]
 
 [node name="AttractComponent" parent="." instance=ExtResource("5_5hduk")]
 Radius = 1000.0
 AttractEffectiveness = 0.8
 resistChance = 0.02
 maxDistance = 390.0
+Upgrades = [{
+"AttractEffectiveness": 0.05,
+"Radius": 100,
+"TickRate": 0.0,
+"maxDistance": 50.0,
+"resistChance": 0.0
+}, {
+"AttractEffectiveness": 0.05,
+"Radius": 100,
+"TickRate": 0.0,
+"maxDistance": 50.0,
+"resistChance": -0.01
+}, {
+"AttractEffectiveness": 0.0,
+"Radius": 0,
+"TickRate": -0.2,
+"maxDistance": 0.0,
+"resistChance": 0.0
+}, {
+"AttractEffectiveness": 0.05,
+"Radius": 100,
+"TickRate": 0.0,
+"maxDistance": 0.0,
+"resistChance": -0.01
+}, {
+"AttractEffectiveness": 0.05,
+"Radius": 100,
+"TickRate": -0.2,
+"maxDistance": 50.0,
+"resistChance": 0.0
+}]
 
 [node name="AirQualityComponent" parent="." instance=ExtResource("6_agcdf")]
 Active = false
+Upgrades = [{
+"CleaniseAmount": 0.0,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.0,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.0,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.0,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.0,
+"Delta": 0.0,
+"TickRate": 0.0
+}]

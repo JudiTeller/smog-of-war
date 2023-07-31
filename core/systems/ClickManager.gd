@@ -90,6 +90,9 @@ func handleClickKeyInput(event: InputEventKey):
         selectedBuilding = new_building
         hover_sprite.set_texture(selectedBuilding.getTexture(true).duplicate())
         currentAction = Action.PLACE
+    if event.as_text_keycode() == "2":
+        if selectedBuilding != null:
+            buMan.upgradeBuilding(selectedBuilding)
 
 func handlePlaceMouseInput(event):
     if !event.pressed or selectedBuilding == null or event.button_index != MOUSE_BUTTON_LEFT:

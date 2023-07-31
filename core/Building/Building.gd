@@ -10,6 +10,7 @@ class_name Building
 @export var Name: String
 @export var Description: String
 @export var Cost: int
+@export var Level: int = 1
 
 @export_group("State")
 @export var Repaired: bool = false
@@ -20,16 +21,28 @@ class_name Building
 @export var RefundPercentage: float = 0.25
 @export var selectionColor: Color = Color(1, 0, 0, 1)
 @export var value: float
+@export var hasComponents: bool = false
 
 var tileCords: Vector2i = Vector2i.ZERO
 var placed: bool = false
 var selected: bool = false
+
+var CureComp: CureComponent
+var AttractComp
+var AirQualityComp: AirQualityComponent
 
 func _ready():
     if not Repaired:
         Sprites.play("broken")
     else:
         Sprites.play("repaired")
+    
+    if hasComponents:
+        CureComp = $CureComponent
+        AttractComp = $AttractComponent
+        AirQualityComp = $AirQualityComponent
+
+    upgrade(-1, true)
 
 func set_building_position(pos: Vector2, tilePos: Vector2i):
     set_position(pos)
@@ -112,3 +125,34 @@ func _to_string() -> String:
         ", Placed:" + str(placed) + \
         ", Repaired:" + str(Repaired) + \
         ")"
+
+func get_upgrade_cost():
+    var formula = 1.25 ** Level * Cost * 0.5
+    return int(formula)
+
+func isMaxLevel():
+    if not hasComponents:
+        return false
+
+    return min(CureComp.getUpgradeMaxLevel(), 
+        AttractComp.getUpgradeMaxLevel(), 
+        AirQualityComp.getUpgradeMaxLevel()) == Level
+
+func upgrade(force_level=-1, skipLevelUp=false):
+    if not hasComponents:
+        return
+
+    var lev = Level
+    if force_level != -1:
+        lev = force_level
+    lev -= 1 # 0 based index
+
+    if lev == -1:
+        return
+
+    CureComp.upgrade(lev)
+    AttractComp.upgrade(lev)
+    AirQualityComp.upgrade(lev)
+    
+    if not skipLevelUp:
+        Level += 1

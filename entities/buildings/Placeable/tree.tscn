@@ -32,18 +32,103 @@ Name = "Big Tree"
 Description = "Just a big tree. To generate small amouts of oxygen for the city district."
 Cost = 100
 value = 1.0
+hasComponents = true
 
 [node name="Sprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_kqtgg")
 animation = &"repaired"
 
-[node name="CureComponet" parent="." instance=ExtResource("3_2ogor")]
+[node name="CureComponent" parent="." instance=ExtResource("3_2ogor")]
 Active = false
+Upgrades = [{
+"CureAmount": 0,
+"CureEffectiveness": 0.0,
+"CureRate": 0.0,
+"Radius": 0.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 0,
+"CureEffectiveness": 0.0,
+"CureRate": 0.0,
+"Radius": 0.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 0,
+"CureEffectiveness": 0.0,
+"CureRate": 0.0,
+"Radius": 0.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 0,
+"CureEffectiveness": 0.0,
+"CureRate": 0.0,
+"Radius": 0.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 0,
+"CureEffectiveness": 0.0,
+"CureRate": 0.0,
+"Radius": 0.0,
+"TickRate": 0.0
+}]
 
 [node name="AttractComponent" parent="." instance=ExtResource("4_f8xx7")]
 Radius = 250.0
 resistChance = 0.1
 maxDistance = 250.0
+Upgrades = [{
+"AttractEffectiveness": 0.0,
+"Radius": 25,
+"TickRate": 0.0,
+"maxDistance": 25.0,
+"resistChance": -0.03
+}, {
+"AttractEffectiveness": 0.05,
+"Radius": 25,
+"TickRate": 0.0,
+"maxDistance": 25.0,
+"resistChance": 0.0
+}, {
+"AttractEffectiveness": 0.05,
+"Radius": 25,
+"TickRate": 0.5,
+"maxDistance": 25.0,
+"resistChance": 0.0
+}, {
+"AttractEffectiveness": 0.05,
+"Radius": 25,
+"TickRate": 0.0,
+"maxDistance": 25.0,
+"resistChance": -0.02
+}, {
+"AttractEffectiveness": 0.1,
+"Radius": 25,
+"TickRate": 0.0,
+"maxDistance": 25.0,
+"resistChance": -0.03
+}]
 
 [node name="AirQualityComponent" parent="." instance=ExtResource("5_caogs")]
 CleaniseAmount = 0.001
+Delta = 0.0
+Upgrades = [{
+"CleaniseAmount": 0.001,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.001,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.001,
+"Delta": 0.005,
+"TickRate": -0.3
+}, {
+"CleaniseAmount": 0.001,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.001,
+"Delta": 0.0,
+"TickRate": 0.0
+}]

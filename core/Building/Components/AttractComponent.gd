@@ -5,6 +5,40 @@ extends Area2D
 @export var AttractEffectiveness: float = 0.5 # 50% of the people are attracted
 @export var resistChance: float = 0.01 # 1% chance to resist after being attracted
 @export var maxDistance: float = 400.0 # 10m max distance to target
+@export var TickRate = 1.0 # every 1 second the people are checked for resist
+@export var Upgrades: Array = [
+    {
+        "Radius": 20,
+        "AttractEffectiveness": 0.1,
+        "resistChance": 0.0,
+        "maxDistance": 0.0,
+        "TickRate": 0.0,
+    },{
+        "Radius": 20,
+        "AttractEffectiveness": 0.1,
+        "resistChance": 0.0,
+        "maxDistance": 0.0,
+        "TickRate": 0.0,
+    },{
+        "Radius": 20,
+        "AttractEffectiveness": 0.1,
+        "resistChance": 0.0,
+        "maxDistance": 0.0,
+        "TickRate": 0.0,
+    },{
+        "Radius": 20,
+        "AttractEffectiveness": 0.1,
+        "resistChance": 0.0,
+        "maxDistance": 0.0,
+        "TickRate": 0.0,
+    },{
+        "Radius": 20,
+        "AttractEffectiveness": 0.1,
+        "resistChance": 0.0,
+        "maxDistance": 0.0,
+        "TickRate": 0.0,
+    },
+]
 
 @onready var TickTimer:Timer = $Timer
 @onready var buMan: BuildingManager = get_parent().get_parent().get_parent().get_parent().get_node("Systems/BuildingManager")
@@ -13,7 +47,7 @@ extends Area2D
 var humansInRange = []
 
 func _ready():
-    TickTimer.wait_time = 1.0
+    TickTimer.wait_time = TickRate
     TickTimer.one_shot = false
     if Active:
         TickTimer.start()
@@ -77,3 +111,32 @@ func activate():
 func deactivate():
     Active = false
     TickTimer.stop()
+
+func getUpgradeMaxLevel():
+    return Upgrades.size()
+
+func getUpgradeCost(level:int):
+    return Upgrades[level]["Cost"]
+
+func upgrade(level:int):
+    if level >= Upgrades.size():
+        print("Upgrade level is too high")
+        return
+
+    Radius += Upgrades[level]["Radius"]
+    AttractEffectiveness += Upgrades[level]["AttractEffectiveness"]
+    resistChance += Upgrades[level]["resistChance"]
+    maxDistance += Upgrades[level]["maxDistance"]
+    TickRate += Upgrades[level]["TickRate"]
+    
+
+    print("Upgraded to level " + str(level))
+    applyNewValues()
+
+func applyNewValues():
+    $CollisionShape2D.shape.radius = max(Radius, 1)
+    TickTimer.wait_time = max(TickRate, 0.1)
+    
+    AttractEffectiveness = clamp(AttractEffectiveness, 0.0, 1.0)
+    resistChance = clamp(resistChance, 0.0, 1.0)
+    maxDistance = clamp(maxDistance, 0.0, Radius)
