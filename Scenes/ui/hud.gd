@@ -12,7 +12,7 @@ var current_cleanse: float
 @onready var cleanse_progress: ProgressBar = $hud_canvas/Cleanse/CleanseProgress
 @onready var cleanse_text: Label = $hud_canvas/Cleanse/CleanseProgress/CleanseText
 @onready var humans_label: Label = $hud_canvas/Resources/Panel/NumberHumans
-@onready var medic_label: Label = $hud_canvas/Resources/Panel/hud_canvas/Resources/Panel/NumberMedics
+@onready var medic_label: Label = $hud_canvas/Resources/Panel/NumberMedics
 @onready var menu_button: MenuButton = $hud_canvas/MenuButton
 
 var popup_menu: PopupMenu

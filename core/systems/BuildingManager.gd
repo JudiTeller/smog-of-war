@@ -11,8 +11,7 @@ class_name BuildingManager
     preload("res://entities/buildings/Placeable/hospital.tscn")
 ]
 
-
-var buildings: Array[Building] = []
+@onready var buildings: Array[Building]
 var selected_building = null
 
 func global_to_map(pos) -> Vector2i:
@@ -66,5 +65,11 @@ func getTileMap():
 
 func getWorldGen():
     return worldGen
+
+func upgradeBuilding(building: Building):
+    if !resMan.spendIfPossible(building.get_upgrade_cost()):
+        return false
+    building.upgrade()
+    return true
 
 signal score_signal(value: float)
