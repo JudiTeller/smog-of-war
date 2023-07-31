@@ -51,10 +51,7 @@ func spawn_humans(amount: int):
         push_error("Spawn locations not set for human factory!")
 
 func get_humans() -> Array[Human]:
-    var humans: Array[Human] = []
-    for i in range(human_node.get_child_count()):
-        humans.append(human_node.get_child(i))
-    return humans
+    return human_node.get_children()
 
 func calc_poly_area(a: Vector2, b: Vector2, c: Vector2):
     return abs((a.x * (b.y - c.y) + b.x * (c.y - a.y) + b.x * (a.y - b.y)) / 2)
