@@ -70,6 +70,7 @@ func upgrade(level:int):
     Delta += Upgrades[level]["Delta"]
     TickRate += Upgrades[level]["TickRate"]
 
+    print("123Upgraded to level " + str(level))
     applyNewValues()
 
 func applyNewValues():

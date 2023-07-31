@@ -38,7 +38,7 @@ hasComponents = true
 sprite_frames = SubResource("SpriteFrames_kqtgg")
 animation = &"repaired"
 
-[node name="CureComponet" parent="." instance=ExtResource("3_dgot0")]
+[node name="CureComponent" parent="." instance=ExtResource("3_dgot0")]
 Radius = 250.0
 CureRate = 2.0
 CureAmount = 6.0

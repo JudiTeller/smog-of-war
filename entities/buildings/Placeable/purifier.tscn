@@ -38,7 +38,7 @@ hasComponents = true
 sprite_frames = SubResource("SpriteFrames_kqtgg")
 animation = &"broken"
 
-[node name="CureComponet" parent="." instance=ExtResource("3_r1sul")]
+[node name="CureComponent" parent="." instance=ExtResource("3_r1sul")]
 Active = false
 Upgrades = [{
 "CureAmount": 0,

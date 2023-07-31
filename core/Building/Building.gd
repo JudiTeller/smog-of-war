@@ -28,7 +28,7 @@ var placed: bool = false
 var selected: bool = false
 
 var CureComp: CureComponent
-var AttractComp: AttractComponent
+var AttractComp
 var AirQualityComp: AirQualityComponent
 
 func _ready():

@@ -1,7 +1,5 @@
 extends Area2D
 
-class_name AttractComponent
-
 @export var Active: bool = true
 @export var Radius: float = 100.0
 @export var AttractEffectiveness: float = 0.5 # 50% of the people are attracted
@@ -130,7 +128,9 @@ func upgrade(level:int):
     resistChance += Upgrades[level]["resistChance"]
     maxDistance += Upgrades[level]["maxDistance"]
     TickRate += Upgrades[level]["TickRate"]
+    
 
+    print("Upgraded to level " + str(level))
     applyNewValues()
 
 func applyNewValues():
