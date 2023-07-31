@@ -51,6 +51,9 @@ func update_cleanse_progress():
 func on_build_menu_item_pressed(index: int):
     click_manager.currentAction = ClickManager.Action.PLACE
 
+    var new_building: Building = building_manager.PLACEABLES[index].instantiate()
+    click_manager.selectedBuilding = new_building
+    click_manager.hover_sprite.texture = new_building.get_child(0).sprite_frames.get_frame_texture("repaired", 0)
     var item_name = popup_menu.get_item_text(index)
     print(item_name)
     pass
