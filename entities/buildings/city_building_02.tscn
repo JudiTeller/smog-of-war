@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://wbb406wbyw1l"]
+
+[ext_resource type="Script" path="res://core/Building/Building.gd" id="1_2cfef"]
+[ext_resource type="Texture2D" uid="uid://dciplnmgo4856" path="res://assets/buildings/Residential/residentialbuilding/residentialbuilding.png" id="2_lemkk"]
+[ext_resource type="Texture2D" uid="uid://bdq0vomnmy70h" path="res://assets/buildings/Residential/residentialbuilding/residentialbuilding-repaired.png" id="3_tgjaa"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_45c47"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_lemkk")
+}],
+"loop": true,
+"name": &"broken",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_tgjaa")
+}],
+"loop": true,
+"name": &"repaired",
+"speed": 5.0
+}]
+
+[node name="Building02" type="Node2D" node_paths=PackedStringArray("Sprites")]
+script = ExtResource("1_2cfef")
+Sprites = NodePath("Sprites")
+Name = "Residential Building"
+canBeDemolished = false
+
+[node name="Sprites" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_45c47")
+animation = &"repaired"

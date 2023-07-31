@@ -1,0 +1,135 @@
+[gd_scene load_steps=7 format=3 uid="uid://c4qsa7t7wl5ys"]
+
+[ext_resource type="Script" path="res://core/Building/Building.gd" id="1_ijdbh"]
+[ext_resource type="Texture2D" uid="uid://rkbttwx5domu" path="res://assets/buildings/purifier/repaired.png" id="2_jdca6"]
+[ext_resource type="PackedScene" uid="uid://sthqtvatx8sj" path="res://entities/buildings/Components/CureComponent.tscn" id="3_r1sul"]
+[ext_resource type="PackedScene" uid="uid://b1i66e6hv4pjx" path="res://entities/buildings/Components/AttractComponent.tscn" id="4_pedpj"]
+[ext_resource type="PackedScene" uid="uid://bqrir0qhm8u3p" path="res://entities/buildings/Components/AirQualityComponent.tscn" id="5_xxg2r"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kqtgg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jdca6")
+}],
+"loop": true,
+"name": &"broken",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jdca6")
+}],
+"loop": true,
+"name": &"repaired",
+"speed": 5.0
+}]
+
+[node name="AirPurifier" type="Node2D" node_paths=PackedStringArray("Sprites")]
+script = ExtResource("1_ijdbh")
+Sprites = NodePath("Sprites")
+Name = "Air Purifier"
+Description = "A modern air purifier machine to purify a large amount of air."
+Cost = 2500
+value = 100.0
+hasComponents = true
+
+[node name="Sprites" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_kqtgg")
+animation = &"broken"
+
+[node name="CureComponent" parent="." instance=ExtResource("3_r1sul")]
+Active = false
+Upgrades = [{
+"CureAmount": 0,
+"CureEffectiveness": 0.0,
+"CureRate": 0.0,
+"Radius": 0.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 0,
+"CureEffectiveness": 0.0,
+"CureRate": 0.0,
+"Radius": 0.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 0,
+"CureEffectiveness": 0.0,
+"CureRate": 0.0,
+"Radius": 0.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 0,
+"CureEffectiveness": 0.0,
+"CureRate": 0.0,
+"Radius": 0.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 0,
+"CureEffectiveness": 0.0,
+"CureRate": 0.0,
+"Radius": 0.0,
+"TickRate": 0.0
+}]
+
+[node name="AttractComponent" parent="." instance=ExtResource("4_pedpj")]
+Active = false
+Radius = 1000.0
+AttractEffectiveness = 0.8
+resistChance = 0.02
+maxDistance = 390.0
+Upgrades = [{
+"AttractEffectiveness": 0.0,
+"Radius": 0,
+"TickRate": 0.0,
+"maxDistance": 0.0,
+"resistChance": 0.0
+}, {
+"AttractEffectiveness": 0.0,
+"Radius": 0,
+"TickRate": 0.0,
+"maxDistance": 0.0,
+"resistChance": 0.0
+}, {
+"AttractEffectiveness": 0.0,
+"Radius": 0,
+"TickRate": 0.0,
+"maxDistance": 0.0,
+"resistChance": 0.0
+}, {
+"AttractEffectiveness": 0.0,
+"Radius": 0,
+"TickRate": 0.0,
+"maxDistance": 0.0,
+"resistChance": 0.0
+}, {
+"AttractEffectiveness": 0.0,
+"Radius": 0,
+"TickRate": 0.0,
+"maxDistance": 0.0,
+"resistChance": 0.0
+}]
+
+[node name="AirQualityComponent" parent="." instance=ExtResource("5_xxg2r")]
+Delta = 0.001
+Upgrades = [{
+"CleaniseAmount": 0.003,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.003,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.0,
+"Delta": 0.0,
+"TickRate": -0.2
+}, {
+"CleaniseAmount": 0.003,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.006,
+"Delta": -0.001,
+"TickRate": 0.0
+}]

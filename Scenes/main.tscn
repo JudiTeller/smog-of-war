@@ -1,0 +1,157 @@
+[gd_scene load_steps=15 format=3 uid="uid://m1gx7n0t4sbp"]
+
+[ext_resource type="Script" path="res://Camera2D.gd" id="1_biuqo"]
+[ext_resource type="Script" path="res://core/World/WorldGen.gd" id="2_d10tl"]
+[ext_resource type="PackedScene" uid="uid://7gqpcq0wie5s" path="res://entities/buildings/city_building_01.tscn" id="3_3261g"]
+[ext_resource type="PackedScene" uid="uid://414v0j42mo1k" path="res://entities/buildings/Placeable/hospital.tscn" id="4_46imb"]
+[ext_resource type="Texture2D" uid="uid://dnvn4hf8tpngf" path="res://assets/street/street_atlas.png" id="4_oga7d"]
+[ext_resource type="PackedScene" uid="uid://wbb406wbyw1l" path="res://entities/buildings/city_building_02.tscn" id="5_6vgky"]
+[ext_resource type="Texture2D" uid="uid://dw3pcbrxin5q8" path="res://assets/grounds/fundament.png" id="6_2q481"]
+[ext_resource type="PackedScene" uid="uid://dvl0vhb7qf0gb" path="res://core/systems/human_factory.tscn" id="6_b65kx"]
+[ext_resource type="PackedScene" uid="uid://b3tsb50bcrox8" path="res://Scenes/Systems.tscn" id="6_ufiuq"]
+[ext_resource type="Texture2D" uid="uid://ds6cdma5f1m3" path="res://assets/grounds/dirt.png" id="7_44n4w"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t74nj"]
+resource_name = "streets"
+texture = ExtResource("4_oga7d")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+0:0/0/terrains_peering_bit/right_side = 0
+0:0/0/terrains_peering_bit/bottom_side = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/terrains_peering_bit/right_side = 0
+1:0/0/terrains_peering_bit/bottom_side = 0
+1:0/0/terrains_peering_bit/left_side = 0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+2:0/0/terrains_peering_bit/bottom_side = 0
+2:0/0/terrains_peering_bit/left_side = 0
+3:0/0 = 0
+3:0/0/terrain_set = 0
+3:0/0/terrain = 0
+3:0/0/terrains_peering_bit/bottom_side = 0
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrain = 0
+0:1/0/terrains_peering_bit/right_side = 0
+0:1/0/terrains_peering_bit/bottom_side = 0
+0:1/0/terrains_peering_bit/top_side = 0
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 0
+1:1/0/terrains_peering_bit/right_side = 0
+1:1/0/terrains_peering_bit/bottom_side = 0
+1:1/0/terrains_peering_bit/left_side = 0
+1:1/0/terrains_peering_bit/top_side = 0
+2:1/0 = 0
+2:1/0/terrain_set = 0
+2:1/0/terrain = 0
+2:1/0/terrains_peering_bit/bottom_side = 0
+2:1/0/terrains_peering_bit/left_side = 0
+2:1/0/terrains_peering_bit/top_side = 0
+3:1/0 = 0
+3:1/0/terrain_set = 0
+3:1/0/terrain = 0
+3:1/0/terrains_peering_bit/bottom_side = 0
+3:1/0/terrains_peering_bit/top_side = 0
+0:2/0 = 0
+0:2/0/terrain_set = 0
+0:2/0/terrain = 0
+0:2/0/terrains_peering_bit/right_side = 0
+0:2/0/terrains_peering_bit/top_side = 0
+1:2/0 = 0
+1:2/0/terrain_set = 0
+1:2/0/terrain = 0
+1:2/0/terrains_peering_bit/right_side = 0
+1:2/0/terrains_peering_bit/left_side = 0
+1:2/0/terrains_peering_bit/top_side = 0
+2:2/0 = 0
+2:2/0/terrain_set = 0
+2:2/0/terrain = 0
+2:2/0/terrains_peering_bit/left_side = 0
+2:2/0/terrains_peering_bit/top_side = 0
+3:2/0 = 0
+3:2/0/terrain_set = 0
+3:2/0/terrain = 0
+3:2/0/terrains_peering_bit/top_side = 0
+0:3/0 = 0
+0:3/0/terrain_set = 0
+0:3/0/terrain = 0
+0:3/0/terrains_peering_bit/right_side = 0
+1:3/0 = 0
+1:3/0/terrain_set = 0
+1:3/0/terrain = 0
+1:3/0/terrains_peering_bit/right_side = 0
+1:3/0/terrains_peering_bit/left_side = 0
+2:3/0 = 0
+2:3/0/terrain_set = 0
+2:3/0/terrain = 0
+2:3/0/terrains_peering_bit/left_side = 0
+3:3/0 = 0
+3:3/0/terrain_set = 0
+3:3/0/terrain = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0mo4w"]
+resource_name = "Dirt"
+texture = ExtResource("7_44n4w")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dxmlj"]
+resource_name = "Fundament"
+texture = ExtResource("6_2q481")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ftaoo"]
+tile_size = Vector2i(128, 128)
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "AutoTile"
+terrain_set_0/terrain_0/color = Color(1, 0, 0, 1)
+sources/0 = SubResource("TileSetAtlasSource_t74nj")
+sources/2 = SubResource("TileSetAtlasSource_dxmlj")
+sources/1 = SubResource("TileSetAtlasSource_0mo4w")
+
+[node name="main_scene" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("1_biuqo")
+
+[node name="World" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_d10tl")
+WORLD_SIZE = 50
+BUILDINGS = [[ExtResource("3_3261g"), 50], [ExtResource("5_6vgky"), 10], [ExtResource("5_6vgky"), 20], [ExtResource("4_46imb"), 0.0]]
+GAIN = 0.3
+DILATE_AMOUNT = 4
+CONNECTION_ROADS_SAMPLE_RATE = 15
+metadata/streets_on_border = []
+
+[node name="WorldTileMap" type="TileMap" parent="World"]
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 0
+rotation = 0.122173
+scale = Vector2(1, 0.5)
+skew = 0.715585
+tile_set = SubResource("TileSet_ftaoo")
+cell_quadrant_size = 128
+format = 2
+layer_0/name = "Ground"
+
+[node name="Buildings" type="Node2D" parent="World"]
+
+[node name="Noise" type="Sprite2D" parent="World"]
+scale = Vector2(5, 5)
+
+[node name="human_factory" parent="World" node_paths=PackedStringArray("tilemap") instance=ExtResource("6_b65kx")]
+tilemap = NodePath("../WorldTileMap")
+maxcap = 100
+
+[node name="Systems" parent="." instance=ExtResource("6_ufiuq")]
+unique_name_in_owner = true

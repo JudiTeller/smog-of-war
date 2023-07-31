@@ -1,0 +1,138 @@
+[gd_scene load_steps=8 format=3 uid="uid://414v0j42mo1k"]
+
+[ext_resource type="Script" path="res://core/Building/Building.gd" id="1_sja0m"]
+[ext_resource type="Texture2D" uid="uid://bgsubglqyj8es" path="res://assets/buildings/hospital/hospital_broken.png" id="2_1ff0e"]
+[ext_resource type="Texture2D" uid="uid://csqtkpfdirx4r" path="res://assets/buildings/hospital/hospital_repaired.png" id="3_034bx"]
+[ext_resource type="PackedScene" uid="uid://sthqtvatx8sj" path="res://entities/buildings/Components/CureComponent.tscn" id="4_bdlus"]
+[ext_resource type="PackedScene" uid="uid://b1i66e6hv4pjx" path="res://entities/buildings/Components/AttractComponent.tscn" id="5_5hduk"]
+[ext_resource type="PackedScene" uid="uid://bqrir0qhm8u3p" path="res://entities/buildings/Components/AirQualityComponent.tscn" id="6_agcdf"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kqtgg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_1ff0e")
+}],
+"loop": true,
+"name": &"broken",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_034bx")
+}],
+"loop": true,
+"name": &"repaired",
+"speed": 5.0
+}]
+
+[node name="Hospital" type="Node2D" node_paths=PackedStringArray("Sprites")]
+script = ExtResource("1_sja0m")
+Sprites = NodePath("Sprites")
+Name = "Hospital"
+Description = "Big medical facility to cure people. It can cure a big number of people at once."
+Cost = 2500
+value = 50.0
+hasComponents = true
+
+[node name="Sprites" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_kqtgg")
+animation = &"repaired"
+
+[node name="CureComponent" parent="." instance=ExtResource("4_bdlus")]
+Radius = 400.0
+CureRate = 4.0
+CureAmount = 50.0
+CureEffectiveness = 0.7
+Upgrades = [{
+"CureAmount": 10,
+"CureEffectiveness": 0.0,
+"CureRate": 1.0,
+"Radius": 50.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 10,
+"CureEffectiveness": 0.1,
+"CureRate": 0.0,
+"Radius": 50.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 0,
+"CureEffectiveness": 0.0,
+"CureRate": 0.0,
+"Radius": 0.0,
+"TickRate": -0.2
+}, {
+"CureAmount": 10,
+"CureEffectiveness": 0.1,
+"CureRate": 1.0,
+"Radius": 50.0,
+"TickRate": 0.0
+}, {
+"CureAmount": 20,
+"CureEffectiveness": 0.1,
+"CureRate": 2.0,
+"Radius": 50.0,
+"TickRate": 0.0
+}]
+
+[node name="AttractComponent" parent="." instance=ExtResource("5_5hduk")]
+Radius = 1000.0
+AttractEffectiveness = 0.8
+resistChance = 0.02
+maxDistance = 390.0
+Upgrades = [{
+"AttractEffectiveness": 0.05,
+"Radius": 100,
+"TickRate": 0.0,
+"maxDistance": 50.0,
+"resistChance": 0.0
+}, {
+"AttractEffectiveness": 0.05,
+"Radius": 100,
+"TickRate": 0.0,
+"maxDistance": 50.0,
+"resistChance": -0.01
+}, {
+"AttractEffectiveness": 0.0,
+"Radius": 0,
+"TickRate": -0.2,
+"maxDistance": 0.0,
+"resistChance": 0.0
+}, {
+"AttractEffectiveness": 0.05,
+"Radius": 100,
+"TickRate": 0.0,
+"maxDistance": 0.0,
+"resistChance": -0.01
+}, {
+"AttractEffectiveness": 0.05,
+"Radius": 100,
+"TickRate": -0.2,
+"maxDistance": 50.0,
+"resistChance": 0.0
+}]
+
+[node name="AirQualityComponent" parent="." instance=ExtResource("6_agcdf")]
+Active = false
+Upgrades = [{
+"CleaniseAmount": 0.0,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.0,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.0,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.0,
+"Delta": 0.0,
+"TickRate": 0.0
+}, {
+"CleaniseAmount": 0.0,
+"Delta": 0.0,
+"TickRate": 0.0
+}]
