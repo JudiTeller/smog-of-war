@@ -50,8 +50,8 @@ func spawn_humans(amount: int):
         set_startpoint_arr(Pathfinding.street_locations_border)
         push_error("Spawn locations not set for human factory!")
 
-func get_humans() -> Array[Node]:
-    return human_node.get_children()
+func get_humans() -> Array[Human]:
+    return human_node.get_children() as Array[Human]
 
 func calc_poly_area(a: Vector2, b: Vector2, c: Vector2):
     return abs((a.x * (b.y - c.y) + b.x * (c.y - a.y) + b.x * (a.y - b.y)) / 2)
