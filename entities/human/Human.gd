@@ -48,6 +48,8 @@ func _physics_process( delta: float, ) -> void:
     var direction = global_position.direction_to(tilemap.to_global(tilemap.map_to_local(current_nav_target)))
     global_position += direction * delta * speed
 
+    calc_z_index()
+
 func _set_target(new_target: Vector2):
     target = new_target
     if nav_astar == null:
@@ -125,6 +127,11 @@ func calculate_nav_path():
     else:
         push_error("couldn't calculate path, invalid position ids")
 
+
+func calc_z_index():
+    var map_position = tilemap.local_to_map(tilemap.to_local(position))
+    z_index = int(map_position.y) + int(Pathfinding.worldsize / 2.0)
+    pass
 
 func advance_nav_path():
     if navigation_arr.size() > 0:
