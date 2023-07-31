@@ -47,3 +47,4 @@ maxDistance = 250.0
 
 [node name="AirQualityComponent" parent="." instance=ExtResource("5_caogs")]
 CleaniseAmount = 0.001
+Delta = 0.0
