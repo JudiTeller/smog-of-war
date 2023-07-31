@@ -16,8 +16,7 @@ var current_cleanse: float
 # Called when the node enters the scene tree for the first time.
 func _ready():
     # cleanse_progress.max_value = cleanse_threshold
-    menu_button.get_popup().connect("id_pressed", Callable(self, "on_build_menu_item_pressed"))
-    building_manager.connect("score_signal", Callable(cleanse_manager, "on_score_signal"))
+    call_deferred("setup")
     pass # Replace with function body.
 
 
@@ -28,6 +27,10 @@ func _process(_delta):
 
     pass
 
+
+func setup():
+    menu_button.get_popup().connect("id_pressed", Callable(self, "on_build_menu_item_pressed"))
+    building_manager.connect("score_signal", Callable(cleanse_manager, "on_score_signal"))
 
 func update_cleanse_progress():
     current_cleanse = cleanse_manager.cleanse_score
