@@ -11,6 +11,8 @@ var current_cleanse: float
 
 @onready var cleanse_progress: ProgressBar = $hud_canvas/Cleanse/CleanseProgress
 @onready var cleanse_text: Label = $hud_canvas/Cleanse/CleanseProgress/CleanseText
+@onready var humans_label: Label = $hud_canvas/Resources/Panel/NumberHumans
+@onready var medic_label: Label = $hud_canvas/Resources/Panel/hud_canvas/Resources/Panel/NumberMedics
 @onready var menu_button: MenuButton = $hud_canvas/MenuButton
 
 var popup_menu: PopupMenu
@@ -25,7 +27,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
     update_cleanse_progress()
-
+    update_resources()
 
     pass
 
@@ -47,6 +49,10 @@ func update_cleanse_progress():
     current_cleanse = cleanse_manager.cleanse_score
     cleanse_progress.value = current_cleanse
     cleanse_text.text = str(current_cleanse).pad_decimals(0)
+
+func update_resources():
+    humans_label.text = str(resource_manager.humans) 
+    # humans_label.medics = str(resource_manager.medics) 
 
 func on_build_menu_item_pressed(index: int):
     click_manager.currentAction = ClickManager.Action.PLACE

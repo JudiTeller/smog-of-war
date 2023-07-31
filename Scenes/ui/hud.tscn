@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dooa8s78jf36"]
+[gd_scene load_steps=8 format=3 uid="uid://dooa8s78jf36"]
 
 [ext_resource type="Script" path="res://Scenes/ui/hud.gd" id="1_kou0p"]
 [ext_resource type="Texture2D" uid="uid://dyox8tk1o8h4c" path="res://assets/street/placeholder.png" id="2_xf2yy"]
@@ -11,6 +11,18 @@ bg_color = Color(0, 0, 0, 0.917647)
 bg_color = Color(0, 0.341176, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_hcpjm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2kp4s"]
+bg_color = Color(0.180392, 0.180392, 0.180392, 0.996078)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 
 [node name="hud" type="Control"]
 layout_mode = 3
@@ -85,11 +97,13 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="LogoMedics" type="Sprite2D" parent="hud_canvas/Resources/Panel"]
+visible = false
 position = Vector2(150, 15)
 scale = Vector2(0.234, 0.234)
 texture = ExtResource("2_xf2yy")
 
 [node name="NumberMedics" type="Label" parent="hud_canvas/Resources/Panel"]
+visible = false
 layout_mode = 0
 offset_left = 170.0
 offset_right = 250.0
@@ -113,8 +127,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_2kp4s")
 
 [node name="Sprite2D" type="Sprite2D" parent="hud_canvas/MenuButton"]
-position = Vector2(32, 32)
+position = Vector2(32, 30.5)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_bip5y")
