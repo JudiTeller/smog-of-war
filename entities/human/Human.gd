@@ -9,7 +9,7 @@ class_name Human
 
 @export_group("Movement")
 @export var acceleration = 7
-@export var speed = 300
+@export var speed = 100
 
 @export_group("Navigation")
 @export var region_index: int
@@ -190,8 +190,7 @@ func onDeath():
     self.queue_free()
 
 
-func _on_click_area_entered(area):
-    cure()
-
-    print("click received!")
-    pass # Replace with function body.
+# signal endpoint for when a mouse click area entered the human click area
+func _on_click_area_entered(area: Click_Area):
+    if area is Click_Area:
+        cure(area.click_value)

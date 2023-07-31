@@ -126,5 +126,6 @@ func human_click():
     click_area.add_child(area_collision)
     click_area.position = get_global_mouse_position()
     click_area.monitorable = true
+    click_area.click_value = click_value
 
     add_child(click_area)
